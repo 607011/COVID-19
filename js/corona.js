@@ -1,10 +1,11 @@
 (function (window) {
     'use strict'
-    // const DataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv'
-    const DataUrl = 'data/time_series_19-covid-Confirmed.csv'
+    let locale = 'de-DE'
+    const DataUrl = 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv'
     let ctx = null
-    let prediction_days = 15
+    let prediction_days = 14
     let curr_data = null
+    const el = {}
 
     const update = data => {
         curr_data = data
@@ -25,7 +26,8 @@
             date.setDate(curr_date.getDate() + d)
             data.dates.push(date)
         }
-        data.dates = data.dates.map(d => d.toLocaleDateString('de-DE'))
+        el.latest_cases.innerText = country.predicted[country.predicted.length - 1].toLocaleString(locale)
+        data.dates = data.dates.map(d => d.toLocaleDateString(locale))
         const _progress_chart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -101,6 +103,7 @@
 
     const main = () => {
         ctx = document.getElementById('progress').getContext('2d')
+        el.latest_cases = document.getElementById('latest')
         fetch(DataUrl, { mode: 'no-cors' })
             .then(response => {
                 return response.ok

@@ -24,6 +24,6 @@ h1 {
     color: rgb(230, 88, 36);
 }
 
-.stats {
+.stats, .controls {
     padding: 5px;
 }

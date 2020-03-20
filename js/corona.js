@@ -7,9 +7,10 @@
     let curr_data = null
     let progress_chart = null
     const el = {}
+    let selected_country = 'Germany'
 
     const update = new_data => {
-        let data = (typeof new_data !== 'undefined') ? new_data : curr_data
+        const data = (typeof new_data !== 'undefined') ? new_data : curr_data
         if (data) {
             curr_data = data
         }
@@ -17,9 +18,11 @@
             console.error('no data')
             return
         }
-        const countries = data.rows.filter(value => value.country === 'Germany')
-        if (countries.length === 0)
+        const countries = data.rows.filter(value => value.country === selected_country)
+        if (countries.length === 0) {
+            console.error('no data available for country: ' + selected_country)
             return
+        }
         const country = countries[0]
         country.dates = data.dates.slice()
         const curr_doubling_rate = country.doubling_rates[country.doubling_rates.length - 1]

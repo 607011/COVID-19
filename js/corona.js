@@ -1,7 +1,7 @@
 (function (window) {
     'use strict'
     // const DataUrl = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv'
-    const DataUrl = 'time_series_19-covid-Confirmed.csv'
+    const DataUrl = 'data/time_series_19-covid-Confirmed.csv'
     let ctx = null
     let prediction_days = 15
     let curr_data = null

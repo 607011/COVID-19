@@ -86,8 +86,8 @@
                 },
                 options: {
                     title: {
-                        display: false,
-                        text: 'Covid-19-Ausbreitung in Deutschland',
+                        display: true,
+                        text: 'Covid-19 in Deutschland',
                     },
                     scales: {
                         yAxes: [
@@ -133,7 +133,7 @@
             prediction_days = +evt.target.value
             update()
         })
-        fetch(DataUrl, { mode: 'no-cors' })
+        fetch(DataUrl, { mode: 'cors' })
             .then(response => {
                 return response.ok
                     ? response.text()

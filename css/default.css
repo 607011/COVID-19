@@ -24,6 +24,11 @@ h1 {
     color: rgb(230, 88, 36);
 }
 
-.stats, .controls {
+.controls {
     padding: 5px;
+}
+
+#current-cases, #latest-cases {
+    font-weight: bold;
+    color: rgb(230, 88, 36);
 }

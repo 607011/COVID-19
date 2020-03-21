@@ -4,6 +4,7 @@
     const DataUrl = 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv'
     let ctx = null
     let prediction_days = 0
+    let doubling_rate = Infinity
     let curr_data = null
     let progress_chart = null
     const el = {}
@@ -25,13 +26,15 @@
         }
         const country = countries[0]
         country.dates = data.dates.slice()
-        const curr_doubling_rate = country.doubling_rates[country.doubling_rates.length - 1]
+        if (doubling_rate === Infinity) {
+            doubling_rate = Math.round(10 * country.doubling_rates[country.doubling_rates.length - 1]) / 10
+            el.doubling_rate.value = doubling_rate
+        }
         const curr_cases = country.cases[country.cases.length - 1]
         const curr_date = country.dates[country.dates.length - 1]
-        country.predicted = new Array(country.cases.length - 1).fill(NaN)
-        country.predicted.push(curr_cases)
+        country.predicted = country.cases.slice()
         for (let d = 1; d <= prediction_days; ++d) {
-            country.predicted.push(Math.round(curr_cases * Math.pow(2, d / curr_doubling_rate)))
+            country.predicted.push(Math.round(curr_cases * Math.pow(2, d / doubling_rate)))
             const date = new Date(curr_date)
             date.setDate(curr_date.getDate() + d)
             country.dates.push(date)
@@ -58,6 +61,7 @@
                             showLine: true,
                             spanGaps: true,
                             lineTension: 0.1,
+                            steppedLine: false,
                         },
                         {
                             yAxisID: 'A',
@@ -67,9 +71,10 @@
                             borderDash: [ 3, 1 ],
                             fill: 'transparent',
                             pointStyle: 'rect',
-                            showLine: true,
-                            spanGaps: true,
+                            showLine: false,
+                            spanGaps: false,
                             lineTension: 0.1,
+                            steppedLine: false,
                         },
                         {
                             yAxisID: 'B',
@@ -85,6 +90,7 @@
                     ]
                 },
                 options: {
+                    responsive: true,
                     title: {
                         display: true,
                         text: 'Covid-19 in Deutschland',
@@ -94,14 +100,13 @@
                             {
                                 id: 'A',
                                 type: 'linear',
-                                position: 'left',
+                                position: 'right',
                                 precision: 1,
-                                beginAtZero: true,
                             },
                             {
                                 id: 'B',
                                 type: 'linear',
-                                position: 'right',
+                                position: 'left',
                                 precision: 0.1,
                                 beginAtZero: true,
                             }
@@ -128,6 +133,11 @@
         el.latest_date = document.getElementById('latest-date')
         el.latest_cases = document.getElementById('latest-cases')
         el.prediction_days = document.getElementById('prediction-days')
+        el.doubling_rate = document.getElementById('doubling-rate')
+        el.doubling_rate.addEventListener('change', evt => {
+            doubling_rate = +evt.target.value
+            update()
+        })
         prediction_days = +el.prediction_days.value
         el.prediction_days.addEventListener('change', evt => {
             prediction_days = +evt.target.value

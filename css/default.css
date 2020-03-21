@@ -7,21 +7,21 @@ html, body {
     background-color: #222;
     color: #ddd;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12pt;
 }
 
 .canvas-container {
-    margin: 5px 6px 5px 5px;
-
+    margin: 5px 7px 5px 5px;
 }
 
 canvas {
     background-color: #333;
-    border: 1px solid #666;
+    border: 1px solid #555;
 }
 
-h1 {
-    margin: 5px;
-    color: rgb(230, 88, 36);
+input[type=number] {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12pt;
 }
 
 .controls {

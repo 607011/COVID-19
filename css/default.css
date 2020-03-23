@@ -13,6 +13,9 @@ html, body {
 
 .canvas-container {
     margin: 5px 7px 5px 5px;
+    position: relative;
+    width: calc(100vw-12px);
+    height: 65vh;
 }
 
 canvas {

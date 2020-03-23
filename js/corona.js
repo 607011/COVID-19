@@ -210,7 +210,7 @@
                 },
                 options: {
                     responsive: true,
-                    aspectRatio: 1.8,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Covid-19 in Deutschland',

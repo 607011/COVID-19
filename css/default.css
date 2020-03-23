@@ -22,13 +22,27 @@ canvas {
 input[type=number] {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 12pt;
+    padding-right: 1em;
 }
 
 .controls {
     padding: 5px;
 }
 
+a {
+    color: #eee;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #ddd;
+}
+
 #current-cases, #latest-cases {
     font-weight: bold;
     color: rgb(230, 88, 36);
+}
+
+.hidden {
+    display: none;
 }

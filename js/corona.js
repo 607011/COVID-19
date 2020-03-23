@@ -85,7 +85,6 @@
         confirmed.dates = curr_data['confirmed'].dates.slice()
         confirmed.deaths = select('deaths', selected_country).cases
         confirmed.recovered = select('recovered', selected_country).cases
-        console.log(confirmed)
         if (doubling_rate === Infinity) {
             doubling_rate = Math.round(10 * confirmed.doubling_rates[confirmed.doubling_rates.length - 1]) / 10
             el.doubling_rate.value = doubling_rate
@@ -230,12 +229,6 @@
                                 position: 'left',
                                 precision: 0.1,
                                 beginAtZero: true,
-                            },
-                            {
-                                id: 'C',
-                                type: 'linear',
-                                position: 'right',
-                                precision: 1,
                             },
                         ]
                     },

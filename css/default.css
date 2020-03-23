@@ -8,6 +8,7 @@ html, body {
     color: #ddd;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 12pt;
+    box-sizing: border-box;
 }
 
 .canvas-container {
@@ -15,14 +16,47 @@ html, body {
 }
 
 canvas {
-    background-color: #333;
-    border: 1px solid #555;
+    background-color: #282828;
+    border: 1px solid #333333;
 }
 
-input[type=number] {
+.stepper {
+    display: inline-block;
+    overflow: unset;
+    border: none;
+    background-color: #eee;
+    height: 44px;
+}
+
+.stepper input[type="number"]::-webkit-inner-spin-button,
+.stepper input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    height: auto;
+}
+
+.stepper input {
+    height: 100%;
+    text-align: center;
+    border: none;
+    overflow: hidden;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 12pt;
-    padding-right: 1em;
+    font-size: 150%;
+    padding-right: 0.5em;
+    background-color: transparent;
+}
+
+.stepper button {
+    text-align: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    font-size: 150%;
+    font-weight: bold;
+    background-color: #999;
+}
+
+.stepper button:active {
+    background-color: #eee;
 }
 
 .controls {

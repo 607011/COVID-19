@@ -210,7 +210,7 @@
                 },
                 options: {
                     responsive: true,
-                    aspectRatio: 1.6,
+                    aspectRatio: 1.8,
                     title: {
                         display: true,
                         text: 'Covid-19 in Deutschland',
@@ -293,6 +293,7 @@
         const promises = DataId.map(which => fetchOne(which))
         Promise.all(promises).then(data => {
             [...document.getElementsByClassName('hidden')].forEach(element => element.classList.remove('hidden'))
+            document.getElementById('loader-screen').classList.add('hidden')
             update(data)
         })
     }
@@ -313,6 +314,11 @@
         el.prediction_days.addEventListener('change', evt => {
             prediction_days = +evt.target.value
             update()
+        });
+        [...document.getElementsByClassName('stepper')].forEach(stepper => {
+            const input = stepper.querySelector('input')
+            input.previousElementSibling.addEventListener('click', _ => { input.stepDown(); input.dispatchEvent(new Event('change')) })
+            input.nextElementSibling.addEventListener('click', _ => { input.stepUp(); input.dispatchEvent(new Event('change')) })
         })
         fetchAll()
     }

@@ -1,3 +1,7 @@
 [submodule "COVID-19"]
 	path = COVID-19
 	url = https://github.com/CSSEGISandData/COVID-19.git
+[submodule "COVID-19-web-data"]
+	path = COVID-19-web-data
+	url = https://github.com/CSSEGISandData/COVID-19.git
+	branch = web-data

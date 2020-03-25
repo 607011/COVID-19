@@ -3,7 +3,7 @@
     const Config = {
         title: 'Covid-19 in Deutschland – Gesamt',
         confirmed: {
-            url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv',
+            url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
             label: 'Bestätigte Fälle',
             type: 'line',
             fill: 'transparent',
@@ -20,17 +20,17 @@
             pointStyle: 'rect',
             borderDash: [ 3, 1 ],
         },
-        recovered: {
-            url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv',
-            label: 'Genesen',
-            type: 'line',
-            fill: 'transparent',
-            borderColor: '#7CDC58',
-            borderWidth: 2,
-            pointStyle: 'circle',
-        },
+        // recovered: {
+        //     url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv',
+        //     label: 'Genesen',
+        //     type: 'line',
+        //     fill: 'transparent',
+        //     borderColor: '#7CDC58',
+        //     borderWidth: 2,
+        //     pointStyle: 'circle',
+        // },
         deaths: {
-            url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv',
+            url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
             label: 'Gestorben',
             type: 'line',
             fill: 'transparent',
@@ -51,10 +51,15 @@
             type: 'bar',
             borderColor: 'rgb(88, 230, 36)',
             backgroundColor: '#444',
-        }
+        },
+        extra: {
+            latest: {
+                url: 'COVID-19-web-data/data/cases_country.csv',
+            },
+        },
     }
     const DataId = Object.entries(Config).filter(val => {
-        const [key, obj] = val
+        const [_, obj] = val
         return obj.url
     }).map(obj => obj[0])
     let el = {}
@@ -77,14 +82,14 @@
 
     const update = data => {
         if (data instanceof Array) {
-            for (const d of data) {
+            for (const d of data.filter(v => v.which)) {
                 curr_data[d.which] = d
             }
         }
         const confirmed = select('confirmed', selected_country)
         confirmed.dates = curr_data['confirmed'].dates.slice()
         confirmed.deaths = select('deaths', selected_country).cases
-        confirmed.recovered = select('recovered', selected_country).cases
+        // confirmed.recovered = select('recovered', selected_country).cases
         if (doubling_rate === Infinity) {
             doubling_rate = Math.round(10 * confirmed.doubling_rates[confirmed.doubling_rates.length - 1]) / 10
             el.doubling_rate.value = doubling_rate
@@ -129,9 +134,7 @@
                             pointStyle: Config.confirmed.pointStyle,
                             fill: Config.confirmed.fill,
                             showLine: true,
-                            spanGaps: true,
                             lineTension: 0.1,
-                            steppedLine: false,
                             order: 1,
                         },
                         {
@@ -147,7 +150,6 @@
                             showLine: true,
                             spanGaps: false,
                             lineTension: 0.1,
-                            steppedLine: false,
                             order: 3,
                         },
                         {
@@ -162,24 +164,22 @@
                             showLine: true,
                             spanGaps: true,
                             lineTension: 0.1,
-                            steppedLine: false,
                             order: 1,
                         },
-                        {
-                            data: confirmed.recovered,
-                            type: Config.recovered.type,
-                            yAxisID: 'A',
-                            label: Config.recovered.label,
-                            borderColor: Config.recovered.borderColor,
-                            borderWidth: Config.recovered.borderWidth,
-                            pointStyle: Config.recovered.pointStyle,
-                            fill: Config.recovered.fill,
-                            showLine: true,
-                            spanGaps: true,
-                            lineTension: 0.1,
-                            steppedLine: false,
-                            order: 1,
-                        },
+                        // {
+                        //     data: confirmed.recovered,
+                        //     type: Config.recovered.type,
+                        //     yAxisID: 'A',
+                        //     label: Config.recovered.label,
+                        //     borderColor: Config.recovered.borderColor,
+                        //     borderWidth: Config.recovered.borderWidth,
+                        //     pointStyle: Config.recovered.pointStyle,
+                        //     fill: Config.recovered.fill,
+                        //     showLine: true,
+                        //     spanGaps: true,
+                        //     lineTension: 0.1,
+                        //     order: 1,
+                        // },
                         {
                             data: confirmed.doubling_rates,
                             type: Config.doubling.type,
@@ -190,8 +190,6 @@
                             pointStyle: Config.doubling.pointStyle,
                             fill: Config.doubling.fill,
                             showLine: false,
-                            spanGaps: false,
-                            lineTension: 0.01,
                             order: 2,
                         },
                         {
@@ -201,8 +199,6 @@
                             label: Config.delta.label,
                             backgroundColor: Config.delta.backgroundColor,
                             borderColor: Config.delta.borderColor,
-                            showLine: false,
-                            spanGaps: false,
                             lineTension: 0.01,
                             order: 2,
                         },
@@ -289,8 +285,41 @@
             })
     }
 
+    // const fetchLatest = () => {
+    //     console.debug('Fetching latest web-data ...')
+    //     return fetch(Config.extra.latest.url)
+    //         .then(response => {
+    //             return response.ok
+    //                 ? response.text()
+    //                 : Promise.reject(response.status)
+    //         })
+    //         .then(raw_data => {
+    //             const data = raw_data.split('\n')
+    //             data.shift()
+    //             const rows = data.map(row => {
+    //                 const [country, last_update, lat, lon, cases, deaths, recovered, active] = row.split(',')
+    //                 return {
+    //                     country: country,
+    //                     where: {
+    //                         lat: parseFloat(lat),
+    //                         lon: parseFloat(lon)
+    //                     },
+    //                     last_update: new Date(last_update),
+    //                     cases: +cases,
+    //                     deaths: +deaths,
+    //                     recovered: +recovered,
+    //                     active: +active,
+    //                 }
+    //             })
+    //             return {
+    //                 latest: rows,
+    //             }
+    //         })
+    // }
+
     const fetchAll = () => {
         const promises = DataId.map(which => fetchOne(which))
+        // promises.push(fetchLatest())
         Promise.all(promises).then(data => {
             [...document.getElementsByClassName('hidden')].forEach(element => element.classList.remove('hidden'))
             document.getElementById('loader-screen').classList.add('hidden')

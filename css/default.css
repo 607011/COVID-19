@@ -20,7 +20,8 @@ html, body {
 
 .controls {
     padding: 5px;
-    max-width: 230px;
+    width: 230px;
+    max-width: 250px;
     align-self: flex-start;
 }
 

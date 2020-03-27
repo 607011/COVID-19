@@ -1,7 +1,7 @@
 (function (window) {
     'use strict'
     const Config = {
-        title: 'COVID-19 in Germany',
+        title: '<automatically set>',
         confirmed: {
             url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
         },
@@ -329,6 +329,7 @@
     }
 
     const main = () => {
+        Config.title = `COVID-19 in ${selected_country}`
         ctx = document.getElementById('progress').getContext('2d')
         el.current_date = document.getElementById('current-date')
         el.current_cases = document.getElementById('current-cases')

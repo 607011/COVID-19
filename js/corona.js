@@ -1,7 +1,7 @@
 (function (window) {
     'use strict'
     const Config = {
-        title: 'Covid-19 in Germany',
+        title: 'COVID-19 in Germany',
         confirmed: {
             url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
         },
@@ -39,12 +39,12 @@
             borderWidth: 2,
             pointStyle: 'circle',
         },
-        // delta: {
-        //     label: 'Difference',
-        //     type: 'bar',
-        //     borderColor: 'rgb(88, 230, 36)',
-        //     backgroundColor: '#444',
-        // },
+        delta: {
+            label: 'Difference',
+            type: 'line',
+            borderColor: 'rgb(88, 230, 36)',
+            backgroundColor: '#444',
+        },
         extra: {
             latest: {
                 url: 'COVID-19-web-data/data/cases_country.csv',
@@ -113,10 +113,6 @@
         }
         predict_exp(confirmed, prediction_days)
         confirmed.dates = confirmed.dates.map(d => d.toLocaleDateString(locale))
-        // confirmed.delta = [null]
-        // for (let i = 1; i < confirmed.cases.length; ++i) {
-        //     confirmed.delta.push(confirmed.cases[i] - confirmed.cases[i - 1])
-        // }
         el.current_cases.innerText = confirmed.active[confirmed.active.length - 1]
         el.current_date.innerText = confirmed.dates[confirmed.dates.length - 1]
         el.latest_cases.innerText = confirmed.predicted[confirmed.predicted.length - 1].toLocaleString(locale)
@@ -141,7 +137,7 @@
                             borderColor: Config.active.borderColor,
                             borderWidth: Config.active.borderWidth,
                             fill: 'transparent',
-                            order: 1,
+                            order: 2,
                         },
                         {
                             data: confirmed.recovered,
@@ -152,7 +148,7 @@
                             borderColor: Config.recovered.borderColor,
                             borderWidth: Config.recovered.borderWidth,
                             fill: 'transparent',
-                            order: 1,
+                            order: 2,
                         },
                         {
                             data: confirmed.deaths,
@@ -163,7 +159,7 @@
                             borderColor: Config.deaths.borderColor,
                             borderWidth: Config.deaths.borderWidth,
                             fill: 'transparent',
-                            order: 1,
+                            order: 3,
                         },
                         {
                             data: confirmed.predicted,
@@ -187,16 +183,6 @@
                             showLine: false,
                             order: 0,
                         },
-                        // {
-                        //     data: confirmed.delta,
-                        //     type: Config.delta.type,
-                        //     yAxisID: 'A',
-                        //     label: Config.delta.label,
-                        //     backgroundColor: Config.delta.backgroundColor,
-                        //     borderColor: Config.delta.borderColor,
-                        //     lineTension: 0.01,
-                        //     order: 2,
-                        // },
                     ]
                 },
                 options: {
@@ -204,7 +190,7 @@
                     maintainAspectRatio: false,
                     title: {
                         display: true,
-                        text: 'Covid-19 in Germany',
+                        text: Config.title,
                     },
                     scales: {
                         xAxes: [
@@ -219,6 +205,7 @@
                                 position: 'right',
                                 precision: 1,
                                 stacked: true,
+                                beginAtZero: true,
                             },
                             {
                                 id: 'B',
@@ -240,7 +227,7 @@
     }
 
     const fetchOne = which => {
-        console.debug(`Fetching '${which}' ...`)
+        // console.debug(`Fetching '${which}' ...`)
         return fetch(Config[which].url)
             .then(response => {
                 return response.ok
@@ -288,7 +275,7 @@
     }
 
     const fetchLatest = () => {
-        console.debug('Fetching latest web-data ...')
+        // console.debug('Fetching latest web-data ...')
         return fetch(Config.extra.latest.url)
             .then(response => {
                 return response.ok
@@ -321,10 +308,14 @@
             })
     }
 
+    const updateLatest = data => {
+        console.debug(data)
+    }
+
     const fetchAll = () => {
         const promises = DataId.map(which => fetchOne(which))
         fetchLatest()
-        .then(data => console.debug(data))
+        .then(updateLatest)
         Promise.all(promises).then(data => {
             [...document.getElementsByClassName('hidden')].forEach(element => element.classList.remove('hidden'))
             document.getElementById('loader-screen').classList.add('hidden')

@@ -21,6 +21,9 @@ html, body {
 canvas {
     background-color: #282828;
     border: 1px solid #333333;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .stepper {

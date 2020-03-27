@@ -1,57 +1,50 @@
 (function (window) {
     'use strict'
     const Config = {
-        title: 'Covid-19 in Deutschland – Gesamt',
+        title: 'Covid-19 in Germany',
         confirmed: {
             url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
-            label: 'Bestätigte Fälle',
-            type: 'line',
-            fill: 'transparent',
-            borderColor: 'rgb(230, 88, 36)',
-            borderWidth: 2,
-            pointStyle: 'rect',
+        },
+        active: {
+            label: 'Active',
+            type: 'bar',
+            backgroundColor: 'rgb(230, 88, 36)',
+            borderWidth: 0,
         },
         predicted: {
-            label: 'Prognose',
-            type: 'line',
-            fill: 'transparent',
-            borderColor: 'rgba(230, 88, 36, 0.8)',
-            borderWidth: 2,
-            pointStyle: 'rect',
-            borderDash: [ 3, 1 ],
+            label: 'Active predicted',
+            type: 'bar',
+            backgroundColor: 'rgba(230, 88, 36, 0.5)',
+            borderWidth: 0,
         },
-        // recovered: {
-        //     url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv',
-        //     label: 'Genesen',
-        //     type: 'line',
-        //     fill: 'transparent',
-        //     borderColor: '#7CDC58',
-        //     borderWidth: 2,
-        //     pointStyle: 'circle',
-        // },
+        recovered: {
+            url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv',
+            label: 'Recovered',
+            type: 'bar',
+            backgroundColor: '#7CDC58',
+            borderWidth: 0,
+        },
         deaths: {
             url: 'COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
-            label: 'Gestorben',
-            type: 'line',
-            fill: 'transparent',
-            borderColor: '#D16EDC',
-            borderWidth: 2,
-            pointStyle: 'circle',
+            label: 'Deaths',
+            type: 'bar',
+            backgroundColor: '#D16EDC',
+            borderWidth: 0,
         },
         doubling: {
-            label: 'Tage pro Verdoppelung',
+            label: 'Days per doubling',
             type: 'line',
+            fill: 'transparent',
             borderColor: '#5BA5E6',
             borderWidth: 2,
             pointStyle: 'circle',
-            fill: 'transparent',
         },
-        delta: {
-            label: 'Differenz',
-            type: 'bar',
-            borderColor: 'rgb(88, 230, 36)',
-            backgroundColor: '#444',
-        },
+        // delta: {
+        //     label: 'Difference',
+        //     type: 'bar',
+        //     borderColor: 'rgb(88, 230, 36)',
+        //     backgroundColor: '#444',
+        // },
         extra: {
             latest: {
                 url: 'COVID-19-web-data/data/cases_country.csv',
@@ -71,6 +64,8 @@
     let chart = null
     let selected_country = 'Germany'
 
+    const logistic = (x, b0, x0, k, s) => s * 1 / (1 + Math.exp(-1 * k * s * (x - x0)) * (s / b0 - 1))
+
     const select = (tag, country) => {
         const countries = curr_data[tag].rows.filter(value => value.country === country)
         if (countries.length === 0) {
@@ -78,6 +73,24 @@
             return {}
         }
         return countries[0]
+    }
+
+    const predict_exp = (confirmed, days) => {
+        const curr_cases = confirmed.active[confirmed.cases.length - 1]
+        const curr_date = confirmed.dates[confirmed.dates.length - 1]
+        confirmed.predicted = new Array(confirmed.cases.length).fill(null)
+        for (let d = 1; d <= days; ++d) {
+            confirmed.predicted.push(Math.round(curr_cases * Math.pow(2, d / doubling_rate)))
+            const date = new Date(curr_date)
+            date.setDate(curr_date.getDate() + d)
+            confirmed.dates.push(date)
+            confirmed.deaths.push(null)
+            confirmed.recovered.push(null)
+        }
+    }
+
+    const predict_logistic = (confirmed, days, start_date) => {
+
     }
 
     const update = data => {
@@ -89,30 +102,25 @@
         const confirmed = select('confirmed', selected_country)
         confirmed.dates = curr_data['confirmed'].dates.slice()
         confirmed.deaths = select('deaths', selected_country).cases
-        // confirmed.recovered = select('recovered', selected_country).cases
+        confirmed.recovered = select('recovered', selected_country).cases
+        confirmed.active = new Array(confirmed.cases.length)
+        for (let i = 0; i < confirmed.cases.length; ++i) {
+            confirmed.active[i] = confirmed.cases[i] - confirmed.deaths[i] - confirmed.recovered[i]
+        }
         if (doubling_rate === Infinity) {
             doubling_rate = Math.round(10 * confirmed.doubling_rates[confirmed.doubling_rates.length - 1]) / 10
             el.doubling_rate.value = doubling_rate
         }
-        const curr_cases = confirmed.cases[confirmed.cases.length - 1]
-        const curr_date = confirmed.dates[confirmed.dates.length - 1]
-        confirmed.predicted = new Array(confirmed.cases.length - 1).fill(null)
-        confirmed.predicted.push(curr_cases)
-        for (let d = 1; d <= prediction_days; ++d) {
-            confirmed.predicted.push(Math.round(curr_cases * Math.pow(2, d / doubling_rate)))
-            const date = new Date(curr_date)
-            date.setDate(curr_date.getDate() + d)
-            confirmed.dates.push(date)
-        }
+        predict_exp(confirmed, prediction_days)
         confirmed.dates = confirmed.dates.map(d => d.toLocaleDateString(locale))
-        confirmed.delta = [null]
-        for (let i = 1; i < confirmed.cases.length; ++i) {
-            confirmed.delta.push(confirmed.cases[i] - confirmed.cases[i - 1])
-        }
-        el.current_date.innerText = curr_date.toLocaleDateString(locale)
-        el.current_cases.innerText = curr_cases.toLocaleString(locale)
-        el.latest_date.innerText = confirmed.dates[confirmed.dates.length - 1]
+        // confirmed.delta = [null]
+        // for (let i = 1; i < confirmed.cases.length; ++i) {
+        //     confirmed.delta.push(confirmed.cases[i] - confirmed.cases[i - 1])
+        // }
+        el.current_cases.innerText = confirmed.active[confirmed.active.length - 1]
+        el.current_date.innerText = confirmed.dates[confirmed.dates.length - 1]
         el.latest_cases.innerText = confirmed.predicted[confirmed.predicted.length - 1].toLocaleString(locale)
+        el.latest_date.innerText = confirmed.dates[confirmed.dates.length - 1]
         if (chart) {
             chart.data.labels = confirmed.dates
             chart.data.datasets[1].data = confirmed.predicted
@@ -120,21 +128,41 @@
         }
         else {
             chart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: confirmed.dates,
                     datasets: [
                         {
-                            data: confirmed.cases,
-                            type: Config.confirmed.type,
+                            data: confirmed.active,
+                            type: Config.active.type,
                             yAxisID: 'A',
-                            label: Config.confirmed.label,
-                            borderColor: Config.confirmed.borderColor,
-                            borderWidth: Config.confirmed.borderWidth,
-                            pointStyle: Config.confirmed.pointStyle,
-                            fill: Config.confirmed.fill,
-                            showLine: true,
-                            lineTension: 0.1,
+                            label: Config.active.label,
+                            backgroundColor: Config.active.backgroundColor,
+                            borderColor: Config.active.borderColor,
+                            borderWidth: Config.active.borderWidth,
+                            fill: 'transparent',
+                            order: 1,
+                        },
+                        {
+                            data: confirmed.recovered,
+                            type: Config.recovered.type,
+                            yAxisID: 'A',
+                            label: Config.recovered.label,
+                            backgroundColor: Config.recovered.backgroundColor,
+                            borderColor: Config.recovered.borderColor,
+                            borderWidth: Config.recovered.borderWidth,
+                            fill: 'transparent',
+                            order: 1,
+                        },
+                        {
+                            data: confirmed.deaths,
+                            type: Config.deaths.type,
+                            yAxisID: 'A',
+                            label: Config.deaths.label,
+                            backgroundColor: Config.deaths.backgroundColor,
+                            borderColor: Config.deaths.borderColor,
+                            borderWidth: Config.deaths.borderWidth,
+                            fill: 'transparent',
                             order: 1,
                         },
                         {
@@ -142,44 +170,11 @@
                             type: Config.predicted.type,
                             yAxisID: 'A',
                             label: Config.predicted.label,
+                            backgroundColor: Config.predicted.backgroundColor,
                             borderColor: Config.predicted.borderColor,
                             borderWidth: Config.predicted.borderWidth,
-                            borderDash: Config.predicted.borderDash,
-                            pointStyle: Config.predicted.pointStyle,
-                            fill: Config.predicted.fill,
-                            showLine: true,
-                            spanGaps: false,
-                            lineTension: 0.1,
-                            order: 3,
+                            fill: 'transparent',
                         },
-                        {
-                            data: confirmed.deaths,
-                            type: Config.deaths.type,
-                            yAxisID: 'A',
-                            label: Config.deaths.label,
-                            borderColor: Config.deaths.borderColor,
-                            borderWidth: Config.deaths.borderWidth,
-                            pointStyle: Config.deaths.pointStyle,
-                            fill: Config.deaths.fill,
-                            showLine: true,
-                            spanGaps: true,
-                            lineTension: 0.1,
-                            order: 1,
-                        },
-                        // {
-                        //     data: confirmed.recovered,
-                        //     type: Config.recovered.type,
-                        //     yAxisID: 'A',
-                        //     label: Config.recovered.label,
-                        //     borderColor: Config.recovered.borderColor,
-                        //     borderWidth: Config.recovered.borderWidth,
-                        //     pointStyle: Config.recovered.pointStyle,
-                        //     fill: Config.recovered.fill,
-                        //     showLine: true,
-                        //     spanGaps: true,
-                        //     lineTension: 0.1,
-                        //     order: 1,
-                        // },
                         {
                             data: confirmed.doubling_rates,
                             type: Config.doubling.type,
@@ -190,18 +185,18 @@
                             pointStyle: Config.doubling.pointStyle,
                             fill: Config.doubling.fill,
                             showLine: false,
-                            order: 2,
+                            order: 0,
                         },
-                        {
-                            data: confirmed.delta,
-                            type: Config.delta.type,
-                            yAxisID: 'A',
-                            label: Config.delta.label,
-                            backgroundColor: Config.delta.backgroundColor,
-                            borderColor: Config.delta.borderColor,
-                            lineTension: 0.01,
-                            order: 2,
-                        },
+                        // {
+                        //     data: confirmed.delta,
+                        //     type: Config.delta.type,
+                        //     yAxisID: 'A',
+                        //     label: Config.delta.label,
+                        //     backgroundColor: Config.delta.backgroundColor,
+                        //     borderColor: Config.delta.borderColor,
+                        //     lineTension: 0.01,
+                        //     order: 2,
+                        // },
                     ]
                 },
                 options: {
@@ -209,21 +204,28 @@
                     maintainAspectRatio: false,
                     title: {
                         display: true,
-                        text: 'Covid-19 in Deutschland',
+                        text: 'Covid-19 in Germany',
                     },
                     scales: {
+                        xAxes: [
+                            {
+                                stacked: true,
+                            }
+                        ],
                         yAxes: [
                             {
                                 id: 'A',
                                 type: 'linear',
                                 position: 'right',
                                 precision: 1,
+                                stacked: true,
                             },
                             {
                                 id: 'B',
                                 type: 'linear',
                                 position: 'left',
                                 precision: 0.1,
+                                stacked: false,
                                 beginAtZero: true,
                             },
                         ]
@@ -285,41 +287,44 @@
             })
     }
 
-    // const fetchLatest = () => {
-    //     console.debug('Fetching latest web-data ...')
-    //     return fetch(Config.extra.latest.url)
-    //         .then(response => {
-    //             return response.ok
-    //                 ? response.text()
-    //                 : Promise.reject(response.status)
-    //         })
-    //         .then(raw_data => {
-    //             const data = raw_data.split('\n')
-    //             data.shift()
-    //             const rows = data.map(row => {
-    //                 const [country, last_update, lat, lon, cases, deaths, recovered, active] = row.split(',')
-    //                 return {
-    //                     country: country,
-    //                     where: {
-    //                         lat: parseFloat(lat),
-    //                         lon: parseFloat(lon)
-    //                     },
-    //                     last_update: new Date(last_update),
-    //                     cases: +cases,
-    //                     deaths: +deaths,
-    //                     recovered: +recovered,
-    //                     active: +active,
-    //                 }
-    //             })
-    //             return {
-    //                 latest: rows,
-    //             }
-    //         })
-    // }
+    const fetchLatest = () => {
+        console.debug('Fetching latest web-data ...')
+        return fetch(Config.extra.latest.url)
+            .then(response => {
+                return response.ok
+                    ? response.text()
+                    : Promise.reject(response.status)
+            })
+            .then(raw_data => {
+                const data = raw_data.split('\n')
+                data.shift()
+                const selected_country_data = data
+                .map(row => {
+                    const [country, last_update, lat, lon, cases, deaths, recovered, active] = row.split(',')
+                    return {
+                        country: country,
+                        where: {
+                            lat: parseFloat(lat),
+                            lon: parseFloat(lon)
+                        },
+                        last_update: new Date(last_update),
+                        cases: +cases,
+                        deaths: +deaths,
+                        recovered: +recovered,
+                        active: +active,
+                    }
+                })
+                .filter(d => d.country === selected_country)
+                return (selected_country_data.length > 0)
+                ? selected_country_data[0]
+                : {}
+            })
+    }
 
     const fetchAll = () => {
         const promises = DataId.map(which => fetchOne(which))
-        // promises.push(fetchLatest())
+        fetchLatest()
+        .then(data => console.debug(data))
         Promise.all(promises).then(data => {
             [...document.getElementsByClassName('hidden')].forEach(element => element.classList.remove('hidden'))
             document.getElementById('loader-screen').classList.add('hidden')

@@ -189,7 +189,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     title: {
-                        display: true,
+                        display: false,
                         text: Config.title,
                     },
                     scales: {
@@ -310,6 +310,11 @@
 
     const updateLatest = data => {
         console.debug(data)
+        document.getElementById('latest-date').innerText = `${data.last_update.toLocaleDateString(locale)} ${data.last_update.toLocaleTimeString(locale)}`
+        document.getElementById('latest-total').innerText = data.cases
+        document.getElementById('latest-active').innerText = data.active
+        document.getElementById('latest-deaths').innerText = data.deaths
+        document.getElementById('latest-recovered').innerText = data.recovered
     }
 
     const fetchAll = () => {
@@ -317,7 +322,7 @@
         fetchLatest()
         .then(updateLatest)
         Promise.all(promises).then(data => {
-            [...document.getElementsByClassName('hidden')].forEach(element => element.classList.remove('hidden'))
+            document.getElementById('App').classList.remove('hidden')
             document.getElementById('loader-screen').classList.add('hidden')
             update(data)
         })
@@ -327,8 +332,8 @@
         ctx = document.getElementById('progress').getContext('2d')
         el.current_date = document.getElementById('current-date')
         el.current_cases = document.getElementById('current-cases')
-        el.latest_date = document.getElementById('latest-date')
-        el.latest_cases = document.getElementById('latest-cases')
+        el.latest_date = document.getElementById('predicted-date')
+        el.latest_cases = document.getElementById('predicted-cases')
         el.prediction_days = document.getElementById('prediction-days')
         el.doubling_rate = document.getElementById('doubling-rate')
         el.doubling_rate.addEventListener('change', evt => {

@@ -114,7 +114,7 @@
         predict_exp(confirmed, prediction_days)
         confirmed.dates = confirmed.dates.map(d => d.toLocaleDateString(locale))
         el.current_cases.innerText = confirmed.active[confirmed.active.length - 1]
-        el.current_date.innerText = confirmed.dates[confirmed.dates.length - 1]
+        el.current_date.innerText = confirmed.dates[confirmed.dates.length - 1 - prediction_days]
         el.latest_cases.innerText = confirmed.predicted[confirmed.predicted.length - 1].toLocaleString(locale)
         el.latest_date.innerText = confirmed.dates[confirmed.dates.length - 1]
         if (chart) {

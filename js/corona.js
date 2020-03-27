@@ -318,9 +318,8 @@
     }
 
     const fetchAll = () => {
+        fetchLatest().then(updateLatest)
         const promises = DataId.map(which => fetchOne(which))
-        fetchLatest()
-        .then(updateLatest)
         Promise.all(promises).then(data => {
             document.getElementById('App').classList.remove('hidden')
             document.getElementById('loader-screen').classList.add('hidden')

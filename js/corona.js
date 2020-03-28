@@ -202,6 +202,17 @@
         }
     }
 
+    const hashChanged = _evt => {
+        const [p] = window.location.hash.substring(1).split(';').filter(p => p.startsWith('predict'))
+        if (p) {
+            const [_, days] = p.split('=')
+            prediction_days = Math.min(Math.max(0, days), +el.prediction_days.getAttribute('max'))
+            el.prediction_days.value = prediction_days
+            if (confirmed.active)
+                update()
+        }
+    }
+
     const main = () => {
         fetch('data/current.json')
         .then(response => {
@@ -212,6 +223,7 @@
         .then(data => {
             Config.title = `COVID-19 in ${data.country}`
             el.prediction_days.setAttribute('max', data.predicted.active.length)
+            hashChanged()
             update(data)
         })
         ctx = document.getElementById('progress').getContext('2d')
@@ -221,10 +233,10 @@
         el.latest_cases = document.getElementById('predicted-cases')
         el.prediction_days = document.getElementById('prediction-days')
         prediction_days = +el.prediction_days.value
+        window.addEventListener('hashchange', hashChanged)
         el.prediction_days.addEventListener('change', evt => {
-            prediction_days = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
-            evt.target.value = prediction_days
-            update()
+            evt.target.value = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
+            window.location.hash = `#predict=${evt.target.value}`
         });
         [...document.getElementsByClassName('stepper')].forEach(stepper => {
             const input = stepper.querySelector('input')

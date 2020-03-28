@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import subprocess
 import datetime as dt
 import json
 import math
@@ -39,7 +38,6 @@ def parse_latest(filename, selected_country, result):
         return
 
 def main():
-  subprocess.call(['git', 'submodule', 'update', '--remote'])
   selected_country = 'Germany'
   json_file = 'data/current.json'
   result = { 'country': selected_country}
@@ -112,7 +110,7 @@ def main():
   }
   result['dates'] = [d.strftime('%Y-%m-%d') for d in result['dates']]
   with open(json_file, 'w+') as out:
-    out.write(json.dumps(result, indent=2))
+    out.write(json.dumps(result, indent=1))
 
 if __name__ == '__main__':
   main()

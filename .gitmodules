@@ -5,6 +5,3 @@
 	path = COVID-19-web-data
 	url = https://github.com/CSSEGISandData/COVID-19.git
 	branch = web-data
-[submodule "Maths.js"]
-	path = Maths.js
-	url = https://github.com/NateZimmer/Maths.js.git

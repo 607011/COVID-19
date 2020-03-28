@@ -33,7 +33,7 @@ html, body {
     margin: 5px 7px 5px 5px;
     position: relative;
     width: calc(100% - 260px);
-    height: 65vh;
+    height: 70vh;
 }
 
 canvas {

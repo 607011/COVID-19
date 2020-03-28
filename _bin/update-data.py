@@ -20,7 +20,7 @@ def parse_timeline(filename, key, selected_country, result):
 
 def parse_latest(filename, selected_country, result):
   with open(filename, 'r') as latest:
-    latest.readline().strip()  # skip header
+    latest.readline()  # skip header
     for line in latest:
       row = line.strip().split(',')
       if row[0] == selected_country:

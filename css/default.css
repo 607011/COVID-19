@@ -43,8 +43,8 @@ html, body {
 .main-chart-container {
     margin: 5px 7px 0 5px;
     width: calc(100% - 245px);
-    height: 90vh;
-    max-height: 100vh;
+    height: 80vh;
+    max-height: 90vh;
 }
 
 canvas {

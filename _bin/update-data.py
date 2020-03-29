@@ -8,11 +8,16 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import curve_fit
 
+
 verbosity = 1
 selected_country = 'Germany'
 json_file = 'data/current.json'
+path_latest = os.path.join('COVID-19-web-data', 'data')
+path_timeseries = os.path.join('COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
+prediction_days = 180
 
-def parse_timeline(filename, key, result):
+
+def parse_timeseries(filename, key, result):
   if verbosity > 0:
     print('Parsing "{:s}" ...'.format(filename))
   with open(filename, 'r') as confirmed:
@@ -65,79 +70,73 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
   print('Collecting data for {:s} ...'.format(selected_country))
   result = {'country': selected_country}
 
-  parse_latest('COVID-19-web-data/data/cases_country.csv', result)
-  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv', 'total', result)
-  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv', 'recovered', result)
-  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv', 'deaths', result)
+  parse_latest(os.path.join(path_latest, 'cases_country.csv'), result)
+  parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_confirmed_global.csv'), 'total', result)
+  parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_recovered_global.csv'), 'recovered', result)
+  parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_deaths_global.csv'), 'deaths', result)
 
   if verbosity > 0:
     print('Calculating active cases ...')
   result['active'] = []
   for i in range(len(result['total'])):
-    result['active'].append(
-        result['total'][i] - result['recovered'][i] - result['deaths'][i])
+    result['active'].append(result['total'][i] - result['recovered'][i] - result['deaths'][i])
 
   if verbosity > 0:
-    print('Calculating doubling rates ...')
-  result['doubling_rates'] = []
+    print('Calculating doubling rates and differences ...')
+  result['doubling_rates'] = [None]
+  result['delta'] = [None]
   for i in range(1, len(result['active'])):
     prev_cases = result['active'][i - 1]
     curr_cases = result['active'][i]
-    if prev_cases == curr_cases:
-      result['doubling_rates'].append(None)
-    elif prev_cases > 0 and curr_cases > prev_cases:
-      rate = curr_cases / prev_cases
-      doubling_rate = 1 / np.log2(rate)
-      result['doubling_rates'].append(round(doubling_rate, 2))
+    result['delta'].append(curr_cases - prev_cases)
+    if prev_cases > 0 and curr_cases > prev_cases:
+      result['doubling_rates'].append(round(1 / np.log2(curr_cases / prev_cases), 2))
     else:
       result['doubling_rates'].append(None)
 
   if verbosity > 0:
     print('Predicting spread of SARS-CoV-2 ...')
-  first_day_with_quarantine_effect = dt.datetime(year=2020, month=3, day=20)
+  day1_quarantine = dt.datetime(year=2020, month=3, day=20)
   data = pd.DataFrame(data={'day': result['dates'], 'cases': result['active']})
   latest_day = result['dates'][-1]
-  cases_since_quarantine = np.array(
-      data[data['day'] >= first_day_with_quarantine_effect]['cases'])
-  day_no_since_quarantine = np.array(
-      [d.toordinal() for d in data[data['day'] >= first_day_with_quarantine_effect]['day']])
+  cases_since_quarantine = np.array(data[data['day'] >= day1_quarantine]['cases'])
+  days_since_quarantine = np.array([d.toordinal() for d in data[data['day'] >= day1_quarantine]['day']])
   params, _ = curve_fit(
       corona_curve,
-      xdata=day_no_since_quarantine,
+      xdata=days_since_quarantine,
       ydata=cases_since_quarantine,
       p0=[
           cases_since_quarantine[0],
-          first_day_with_quarantine_effect.toordinal(),
+          day1_quarantine.toordinal(),
           8e-9,
-          5.6e7],
+          5.6e7
+      ],
       bounds=(
           [
               0,
-              day_no_since_quarantine[0],
+              days_since_quarantine[0],
               1e-11,
               cases_since_quarantine[-1]
           ],
           [
               cases_since_quarantine[-1],
-              dt.datetime(year=2021, month=6, day=1).toordinal(),
+              (dt.datetime.now() + dt.timedelta(days=prediction_days)).toordinal(),
               1e-8,
-              8.35e7
+              83.5e6
           ]
       )
   )
-  data = data[data['day'] >= first_day_with_quarantine_effect]
-  projection_data = data.copy()
-  projection_data = projection_data.drop(['cases'], axis=1)
-  projection_data['curve'] = [corona_curve(
-      d.toordinal(), *params) for d in projection_data['day']]
-  for i in range(180):
-      projection_data = projection_data.append(pd.DataFrame(
-          [[list(projection_data['day'])[-1] + dt.timedelta(days=1),
-            corona_curve((list(projection_data['day'])[-1] + dt.timedelta(days=1)).toordinal(), *params)]],
+  data = data[data['day'] >= day1_quarantine]
+  projection = data.copy()
+  projection = projection.drop(['cases'], axis=1)
+  projection['curve'] = [corona_curve(d.toordinal(), *params) for d in projection['day']]
+  for i in range(prediction_days):
+      projection = projection.append(pd.DataFrame(
+          [[list(projection['day'])[-1] + dt.timedelta(days=1),
+            corona_curve((list(projection['day'])[-1] + dt.timedelta(days=1)).toordinal(), *params)]],
           columns=('day', 'curve')
       ), ignore_index=True)
-  predicted = [int(round(d)) for d in projection_data['curve']
-               [projection_data['day'] > latest_day].to_numpy()]
+  predicted = [int(round(d)) for d in projection['curve'][projection['day'] > latest_day].to_numpy()]
   result['predicted'] = {
       'from_date': (result['dates'][-1] + dt.timedelta(days=1)).strftime('%Y-%m-%d'),
       'active': predicted,
@@ -149,8 +148,6 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
     out.write(json.dumps(result, indent=1))
     if verbosity > 0:
       print('Ready.')
-
-
 
 
 if __name__ == '__main__':

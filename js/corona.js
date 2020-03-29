@@ -68,10 +68,10 @@
         dates = dates.map(d => d.toLocaleDateString(locale))
         el.current_date.innerText = dates[confirmed.dates.length - 1]
         el.latest_date.innerText = dates[confirmed.dates.length - 1 + prediction_days]
-        el.current_cases.innerText = confirmed.active[confirmed.active.length - 1].toLocaleString(locale)
+        el.current_cases.innerText = confirmed.active ? confirmed.active[confirmed.active.length - 1].toLocaleString(locale) : 0
         el.latest_cases.innerText = prediction_days > 0 ? confirmed.predicted.active[prediction_days - 1].toLocaleString(locale) : el.current_cases.innerText
         if (diff_chart) {
-            diff_chart.data.labels = dates.slice(0, confirmed.active.length)
+            diff_chart.data.labels = dates.slice(0, confirmed.total.length)
             diff_chart.data.datasets[0].data = confirmed.delta
             diff_chart.update()
         }
@@ -79,7 +79,7 @@
             diff_chart = new Chart(document.getElementById('diff-chart').getContext('2d'), {
                 type: 'bar',
                 data: {
-                    labels: dates.slice(0, confirmed.active.length),
+                    labels: dates.slice(0, confirmed.total.length),
                     datasets: [
                         {
                             data: confirmed.delta,

@@ -240,7 +240,7 @@
 
     const hashChanged = _evt => {
         const [p] = window.location.hash.substring(1).split(';').filter(p => p.startsWith('predict'))
-        if (p.length > 0) {
+        if (p) {
             const [, days] = p.split('=')
             prediction_days = Math.min(Math.max(0, days), +el.prediction_days.getAttribute('max'))
             el.prediction_days.value = prediction_days

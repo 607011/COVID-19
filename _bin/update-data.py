@@ -54,7 +54,8 @@ def corona_curve(x, b0, x0, k, s):
 
 
 def main():
-  print('''SARS-CoV-2 data helper.
+  print('''
+SARS-CoV-2 data helper.
 Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
 ''')
 

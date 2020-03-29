@@ -1,14 +1,14 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
     background-color: #222;
     color: #ddd;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Arial Narrow', Arial, Helvetica, sans-serif;
     font-size: 12pt;
-    box-sizing: border-box;
 }
 
 .ui {
@@ -74,7 +74,7 @@ canvas {
     text-align: center;
     border: none;
     overflow: hidden;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Arial Narrow', Calibri, Geneva, Arial, Helvetica, sans-serif;
     font-size: 150%;
     padding-right: 0.5em;
     background-color: transparent;

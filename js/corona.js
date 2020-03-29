@@ -24,6 +24,7 @@
     let main_chart = null
     let diff_chart = null
     let prediction_days = 0
+    let selected_country = 'Germany'
     let confirmed = {}
     let title = ''
     let last_update = new Date(1970)
@@ -61,7 +62,9 @@
             date.setDate(curr_date.getDate() + day + 1)
             dates.push(date)
         }
-        const predicted = new Array(confirmed.active.length).fill(null).concat(confirmed.predicted.active.slice(0, prediction_days))
+        const predicted = confirmed.predicted
+            ? new Array(confirmed.active.length).fill(null).concat(confirmed.predicted.active.slice(0, prediction_days))
+            : []
         dates = dates.map(d => d.toLocaleDateString(locale))
         el.current_date.innerText = dates[confirmed.dates.length - 1]
         el.latest_date.innerText = dates[confirmed.dates.length - 1 + prediction_days]
@@ -129,7 +132,11 @@
         }
         if (main_chart) {
             main_chart.data.labels = dates
+            main_chart.data.datasets[0].data = confirmed.active
+            main_chart.data.datasets[1].data = confirmed.recovered
+            main_chart.data.datasets[2].data = confirmed.deaths
             main_chart.data.datasets[3].data = predicted
+            main_chart.data.datasets[4].data = confirmed.doubling_rates
             main_chart.update()
         }
         else {
@@ -250,7 +257,7 @@
     }
 
     const refresh = () => {
-        fetch('data/current.json')
+        fetch(`data/${selected_country}.json`)
         .then(response => {
             return response.ok
                 ? response.json()
@@ -259,7 +266,7 @@
         .then(data => {
             title = `COVID-19 in ${data.country}`;
             [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
-            el.prediction_days.setAttribute('max', data.predicted.active.length)
+            el.prediction_days.setAttribute('max', data.predicted ? data.predicted.active.length : 0)
             if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
                 console.debug('no updates')
                 // TODO: show "toast" or the like that there were no updates
@@ -269,8 +276,38 @@
         })
     }
 
+    const fetchCountries = () => {
+        fetch('data/countries.json')
+        .then(response => {
+            return response.ok
+                ? response.json()
+                : Promise.reject(response.status)
+        })
+        .then(countries => {
+            el.country_selector.innerHTML = ''
+            let selectedIndex = null
+            countries.sort().forEach((country, index) => {
+                const option = document.createElement('option')
+                option.value = country
+                option.innerText = country
+                if (country === selected_country)
+                    selectedIndex = index
+                el.country_selector.appendChild(option)
+            })
+            el.country_selector.selectedIndex = selectedIndex
+        })
+    }
+
     const main = () => {
-        refresh()
+        el.country_selector = document.getElementById('country-selector')
+        el.country_selector.addEventListener('change', evt => {
+            selected_country = evt.target.options[evt.target.selectedIndex].label
+            console.debug(selected_country)
+            confirmed = {}
+            last_update = new Date(1970)
+            refresh()
+        })
+        fetchCountries()
         el.current_date = document.getElementById('current-date')
         el.current_cases = document.getElementById('current-cases')
         el.latest_date = document.getElementById('predicted-date')
@@ -288,6 +325,7 @@
             input.previousElementSibling.addEventListener('click', _ => { input.stepDown(); input.dispatchEvent(new Event('change')) })
             input.nextElementSibling.addEventListener('click', _ => { input.stepUp(); input.dispatchEvent(new Event('change')) })
         })
+        refresh()
     }
     window.addEventListener('load', main)
 })(window)

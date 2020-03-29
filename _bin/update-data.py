@@ -66,12 +66,9 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
   result = {'country': selected_country}
 
   parse_latest('COVID-19-web-data/data/cases_country.csv', result)
-  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
-                 'total', result)
-  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv',
-                 'recovered', result)
-  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
-                 'deaths', result)
+  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv', 'total', result)
+  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv', 'recovered', result)
+  parse_timeline('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv', 'deaths', result)
 
   if verbosity > 0:
     print('Calculating active cases ...')

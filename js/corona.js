@@ -1,5 +1,5 @@
 /*
-    COVID-19 spread visualization and active cases prediction
+    COVID-19 spread visualization and active cases prediction.
     Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
 
     This program is free software: you can redistribute it and/or modify
@@ -19,53 +19,13 @@
 (function (window) {
     'use strict'
 
-    const Config = {
-        title: null,
-        active: {
-            label: 'Active',
-            type: 'bar',
-            backgroundColor: 'rgb(230, 88, 36)',
-            borderWidth: 0,
-        },
-        predicted: {
-            label: 'Active predicted',
-            type: 'bar',
-            backgroundColor: 'rgba(230, 88, 36, 0.5)',
-            borderWidth: 0,
-        },
-        recovered: {
-            label: 'Recovered',
-            type: 'bar',
-            backgroundColor: '#7CDC58',
-            borderWidth: 0,
-        },
-        deaths: {
-            label: 'Deaths',
-            type: 'bar',
-            backgroundColor: '#D16EDC',
-            borderWidth: 0,
-        },
-        doubling: {
-            label: 'Days per doubling',
-            type: 'line',
-            fill: 'transparent',
-            borderColor: '#5BA5E6',
-            borderWidth: 2,
-            pointStyle: 'circle',
-        },
-        delta: {
-            label: 'Difference',
-            type: 'line',
-            borderColor: 'rgb(88, 230, 36)',
-            backgroundColor: '#444',
-        },
-    }
     let el = {}
     let locale = 'de-DE'
-    let ctx = null
-    let chart = null
+    let main_chart = null
+    let diff_chart = null
     let prediction_days = 0
     let confirmed = {}
+    let title = ''
 
     const update = data => {
         if (data) {
@@ -93,69 +53,126 @@
         el.latest_date.innerText = dates[confirmed.dates.length - 1 + prediction_days]
         el.current_cases.innerText = confirmed.active[confirmed.active.length - 1].toLocaleString(locale)
         el.latest_cases.innerText = prediction_days > 0 ? confirmed.predicted.active[prediction_days - 1].toLocaleString(locale) : el.current_cases.innerText
-        if (chart) {
-            chart.data.labels = dates
-            chart.data.datasets[3].data = predicted
-            chart.update()
+        if (diff_chart) {
+            diff_chart.data.labels = dates.slice(0, confirmed.active.length)
+            diff_chart.data.datasets[0].data = confirmed.delta
+            diff_chart.update()
         }
         else {
-            chart = new Chart(ctx, {
+            diff_chart = new Chart(document.getElementById('diff-chart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: dates.slice(0, confirmed.active.length),
+                    datasets: [
+                        {
+                            data: confirmed.delta,
+                            label: 'Difference',
+                            backgroundColor: (function(_opaque, ctx) {
+                                return ctx.dataset.data[ctx.dataIndex] < 0 ? '#63D427' : '#D42C27'
+                            }).bind(null, false),
+                        }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Difference in active cases',
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        xAxes: [
+                            {
+                                gridLines: {
+                                    display: false,
+                                    drawTicks: false,
+                                },
+                                ticks: {
+                                    display: false,
+                                },
+                            }
+                        ],
+                        yAxes: [
+                            {
+                                gridLines: {
+                                    display: true,
+                                    drawTicks: false,
+                                },
+                                ticks: {
+                                    display: false,
+                                },
+                            },
+                        ],    
+                    },
+                    animation: {
+                        duration: 500,
+                        easing: 'easeInOutQuad',
+                    }
+                }
+            })
+        }
+        if (main_chart) {
+            main_chart.data.labels = dates
+            main_chart.data.datasets[3].data = predicted
+            main_chart.update()
+        }
+        else {
+            main_chart = new Chart(document.getElementById('main-chart').getContext('2d'), {
                 type: 'bar',
                 data: {
                     labels: dates,
                     datasets: [
                         {
                             data: confirmed.active,
-                            type: Config.active.type,
+                            type: 'bar',
                             yAxisID: 'A',
-                            label: Config.active.label,
-                            backgroundColor: Config.active.backgroundColor,
-                            borderColor: Config.active.borderColor,
-                            borderWidth: Config.active.borderWidth,
+                            label: 'Active',
+                            backgroundColor: 'rgb(230, 88, 36)',
+                            borderWidth: 0,
                             fill: 'transparent',
                             order: 2,
                         },
                         {
                             data: confirmed.recovered,
-                            type: Config.recovered.type,
+                            type: 'bar',
                             yAxisID: 'A',
-                            label: Config.recovered.label,
-                            backgroundColor: Config.recovered.backgroundColor,
-                            borderColor: Config.recovered.borderColor,
-                            borderWidth: Config.recovered.borderWidth,
+                            label: 'Recovered',
+                            backgroundColor: '#7CDC58',
+                            borderWidth: 0,
                             fill: 'transparent',
                             order: 2,
                         },
                         {
                             data: confirmed.deaths,
-                            type: Config.deaths.type,
+                            type: 'bar',
                             yAxisID: 'A',
-                            label: Config.deaths.label,
-                            backgroundColor: Config.deaths.backgroundColor,
-                            borderColor: Config.deaths.borderColor,
-                            borderWidth: Config.deaths.borderWidth,
+                            label: 'Deaths',
+                            backgroundColor: '#D16EDC',
+                            borderWidth: 0,
                             fill: 'transparent',
                             order: 3,
                         },
                         {
                             data: predicted,
-                            type: Config.predicted.type,
+                            type: 'bar',
                             yAxisID: 'A',
-                            label: Config.predicted.label,
-                            backgroundColor: Config.predicted.backgroundColor,
-                            borderColor: Config.predicted.borderColor,
-                            borderWidth: Config.predicted.borderWidth,
+                            label: 'Active predicted',
+                            backgroundColor: 'rgba(230, 88, 36, 0.5)',
+                            borderWidth: 0,
                             fill: 'transparent',
                         },
                         {
                             data: confirmed.doubling_rates,
-                            type: Config.doubling.type,
+                            type: 'line',
                             yAxisID: 'B',
-                            label: Config.doubling.label,
-                            borderColor: Config.doubling.borderColor,
-                            borderWidth: Config.doubling.borderWidth,
-                            pointStyle: Config.doubling.pointStyle,
-                            fill: Config.doubling.fill,
+                            label: 'Days per doubling',
+                            borderColor: '#5BA5E6',
+                            borderWidth: 2,
+                            pointStyle: 'circle',
+                            fill: 'transparent',
                             showLine: false,
                             order: 0,
                         },
@@ -166,12 +183,15 @@
                     maintainAspectRatio: false,
                     title: {
                         display: false,
-                        text: Config.title,
+                        text: title,
                     },
                     scales: {
                         xAxes: [
                             {
                                 stacked: true,
+                                gridLines: {
+                                    display: false,
+                                },
                             }
                         ],
                         yAxes: [
@@ -190,6 +210,9 @@
                                 precision: 0.1,
                                 stacked: false,
                                 beginAtZero: true,
+                                gridLines: {
+                                    display: false,
+                                },
                             },
                         ]
                     },
@@ -213,7 +236,7 @@
         }
     }
 
-    const main = () => {
+    const refresh = () => {
         fetch('data/current.json')
         .then(response => {
             return response.ok
@@ -221,12 +244,15 @@
                 : Promise.reject(response.status)
         })
         .then(data => {
-            Config.title = `COVID-19 in ${data.country}`
+            title = `COVID-19 in ${data.country}`
             el.prediction_days.setAttribute('max', data.predicted.active.length)
             hashChanged()
             update(data)
         })
-        ctx = document.getElementById('progress').getContext('2d')
+    }
+
+    const main = () => {
+        refresh()
         el.current_date = document.getElementById('current-date')
         el.current_cases = document.getElementById('current-cases')
         el.latest_date = document.getElementById('predicted-date')

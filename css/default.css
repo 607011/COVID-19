@@ -14,26 +14,37 @@ html, body {
 .ui {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 230px;
+    max-width: 240px;
 }
 
 .controls {
     padding: 5px;
-    width: 230px;
-    max-width: 250px;
-    align-self: flex-start;
 }
 
 .controls > div {
-    margin: 10px auto;
+    margin: 10px 0;
 }
 
-.canvas-container {
-    margin: 5px 7px 5px 5px;
-    position: relative;
-    width: calc(100% - 260px);
-    height: 70vh;
+.diff-chart-container {
+    margin: 5px 7px 0 5px;
+    height: 20vh;
+    max-height: 200px;
+}
+
+.main-chart-container {
+    margin: 5px 7px 0 5px;
+    width: calc(100% - 245px);
+    height: 90vh;
+    max-height: 100vh;
 }
 
 canvas {

@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="de">
 
+<!--
+    COVID-19 spread visualization and active cases prediction.
+    Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
 <head>
     <meta charset="UTF-8">
     <title>COVID-19</title>
@@ -26,37 +44,42 @@
 <body>
     <div id="App" class="hidden">
         <div class="ui">
-            <div class="controls">
-                <div style="font-size: 120%; font-weight: bold;">COVID-19 in Germany</div>
-                <div style="display: grid; grid-template-columns: 0.8fr 1.2fr;">
-                    <span style="grid-column-start: 0; grid-column-end: span 2; gap: 5px 5px; font-weight: bold;">Latest data</span>
-                    <span>Updated</span><span id="latest-date" style="text-align: right">–</span>
-                    <span>Total</span><span id="latest-total" style="text-align: right">–</span>
-                    <span>Active</span><span id="latest-active" style="text-align: right">–</span>
-                    <span>Deaths</span><span id="latest-deaths" style="text-align: right">–</span>
-                    <span>Recovered</span><span id="latest-recovered" style="text-align: right">–</span>
+            <div class="sidebar">
+                <div class="controls">
+                    <div style="font-size: 120%; font-weight: bold;">COVID-19 in Germany</div>
+                    <div style="display: grid; grid-template-columns: 0.8fr 1.2fr;">
+                        <span style="grid-column-start: 0; grid-column-end: span 2; gap: 5px 5px; font-weight: bold;">Latest data</span>
+                        <span>Updated</span><span id="latest-date" style="text-align: right">–</span>
+                        <span>Total</span><span id="latest-total" style="text-align: right">–</span>
+                        <span>Active</span><span id="latest-active" style="text-align: right">–</span>
+                        <span>Deaths</span><span id="latest-deaths" style="text-align: right">–</span>
+                        <span>Recovered</span><span id="latest-recovered" style="text-align: right">–</span>
+                    </div>
+    
+                    <div style="display: grid; grid-template-columns: 0.8fr 1.2fr;">
+                        <span style="grid-column-start: 0; grid-column-end: span 2; gap: 5px 5px; font-weight: bold;">Active cases</span>
+                        <span>Date</span><span style="text-align: right">#</span>
+                        <span id="current-date">?</span><span id="current-cases" style="text-align: right">?</span>
+                        <span id="predicted-date">?</span><span id="predicted-cases" style="text-align: right">?</span>
+                    </div>
+                    <div>
+                        <label for="prediction-days">
+                            predict next <i>n</i> days
+                        </label>
+                        <span class="stepper"><button>&minus;</button><input id="prediction-days" type="number" min="0" max="7" value="7" style="width: 3em; text-align: right" /><button>&plus;</button></span>
+                    </div>
+                    <div>
+                        Source:
+                        <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a>,
+                        <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a>
+                    </div>
                 </div>
-
-                <div style="display: grid; grid-template-columns: 0.8fr 1.2fr;">
-                    <span style="grid-column-start: 0; grid-column-end: span 2; gap: 5px 5px; font-weight: bold;">Active cases</span>
-                    <span>Date</span><span style="text-align: right">#</span>
-                    <span id="current-date">?</span><span id="current-cases" style="text-align: right">?</span>
-                    <span id="predicted-date">?</span><span id="predicted-cases" style="text-align: right">?</span>
-                </div>
-                <div>
-                    <label for="prediction-days">
-                        predict next <i>n</i> days
-                    </label>
-                    <span class="stepper"><button>&minus;</button><input id="prediction-days" type="number" min="0" max="7" value="7" style="width: 3em; text-align: right" /><button>&plus;</button></span>
-                </div>
-                <div>
-                    Source:
-                    <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a>,
-                    <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a>
+                <div class="diff-chart-container">
+                    <canvas id="diff-chart"></canvas>
                 </div>
             </div>
-            <div class="canvas-container">
-                <canvas id="progress"></canvas>
+            <div class="main-chart-container">
+                <canvas id="main-chart"></canvas>
             </div>
         </div>
     </div>

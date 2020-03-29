@@ -88,6 +88,7 @@ canvas {
     font-size: 150%;
     font-weight: bold;
     background-color: #999;
+    padding: 0;
 }
 
 .stepper button:active {
@@ -110,4 +111,17 @@ a:visited {
 
 .hidden {
     display: none;
+}
+
+button {
+    font-family: 'Arial Narrow', Calibri, Geneva, Arial, Helvetica, sans-serif;
+    border: 1px solid #bbb;
+    background-color: #999;
+    padding: 1ex 1em;
+    font-size: 100%;
+    height: 44px;
+}
+
+button:active {
+    background-color: #eee;
 }

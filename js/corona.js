@@ -26,13 +26,18 @@
     let prediction_days = 0
     let confirmed = {}
     let title = ''
+    let last_update = new Date(1970)
 
     const fromISODate = iso_date_string => {
-        const [_, year, month, day] = iso_date_string.match(/(\d{4})-(\d{2})-(\d{2})/)
-        const date = new Date()
-        date.setFullYear(year)
-        date.setMonth(month -1 )
-        date.setDate(day)
+        const [, year, month, day, ...time] = iso_date_string.match(/^(\d{4})-(\d{2})-(\d{2})(\s(\d{2}):(\d{2}):(\d{2}))?/)
+        const date = new Date(year, month-1, day, 0, 0, 0, 0)
+        const [, hrs, mins, secs] = time
+        if (hrs)
+            date.setHours(hrs)
+        if (mins)
+            date.setMinutes(mins)
+        if (secs)
+            date.setSeconds(secs)
         return date
     }
 
@@ -41,7 +46,7 @@
             confirmed = Object.assign({}, data)
             confirmed.dates = data.dates.map(date => fromISODate(date))
         }
-        const last_update = fromISODate(confirmed.latest.last_update)
+        last_update = fromISODate(confirmed.latest.last_update)
         document.getElementById('latest-date').innerText = `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`
         document.getElementById('latest-total').innerText = confirmed.latest.total.toLocaleString(locale)
         document.getElementById('latest-active').innerText = confirmed.latest.active.toLocaleString(locale)
@@ -75,7 +80,6 @@
                     datasets: [
                         {
                             data: confirmed.delta,
-                            label: 'Difference',
                             backgroundColor: (function(_opaque, ctx) {
                                 return ctx.dataset.data[ctx.dataIndex] < 0 ? '#63D427' : '#D42C27'
                             }).bind(null, false),
@@ -85,7 +89,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: 'Difference in active cases',
+                        text: '∆ active cases',
                     },
                     responsive: true,
                     maintainAspectRatio: false,
@@ -117,7 +121,7 @@
                         ],    
                     },
                     animation: {
-                        duration: 500,
+                        duration: 250,
                         easing: 'easeInOutQuad',
                     }
                 }
@@ -236,8 +240,8 @@
 
     const hashChanged = _evt => {
         const [p] = window.location.hash.substring(1).split(';').filter(p => p.startsWith('predict'))
-        if (p) {
-            const [_, days] = p.split('=')
+        if (p.length > 0) {
+            const [, days] = p.split('=')
             prediction_days = Math.min(Math.max(0, days), +el.prediction_days.getAttribute('max'))
             el.prediction_days.value = prediction_days
             if (confirmed.active)
@@ -253,8 +257,13 @@
                 : Promise.reject(response.status)
         })
         .then(data => {
-            title = `COVID-19 in ${data.country}`
+            title = `COVID-19 in ${data.country}`;
+            [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
             el.prediction_days.setAttribute('max', data.predicted.active.length)
+            if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
+                console.debug('no updates')
+                // TODO: show "toast" or the like that there were no updates
+            }
             hashChanged()
             update(data)
         })
@@ -273,6 +282,7 @@
             evt.target.value = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
             window.location.hash = `#predict=${evt.target.value}`
         });
+        document.getElementById('refresh-button').addEventListener('click', refresh);
         [...document.getElementsByClassName('stepper')].forEach(stepper => {
             const input = stepper.querySelector('input')
             input.previousElementSibling.addEventListener('click', _ => { input.stepDown(); input.dispatchEvent(new Event('change')) })

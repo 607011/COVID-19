@@ -50,8 +50,9 @@ def parse_timeseries(filename, key, result):
       result['dates'] = [dt.datetime.strptime(d, '%m/%d/%y') for d in first_line[4:]]
     for row in reader:
       country = row[1]
+      if not country in result['countries']:
+        result['countries'][country] = {}
       if not key in result['countries'][country]:
-        print(country)
         result['countries'][country][key] = np.array([int(v) for v in row[4:]])
       else:
         result['countries'][country][key] = np.add(result['countries'][country][key], [int(v) for v in row[4:]])

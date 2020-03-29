@@ -30,8 +30,8 @@ def parse_latest(filename, result):
       result['countries'][country]['latest'] = {
           'last_update': row[1],
           'where': {
-              'lat': float(row[2]),
-              'lon': float(row[3]),
+              'lat': round(float(row[2]), 5),
+              'lon': round(float(row[3]), 5),
           },
           'total': int(row[4]),
           'deaths': int(row[5]),
@@ -50,7 +50,13 @@ def parse_timeseries(filename, key, result):
       result['dates'] = [dt.datetime.strptime(d, '%m/%d/%y') for d in first_line[4:]]
     for row in reader:
       country = row[1]
-      result['countries'][country][key] = [int(v) for v in row[4:]]
+      if not key in result['countries'][country]:
+        print(country)
+        result['countries'][country][key] = np.array([int(v) for v in row[4:]])
+      else:
+        result['countries'][country][key] = np.add(result['countries'][country][key], [int(v) for v in row[4:]])
+  for country in result['countries']:
+    result['countries'][country][key] = result['countries'][country][key].tolist()
 
 
 def corona_curve(x, b0, x0, k, s):

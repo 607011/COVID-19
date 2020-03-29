@@ -19,7 +19,7 @@
 (function (window) {
     'use strict'
 
-    let el = {}
+    const el = {}
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
@@ -27,12 +27,21 @@
     let confirmed = {}
     let title = ''
 
+    const fromISODate = iso_date_string => {
+        const [_, year, month, day] = iso_date_string.match(/(\d{4})-(\d{2})-(\d{2})/)
+        const date = new Date()
+        date.setFullYear(year)
+        date.setMonth(month -1 )
+        date.setDate(day)
+        return date
+    }
+
     const update = data => {
         if (data) {
             confirmed = Object.assign({}, data)
-            confirmed.dates = data.dates.map(date => new Date(date))
+            confirmed.dates = data.dates.map(date => fromISODate(date))
         }
-        const last_update = new Date(confirmed.latest.last_update)
+        const last_update = fromISODate(confirmed.latest.last_update)
         document.getElementById('latest-date').innerText = `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`
         document.getElementById('latest-total').innerText = confirmed.latest.total.toLocaleString(locale)
         document.getElementById('latest-active').innerText = confirmed.latest.active.toLocaleString(locale)

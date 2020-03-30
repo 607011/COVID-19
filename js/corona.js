@@ -266,6 +266,7 @@
         console.debug('evaluateHash() hash_param = ', hash_param)
         const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.getAttribute('max'))
         if (countries.indexOf(data.country) >= 0) {
+            el.country_selector.value = data.country
             if (data.country !== hash_param.country) {
                 hash_param.country = data.country
                 loadCountryData()
@@ -332,25 +333,19 @@
         const new_countries = await (response.ok
             ? response.json()
             : Promise.reject(response.status))
-        // TODO: convert <select>/<option> to <input type="search" ...>
         countries = new_countries
-        el.country_selector.innerHTML = ''
-        let selectedIndex = null
+        const datalist = document.getElementById('countries')
         countries.sort().forEach((country, index) => {
             const option = document.createElement('option')
             option.value = country
-            option.innerText = country
-            if (country === hash_param.country)
-                selectedIndex = index
-            el.country_selector.appendChild(option)
+            datalist.appendChild(option)
         })
-        el.country_selector.selectedIndex = selectedIndex
     }
 
     const countryChanged = evt => {
         confirmed = {}
         last_update = new Date(1970)
-        updateHash({ country: evt.target.options[evt.target.selectedIndex].label })
+        updateHash({ country: evt.target.value })
     }
 
     const predictionDaysChanged = evt => {

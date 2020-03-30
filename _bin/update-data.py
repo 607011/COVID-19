@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import datetime as dt
 import csv
 import json
@@ -83,16 +84,16 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
      out.write(json.dumps(list(result['countries'].keys())))
 
   dates = None
-  for country, d in result['countries'].items():
+  for country, d in sorted(result['countries'].items()):
     if verbosity > 0:
-      print('Country: {:s}'.format(country))
-    if verbosity > 0:
+      print('- {:s}'.format(country))
+    if verbosity > 1:
       print('  Calculating active cases ...')
     d['active'] = []
     for i in range(len(d['total'])):
       diff = d['total'][i] - d['recovered'][i] - d['deaths'][i]
       d['active'].append(diff if diff > 0 else 0)
-    if verbosity > 0:
+    if verbosity > 1:
       print('  Calculating doubling rates and differences ...')
     d['doubling_rates'] = [None]
     d['delta'] = [None]
@@ -110,7 +111,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
     cases_since_quarantine = np.array(data[data['day'] >= day1_quarantine]['cases'])
 
     if cases_since_quarantine[cases_since_quarantine > 0].size > 0:
-      if verbosity > 0:
+      if verbosity > 1:
         print('  Predicting spread of SARS-CoV-2 ...')
       latest_day = result['dates'][-1]
       days_since_quarantine = np.array([d.toordinal() for d in data[data['day'] >= day1_quarantine]['day']])
@@ -141,7 +142,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
             )
         )
       except ValueError as e:
-        print('    **** Prediction failed! ValueError: ', e)
+        print('    **** Prediction failed! ValueError: {}'.format(e), file=sys.stderr)
       else:
         data = data[data['day'] >= day1_quarantine]
         projection = data.copy()
@@ -160,7 +161,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
         }
 
     json_file = json_file_template.format(country=country)
-    if verbosity > 0:
+    if verbosity > 1:
       print('  Writing result to "{}" ...'.format(json_file))
     with open(json_file, 'w+') as out:
       if not dates:
@@ -169,7 +170,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
       output_data['dates'] = dates
       output_data['country'] = country
       out.write(json.dumps(output_data))
-      if verbosity > 0:
+      if verbosity > 1:
         print('  Ready.')
 
 

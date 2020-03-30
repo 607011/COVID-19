@@ -80,6 +80,8 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
   parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_recovered_global.csv'), 'recovered', result)
   parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_deaths_global.csv'), 'deaths', result)
 
+  # TODO: accumulate country data to produce world data
+
   with open('data/countries.json', 'w+') as out:
      out.write(json.dumps(list(result['countries'].keys())))
 

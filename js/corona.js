@@ -276,7 +276,6 @@
     }
 
     const loadCountryData = () => {
-        console.debug(`Reading data for ${hash_param.country} ...`)
         fetch(`data/${hash_param.country}.json`)
         .then(response => {
             return response.ok

@@ -23,7 +23,6 @@ def load_world_data(result):
     reader = csv.reader(f, delimiter='\t', quotechar='"')
     reader.__next__()  # skip header
     for row in reader:
-      print(row)
       result['countries'][row[0]] = {
         'population': int(row[1]),
         'flag': row[2],

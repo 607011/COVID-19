@@ -36,12 +36,11 @@
         const [, year, month, day, ...time] = iso_date_string.match(/^(\d{4})-(\d{2})-(\d{2})(\s(\d{2}):(\d{2}):(\d{2}))?/)
         const date = new Date(year, month-1, day, 0, 0, 0, 0)
         const [, hrs, mins, secs] = time
-        if (hrs)
+        if (hrs && mins && secs) {
             date.setHours(hrs)
-        if (mins)
             date.setMinutes(mins)
-        if (secs)
             date.setSeconds(secs)
+        }
         return date
     }
 
@@ -295,45 +294,46 @@
     const loadCountryData = () => {
         el.loader_screen.classList.remove('hide')
         fetch(`data/${hash_param.country}.json`)
-        .then(response => {
-            return response.ok
-                ? response.json()
-                : Promise.reject(response.status)
-        })
-        .then(data => {
-            [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
-            el.prediction_days.setAttribute('max', data.predicted ? data.predicted.active.length : 0)
-            if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
-                console.log('no updates')
-            }
-            el.population.innerText = data.population.toLocaleString(locale)
-            updateCharts(data);
-            animateRefreshables()
-        })
+            .then(response => {
+                return response.ok
+                    ? response.json()
+                    : Promise.reject(response.status)
+            })
+            .then(data => {
+                [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
+                el.prediction_days.setAttribute('max', data.predicted ? data.predicted.active.length : 0)
+                // if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
+                //     console.log('no updates')
+                // }
+                el.population.innerText = data.population.toLocaleString(locale)
+                updateCharts(data);
+                animateRefreshables()
+            },
+            status => {
+                // TODO: inform user about error
+                console.error(status)
+            })
     }
 
-    const fetchCountries = () => {
-        fetch('data/countries.json')
-        .then(response => {
-            return response.ok
-                ? response.json()
-                : Promise.reject(response.status)
+    const fetchCountries = async () => {
+        const response = await fetch('data/countries.json')
+        const new_countries = await (response.ok
+            ? response.json()
+            : Promise.reject(response.status))
+        // TODO: convert <select>/<option> to <input type="search" ...>
+        countries = new_countries
+        el.country_selector.innerHTML = ''
+        let selectedIndex = null
+        countries.sort().forEach((country, index) => {
+            const option = document.createElement('option')
+            option.value = country
+            option.innerText = country
+            if (country === hash_param.country)
+                selectedIndex = index
+            el.country_selector.appendChild(option)
         })
-        .then(new_countries => {
-            countries = new_countries
-            el.country_selector.innerHTML = ''
-            let selectedIndex = null
-            countries.sort().forEach((country, index) => {
-                const option = document.createElement('option')
-                option.value = country
-                option.innerText = country
-                if (country === hash_param.country)
-                    selectedIndex = index
-                el.country_selector.appendChild(option)
-            })
-            el.country_selector.selectedIndex = selectedIndex
-            postInit()
-        })
+        el.country_selector.selectedIndex = selectedIndex
+        postInit()
     }
 
     const countryChanged = evt => {
@@ -352,6 +352,7 @@
         el.prediction_days.addEventListener('change', predictionDaysChanged);
         window.addEventListener('hashchange', hashChanged)
         document.getElementById('refresh-button').addEventListener('click', loadCountryData);
+        // TODO: convert <input type="number"> to Custom Element
         [...document.getElementsByClassName('stepper')].forEach(stepper => {
             const input = stepper.querySelector('input')
             input.previousElementSibling.addEventListener('click', _ => { input.stepDown(); input.dispatchEvent(new Event('change')) })
@@ -362,7 +363,6 @@
 
     const main = () => {
         el.country_selector = document.getElementById('country-selector')
-        fetchCountries()
         el.loader_screen = document.getElementById('loader-screen')
         el.current_date = document.getElementById('current-date')
         el.current_cases = document.getElementById('current-cases')
@@ -370,7 +370,13 @@
         el.latest_cases = document.getElementById('predicted-cases')
         el.prediction_days = document.getElementById('prediction-days')
         el.population = document.getElementById('population')
-        loadCountryData()
+        fetchCountries()
+            .then(
+                loadCountryData,
+                () => {
+                    // TODO: inform user about error
+                    console.error('fetchCountries() failed.')
+                })
     }
     window.addEventListener('load', main)
 })(window)

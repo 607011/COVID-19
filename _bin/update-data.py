@@ -98,6 +98,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
      out.write(json.dumps(list(result['countries'].keys())))
 
   dates = None
+  # TODO: parallelize loop
   for country, d in sorted(result['countries'].items()):
     if not 'total' in d:
       continue

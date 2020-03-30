@@ -108,7 +108,6 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
       else:
         d['doubling_rates'].append(None)
 
-    # TODO: prediction must be based on total cases for the logistics formula to work, not on the active cases
     day1_quarantine = dt.datetime(year=2020, month=3, day=20)
     data = pd.DataFrame(data={'day': result['dates'], 'cases': d['total']})
     cases_since_quarantine = np.array(data[data['day'] >= day1_quarantine]['cases'])

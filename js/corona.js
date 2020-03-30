@@ -249,7 +249,7 @@
         const data = {}
         for (const param of window.location.hash.substring(1).split(';')) {
             const [key, value] = param.split('=')
-            data[key] = value
+            data[key] = decodeURIComponent(value)
         }
         console.debug('evaluateHash() data = ', data)
         if (data.predict) {

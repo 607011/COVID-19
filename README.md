@@ -1,4 +1,4 @@
 # COVID-19 
 
-## Current spread data and prediction of active cases
+## Visualization of spread and predicted total cases
 

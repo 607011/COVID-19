@@ -314,6 +314,7 @@
             .then(data => {
                 [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
                 el.prediction_days.setAttribute('max', data.predicted ? data.predicted.active.length : 0)
+                el.flag.innerText = data.flag
                 // if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
                 //     console.log('no updates')
                 // }
@@ -378,6 +379,7 @@
 
     const main = () => {
         el.country_selector = document.getElementById('country-selector')
+        el.flag = document.getElementById('flag')
         el.loader_screen = document.getElementById('loader-screen')
         el.current_date = document.getElementById('current-date')
         el.current_cases = document.getElementById('current-cases')

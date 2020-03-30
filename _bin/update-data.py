@@ -15,15 +15,18 @@ verbosity = 1
 json_file_template = 'data/{country:s}.json'
 path_latest = os.path.join('COVID-19-web-data', 'data')
 path_timeseries = os.path.join('COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
-population_filename = os.path.join('data', 'population.csv')
+population_filename = os.path.join('data', 'world-data.csv')
 prediction_days = 180
 
-def load_world_population_data(result):
+def load_world_data(result):
   with open(population_filename, 'r') as f:
     reader = csv.reader(f, delimiter='\t', quotechar='"')
+    reader.__next__()  # skip header
     for row in reader:
+      print(row)
       result['countries'][row[0]] = {
         'population': int(row[1]),
+        'flag': row[2],
       }
 
 
@@ -86,7 +89,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
 
 
   result = { 'countries': {} }
-  load_world_population_data(result)
+  load_world_data(result)
   parse_latest(os.path.join(path_latest, 'cases_country.csv'), result)
   parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_confirmed_global.csv'), 'total', result)
   parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_recovered_global.csv'), 'recovered', result)

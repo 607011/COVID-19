@@ -19,16 +19,16 @@
 (function (window) {
     'use strict'
 
-    const DefaultCountry = 'Germany'
+    const Default = {
+        country: 'Germany',
+        predict: 7,
+    }
     const el = {}
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
     let countries = []
-    let hash_param = {
-        country: DefaultCountry,
-        predict: 0,
-    }
+    let hash_param = Object.assign({}, Default)
     let confirmed = {}
     let last_update = new Date(1970)
 
@@ -57,7 +57,7 @@
         document.getElementById('latest-deaths').innerText = confirmed.latest.deaths.toLocaleString(locale)
         document.getElementById('latest-recovered').innerText = confirmed.latest.recovered.toLocaleString(locale)
         document.getElementById('App').classList.remove('hidden')
-        document.getElementById('loader-screen').classList.add('hidden')
+        el.loader_screen.classList.add('hide')
         const curr_date = confirmed.dates[confirmed.dates.length - 1]
         let dates = [...confirmed.dates]
         for (let day = 0; day < hash_param.predict; ++day) {
@@ -152,7 +152,7 @@
                             data: confirmed.active,
                             type: 'bar',
                             yAxisID: 'A',
-                            label: 'Active',
+                            label: 'active',
                             backgroundColor: 'rgb(230, 88, 36)',
                             borderWidth: 0,
                             fill: 'transparent',
@@ -162,7 +162,7 @@
                             data: confirmed.recovered,
                             type: 'bar',
                             yAxisID: 'A',
-                            label: 'Recovered',
+                            label: 'recovered',
                             backgroundColor: '#7CDC58',
                             borderWidth: 0,
                             fill: 'transparent',
@@ -172,7 +172,7 @@
                             data: confirmed.deaths,
                             type: 'bar',
                             yAxisID: 'A',
-                            label: 'Deaths',
+                            label: 'deaths',
                             backgroundColor: '#D16EDC',
                             borderWidth: 0,
                             fill: 'transparent',
@@ -182,7 +182,7 @@
                             data: predicted,
                             type: 'bar',
                             yAxisID: 'A',
-                            label: 'Active predicted',
+                            label: 'predicted total',
                             backgroundColor: 'rgba(230, 88, 36, 0.5)',
                             borderWidth: 0,
                             fill: 'transparent',
@@ -191,7 +191,7 @@
                             data: confirmed.doubling_rates,
                             type: 'line',
                             yAxisID: 'B',
-                            label: 'Days per doubling',
+                            label: 'days per doubling',
                             borderColor: '#5BA5E6',
                             borderWidth: 2,
                             pointStyle: 'circle',
@@ -244,14 +244,14 @@
         }
     }
 
-    const hashChanged = evt => {
-        if (typeof evt === 'undefined' || evt.oldURL === evt.newURL)
-            return
+    const evaluateHash = () => {
+        console.debug('evaluateHash()')
         const data = {}
         for (const param of window.location.hash.substring(1).split(';')) {
             const [key, value] = param.split('=')
             data[key] = value
         }
+        console.debug('evaluateHash() data = ', data)
         if (data.predict) {
             const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.getAttribute('max'))
             if (days !== data.predict) {
@@ -270,12 +270,20 @@
         }
     }
 
+    const hashChanged = evt => {
+        // console.debug('hashChanged()', evt)
+        if (evt && evt.oldURL !== evt.newURL) {
+            evaluateHash()
+        }
+    }
+
     const updateHash = (obj = {}) => {
         const new_hash_param = Object.assign({}, hash_param, obj)
         window.location.hash = '#' + Object.keys(new_hash_param).map(key => `${key}=${new_hash_param[key]}`).join(';')
     }
 
     const loadCountryData = () => {
+        el.loader_screen.classList.remove('hide')
         fetch(`data/${hash_param.country}.json`)
         .then(response => {
             return response.ok
@@ -313,35 +321,40 @@
                 el.country_selector.appendChild(option)
             })
             el.country_selector.selectedIndex = selectedIndex
+            postInit()
         })
     }
 
-    const main = () => {
-        el.country_selector = document.getElementById('country-selector')
+    const postInit = () => {
         el.country_selector.addEventListener('change', evt => {
             confirmed = {}
             last_update = new Date(1970)
             updateHash({ country: evt.target.options[evt.target.selectedIndex].label })
         })
-        fetchCountries()
-        el.current_date = document.getElementById('current-date')
-        el.current_cases = document.getElementById('current-cases')
-        el.latest_date = document.getElementById('predicted-date')
-        el.latest_cases = document.getElementById('predicted-cases')
-        el.prediction_days = document.getElementById('prediction-days')
-        hash_param.predict = +el.prediction_days.value
-        window.addEventListener('hashchange', hashChanged)
         el.prediction_days.addEventListener('change', evt => {
             const days = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
-            // evt.target.value = days
             updateHash({ predict: days })
         });
+        window.addEventListener('hashchange', hashChanged)
         document.getElementById('refresh-button').addEventListener('click', loadCountryData);
         [...document.getElementsByClassName('stepper')].forEach(stepper => {
             const input = stepper.querySelector('input')
             input.previousElementSibling.addEventListener('click', _ => { input.stepDown(); input.dispatchEvent(new Event('change')) })
             input.nextElementSibling.addEventListener('click', _ => { input.stepUp(); input.dispatchEvent(new Event('change')) })
         })
+        evaluateHash()
+    }
+
+    const main = () => {
+        el.country_selector = document.getElementById('country-selector')
+        fetchCountries()
+        el.loader_screen = document.getElementById('loader-screen')
+        el.current_date = document.getElementById('current-date')
+        el.current_cases = document.getElementById('current-cases')
+        el.latest_date = document.getElementById('predicted-date')
+        el.latest_cases = document.getElementById('predicted-cases')
+        el.prediction_days = document.getElementById('prediction-days')
+        // console.debug(`window.location.hash = ${window.location.hash}`)
         loadCountryData()
     }
     window.addEventListener('load', main)

@@ -191,7 +191,7 @@
                             type: 'bar',
                             yAxisID: 'A',
                             label: 'predicted total',
-                            backgroundColor: 'rgba(230, 88, 36, 0.5)',
+                            backgroundColor: '#555',
                             borderWidth: 0,
                             fill: 'transparent',
                         },

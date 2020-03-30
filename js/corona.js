@@ -19,14 +19,17 @@
 (function (window) {
     'use strict'
 
+    const DefaultCountry = 'Germany'
     const el = {}
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
-    let prediction_days = 0
-    let selected_country = 'Germany'
+    let countries = []
+    let hash_param = {
+        country: DefaultCountry,
+        predict: 0,
+    }
     let confirmed = {}
-    let title = ''
     let last_update = new Date(1970)
 
     const fromISODate = iso_date_string => {
@@ -42,7 +45,7 @@
         return date
     }
 
-    const update = data => {
+    const updateCharts = data => {
         if (data) {
             confirmed = Object.assign({}, data)
             confirmed.dates = data.dates.map(date => fromISODate(date))
@@ -57,19 +60,19 @@
         document.getElementById('loader-screen').classList.add('hidden')
         const curr_date = confirmed.dates[confirmed.dates.length - 1]
         let dates = [...confirmed.dates]
-        for (let day = 0; day < prediction_days; ++day) {
+        for (let day = 0; day < hash_param.predict; ++day) {
             const date = new Date(curr_date)
             date.setDate(curr_date.getDate() + day + 1)
             dates.push(date)
         }
         const predicted = confirmed.predicted
-            ? new Array(confirmed.active.length).fill(null).concat(confirmed.predicted.active.slice(0, prediction_days))
+            ? new Array(confirmed.active.length).fill(null).concat(confirmed.predicted.active.slice(0, hash_param.predict))
             : []
         dates = dates.map(d => d.toLocaleDateString(locale))
         el.current_date.innerText = dates[confirmed.dates.length - 1]
-        el.latest_date.innerText = dates[confirmed.dates.length - 1 + prediction_days]
+        el.latest_date.innerText = dates[confirmed.dates.length - 1 + hash_param.predict]
         el.current_cases.innerText = confirmed.active ? confirmed.active[confirmed.active.length - 1].toLocaleString(locale) : 0
-        el.latest_cases.innerText = (prediction_days > 0 && confirmed.predicted) ? confirmed.predicted.active[prediction_days - 1].toLocaleString(locale) : el.current_cases.innerText
+        el.latest_cases.innerText = (hash_param.predict > 0 && confirmed.predicted) ? confirmed.predicted.active[hash_param.predict - 1].toLocaleString(locale) : el.current_cases.innerText
         if (diff_chart) {
             diff_chart.data.labels = dates.slice(0, confirmed.total.length)
             diff_chart.data.datasets[0].data = confirmed.delta
@@ -201,10 +204,6 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    title: {
-                        display: false,
-                        text: title,
-                    },
                     scales: {
                         xAxes: [
                             {
@@ -245,34 +244,53 @@
         }
     }
 
-    const hashChanged = _evt => {
-        const [p] = window.location.hash.substring(1).split(';').filter(p => p.startsWith('predict'))
-        if (p) {
-            const [, days] = p.split('=')
-            prediction_days = Math.min(Math.max(0, days), +el.prediction_days.getAttribute('max'))
-            el.prediction_days.value = prediction_days
-            if (confirmed.active)
-                update()
+    const hashChanged = evt => {
+        if (typeof evt === 'undefined' || evt.oldURL === evt.newURL)
+            return
+        const data = {}
+        for (const param of window.location.hash.substring(1).split(';')) {
+            const [key, value] = param.split('=')
+            data[key] = value
+        }
+        if (data.predict) {
+            const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.getAttribute('max'))
+            if (days !== data.predict) {
+                hash_param.predict = days
+                el.prediction_days.value = hash_param.predict
+                if (confirmed.active) {
+                    updateCharts()
+                }
+            }
+        }
+        if (data.country) {
+            if (data.country !== hash_param.country && countries.indexOf(data.country) >= 0) {
+                hash_param.country = data.country
+                loadCountryData()
+            }
         }
     }
 
-    const refresh = () => {
-        fetch(`data/${selected_country}.json`)
+    const updateHash = (obj = {}) => {
+        const new_hash_param = Object.assign({}, hash_param, obj)
+        window.location.hash = '#' + Object.keys(new_hash_param).map(key => `${key}=${new_hash_param[key]}`).join(';')
+    }
+
+    const loadCountryData = () => {
+        console.debug(`Reading data for ${hash_param.country} ...`)
+        fetch(`data/${hash_param.country}.json`)
         .then(response => {
             return response.ok
                 ? response.json()
                 : Promise.reject(response.status)
         })
         .then(data => {
-            title = `COVID-19 in ${data.country}`;
             [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
             el.prediction_days.setAttribute('max', data.predicted ? data.predicted.active.length : 0)
             if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
                 console.debug('no updates')
                 // TODO: show "toast" or the like that there were no updates
             }
-            hashChanged()
-            update(data)
+            updateCharts(data)
         })
     }
 
@@ -283,14 +301,15 @@
                 ? response.json()
                 : Promise.reject(response.status)
         })
-        .then(countries => {
+        .then(new_countries => {
+            countries = new_countries
             el.country_selector.innerHTML = ''
             let selectedIndex = null
             countries.sort().forEach((country, index) => {
                 const option = document.createElement('option')
                 option.value = country
                 option.innerText = country
-                if (country === selected_country)
+                if (country === hash_param.country)
                     selectedIndex = index
                 el.country_selector.appendChild(option)
             })
@@ -301,11 +320,9 @@
     const main = () => {
         el.country_selector = document.getElementById('country-selector')
         el.country_selector.addEventListener('change', evt => {
-            selected_country = evt.target.options[evt.target.selectedIndex].label
-            console.debug(selected_country)
             confirmed = {}
             last_update = new Date(1970)
-            refresh()
+            updateHash({ country: evt.target.options[evt.target.selectedIndex].label })
         })
         fetchCountries()
         el.current_date = document.getElementById('current-date')
@@ -313,19 +330,20 @@
         el.latest_date = document.getElementById('predicted-date')
         el.latest_cases = document.getElementById('predicted-cases')
         el.prediction_days = document.getElementById('prediction-days')
-        prediction_days = +el.prediction_days.value
+        hash_param.predict = +el.prediction_days.value
         window.addEventListener('hashchange', hashChanged)
         el.prediction_days.addEventListener('change', evt => {
-            evt.target.value = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
-            window.location.hash = `#predict=${evt.target.value}`
+            const days = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
+            // evt.target.value = days
+            updateHash({ predict: days })
         });
-        document.getElementById('refresh-button').addEventListener('click', refresh);
+        document.getElementById('refresh-button').addEventListener('click', loadCountryData);
         [...document.getElementsByClassName('stepper')].forEach(stepper => {
             const input = stepper.querySelector('input')
             input.previousElementSibling.addEventListener('click', _ => { input.stepDown(); input.dispatchEvent(new Event('change')) })
             input.nextElementSibling.addEventListener('click', _ => { input.stepUp(); input.dispatchEvent(new Event('change')) })
         })
-        refresh()
+        loadCountryData()
     }
     window.addEventListener('load', main)
 })(window)

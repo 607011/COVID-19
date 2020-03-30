@@ -284,6 +284,10 @@
 
     const loadCountryData = () => {
         el.loader_screen.classList.remove('hide')
+        document.getElementById('latest').classList.add('flash')
+        setTimeout(() => {
+            document.getElementById('latest').classList.remove('flash')
+        }, 1000)
         fetch(`data/${hash_param.country}.json`)
         .then(response => {
             return response.ok
@@ -294,8 +298,7 @@
             [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
             el.prediction_days.setAttribute('max', data.predicted ? data.predicted.active.length : 0)
             if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
-                console.debug('no updates')
-                // TODO: show "toast" or the like that there were no updates
+                console.log('no updates')
             }
             el.population.innerText = data.population.toLocaleString(locale)
             updateCharts(data)

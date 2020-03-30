@@ -56,20 +56,20 @@
                     <div>
                         <select id="country-selector"></select>
                     </div>
-                    <div style="display: grid; grid-template-columns: 0.8fr 1.2fr;">
-                        <span style="grid-column-start: 0; grid-column-end: span 2; gap: 5px 5px; font-weight: bold;">Latest data</span>
-                        <span>Updated</span><span id="latest-date" style="text-align: right">–</span>
-                        <span>Active</span><span id="latest-active" style="text-align: right">–</span>
-                        <span>Deaths</span><span id="latest-deaths" style="text-align: right">–</span>
-                        <span>Recovered</span><span id="latest-recovered" style="text-align: right">–</span>
-                        <span>Cumulated</span><span id="latest-total" style="text-align: right">–</span>
-                        <span>Population</span><span id="population" style="text-align: right">–</span>
+                    <div class="grid-table-with-header">
+                        <span>Latest data</span>
+                        <span>Updated</span><span id="latest-date">–</span>
+                        <span>Active</span><span id="latest-active">–</span>
+                        <span>Deaths</span><span id="latest-deaths">–</span>
+                        <span>Recovered</span><span id="latest-recovered">–</span>
+                        <span>Cumulated</span><span id="latest-total">–</span>
+                        <span>Population</span><span id="population">–</span>
                     </div>
-                    <div style="display: grid; grid-template-columns: 0.8fr 1.2fr;">
-                        <span style="grid-column-start: 0; grid-column-end: span 2; gap: 5px 5px; font-weight: bold;">Active cases</span>
-                        <span>Date</span><span style="text-align: right">#</span>
-                        <span id="current-date">?</span><span id="current-cases" style="text-align: right">?</span>
-                        <span id="predicted-date">?</span><span id="predicted-cases" style="text-align: right">?</span>
+                    <div class="grid-table-with-header">
+                        <span>Active cases</span>
+                        <span>Date</span><span>#</span>
+                        <span id="current-date">?</span><span id="current-cases">?</span>
+                        <span id="predicted-date">?</span><span id="predicted-cases">?</span>
                     </div>
                     <div>
                         <label for="prediction-days">

@@ -104,7 +104,8 @@ a:visited {
     color: #ddd;
 }
 
-#current-cases, #predicted-cases {
+#current-cases,
+#predicted-cases {
     font-weight: bold;
     color: rgb(230, 88, 36);
 }
@@ -124,4 +125,20 @@ button {
 
 button:active {
     background-color: #eee;
+}
+
+.grid-table-with-header {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 0 5px;
+}
+
+.grid-table-with-header > span:nth-child(odd):not(:first-child) {
+    text-align: right;
+}
+
+.grid-table-with-header > span:first-child {
+    grid-column-start: 0;
+    grid-column-end: span 2;
+    font-weight: bold;
 }

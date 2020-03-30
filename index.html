@@ -53,11 +53,12 @@
 <body>
     <div id="App" class="hidden">
         <div class="ui">
-            <div class="sidebar">
+            <aside class="sidebar">
                 <div class="controls">
                     <div style="font-size: 120%; font-weight: bold;">COVID-19 Spread</div>
                     <div>
-                        <input type="search" list="countries" id="country-selector"></input>
+                        <label for="country-selector">Select country:</label>
+                        <input type="search" list="countries" id="country-selector" name="country-selector"></input>
                         <datalist id="countries"></datalist>
                     </div>
                     <div class="grid-table-with-header refreshable">
@@ -82,21 +83,22 @@
                         <span class="stepper"><button>&minus;</button><input id="prediction-days" type="number" min="0" max="0" value="0" style="width: 3em;" /><button>&plus;</button></span>
                     </div>
                     <div>
-                        Source:
-                        <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a>,
-                        Code:
-                        <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a>
-                    </div>
-                    <div>
                         <button id="refresh-button">Refresh</button>
                     </div>
                 </div>
                 <div class="diff-chart-container">
                     <canvas id="diff-chart"></canvas>
                 </div>
-            </div>
+            </aside>
             <div class="main-chart-container">
                 <canvas id="main-chart"></canvas>
+            </div>
+            <div class="footer">
+                Data source:
+                <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a>
+                &middot;
+                Code:
+                <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a>
             </div>
         </div>
     </div>

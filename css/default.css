@@ -14,9 +14,15 @@ html, body {
 .ui {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
+
+.ui > * {
+    flex-grow: 2;
+    flex-shrink: 1;
+    flex-basis: 100%;
+  }
 
 .sidebar {
     display: flex;
@@ -24,6 +30,21 @@ html, body {
     justify-content: space-between;
     width: 230px;
     max-width: 240px;
+    order: 1;
+}
+
+.main-chart-container {
+    flex: 2 0px;
+    margin: 5px 7px 0 5px;
+    width: calc(100% - 245px);
+    height: 80vh;
+    max-height: 90vh;
+    order: 2;
+}
+
+.footer {
+    order: 3;
+    padding: 5px;
 }
 
 .controls {
@@ -38,13 +59,6 @@ html, body {
     margin: 5px 7px 0 5px;
     height: 20vh;
     max-height: 200px;
-}
-
-.main-chart-container {
-    margin: 5px 7px 0 5px;
-    width: calc(100% - 245px);
-    height: 80vh;
-    max-height: 90vh;
 }
 
 canvas {

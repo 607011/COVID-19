@@ -282,12 +282,18 @@
         window.location.hash = '#' + Object.keys(new_hash_param).map(key => `${key}=${new_hash_param[key]}`).join(';')
     }
 
+    const animateRefreshables = () => {
+        [...document.getElementsByClassName('refreshable')].forEach(el => {
+            el.classList.add('flash')
+            console.debug(el)
+        })
+        setTimeout(() => {
+            [...document.getElementsByClassName('refreshable')].forEach(el => el.classList.remove('flash'))
+        }, 1000)
+    }
+
     const loadCountryData = () => {
         el.loader_screen.classList.remove('hide')
-        document.getElementById('latest').classList.add('flash')
-        setTimeout(() => {
-            document.getElementById('latest').classList.remove('flash')
-        }, 1000)
         fetch(`data/${hash_param.country}.json`)
         .then(response => {
             return response.ok
@@ -301,7 +307,8 @@
                 console.log('no updates')
             }
             el.population.innerText = data.population.toLocaleString(locale)
-            updateCharts(data)
+            updateCharts(data);
+            animateRefreshables()
         })
     }
 

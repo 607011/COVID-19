@@ -71,7 +71,7 @@ canvas {
 
 .stepper input {
     height: 100%;
-    text-align: center;
+    text-align: right;
     border: none;
     overflow: hidden;
     font-family: Calibri, Geneva, Arial, Helvetica, sans-serif;

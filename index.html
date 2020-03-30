@@ -31,10 +31,12 @@
 <style type="text/css">
 #loader-screen {
     position: fixed;
-    left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1px 5px;
+    color: #ddd;
     background-image: url("data:image/svg+xml,%3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='52px' height='60px' viewBox='0 0 52 60' style='enable-background:new 0 0 50 50;' xml:space='preserve'%3E%3Crect x='0' y='26' width='12' height='10' fill='rgb(230, 88, 36)'%3E%3Canimate attributeName='height' attributeType='XML' values='10;42;10' begin='0s' dur='0.6s' repeatCount='indefinite' /%3E%3Canimate attributeName='y' attributeType='XML' values='26;10;26' begin='0s' dur='0.6s' repeatCount='indefinite' /%3E%3C/rect%3E%3Crect x='20' y='26' width='12' height='10' fill='%237CDC58'%3E%3Canimate attributeName='height' attributeType='XML' values='10;42;10' begin='0.15s' dur='0.6s' repeatCount='indefinite' /%3E%3Canimate attributeName='y' attributeType='XML' values='26;10;26' begin='0.15s' dur='0.6s' repeatCount='indefinite' /%3E%3C/rect%3E%3Crect x='40' y='26' width='12' height='10' fill='%23D16EDC'%3E%3Canimate attributeName='height' attributeType='XML' values='10;42;10' begin='0.3s' dur='0.6s' repeatCount='indefinite' /%3E%3Canimate attributeName='y' attributeType='XML' values='26;10;26' begin='0.3s' dur='0.6s' repeatCount='indefinite' /%3E%3C/rect%3E%3C/svg%3E");
     background-color: rgba(33, 33, 33, 0.8);
     background-repeat: no-repeat;
@@ -42,6 +44,7 @@
     transition: all ease-in-out 150ms;
 }
 #loader-screen.hide {
+    color: transparent;
     background-color: rgba(33, 33, 33, 0);
     visibility: hidden;
 }
@@ -75,11 +78,12 @@
                         <label for="prediction-days">
                             predict next <i>n</i> days
                         </label>
-                        <span class="stepper"><button>&minus;</button><input id="prediction-days" type="number" min="0" max="0" value="0" style="width: 3em; text-align: right" /><button>&plus;</button></span>
+                        <span class="stepper"><button>&minus;</button><input id="prediction-days" type="number" min="0" max="0" value="0" style="width: 3em;" /><button>&plus;</button></span>
                     </div>
                     <div>
                         Source:
                         <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a>,
+                        Code:
                         <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a>
                     </div>
                     <div>
@@ -95,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div id="loader-screen"></div>
+    <div id="loader-screen">Loading …</div>
     <div id="error-message"></div>
 </body>
 

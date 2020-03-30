@@ -28,7 +28,10 @@
     let main_chart = null
     let diff_chart = null
     let countries = []
-    let hash_param = Object.assign({}, Default)
+    let hash_param = {
+        country: null,
+        predict: null,
+    }
     let confirmed = {}
     let last_update = new Date(1970)
 
@@ -69,9 +72,15 @@
             : []
         dates = dates.map(d => d.toLocaleDateString(locale))
         el.current_date.innerText = dates[confirmed.dates.length - 1]
-        el.latest_date.innerText = dates[confirmed.dates.length - 1 + hash_param.predict]
-        el.current_cases.innerText = confirmed.active ? confirmed.active[confirmed.active.length - 1].toLocaleString(locale) : 0
-        el.latest_cases.innerText = (hash_param.predict > 0 && confirmed.predicted) ? confirmed.predicted.active[hash_param.predict - 1].toLocaleString(locale) : el.current_cases.innerText
+        el.latest_date.innerText = (hash_param.predict > 0 && confirmed.predicted)
+            ? dates[confirmed.dates.length - 1 + hash_param.predict]
+            : '–'
+        el.current_cases.innerText = confirmed.active
+            ? confirmed.active[confirmed.active.length - 1].toLocaleString(locale)
+            : '–'
+        el.latest_cases.innerText = (hash_param.predict > 0 && confirmed.predicted)
+            ? confirmed.predicted.active[hash_param.predict - 1].toLocaleString(locale)
+            : '–'
         if (diff_chart) {
             diff_chart.data.labels = dates.slice(0, confirmed.total.length)
             diff_chart.data.datasets[0].data = confirmed.delta
@@ -245,32 +254,35 @@
 
     const evaluateHash = () => {
         console.debug('evaluateHash()')
-        const data = {}
+        let data = {}
         for (const param of window.location.hash.substring(1).split(';')) {
             const [key, value] = param.split('=')
-            data[key] = decodeURIComponent(value)
-        }
-        console.debug('evaluateHash() data = ', data)
-        if (data.predict) {
-            const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.getAttribute('max'))
-            if (days !== data.predict) {
-                hash_param.predict = days
-                el.prediction_days.value = hash_param.predict
-                if (confirmed.active) {
-                    updateCharts()
-                }
+            if (key && value) {
+                data[key] = decodeURIComponent(value)
             }
         }
-        if (data.country) {
-            if (data.country !== hash_param.country && countries.indexOf(data.country) >= 0) {
+        data = Object.assign({}, Default, data)
+        console.debug('evaluateHash() data = ', data)
+        console.debug('evaluateHash() hash_param = ', hash_param)
+        const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.getAttribute('max'))
+        if (countries.indexOf(data.country) >= 0) {
+            if (data.country !== hash_param.country) {
                 hash_param.country = data.country
                 loadCountryData()
             }
         }
+        if (days !== data.predict && days != hash_param.predict) {
+            hash_param.predict = days
+            el.prediction_days.value = days
+            if (confirmed.active) {
+                updateCharts()
+            }
+        }
+        updateHash(data)
     }
 
     const hashChanged = evt => {
-        // console.debug('hashChanged()', evt)
+        console.debug('hashChanged()', evt)
         if (evt && evt.oldURL !== evt.newURL) {
             evaluateHash()
         }
@@ -282,16 +294,14 @@
     }
 
     const animateRefreshables = () => {
-        [...document.getElementsByClassName('refreshable')].forEach(el => {
-            el.classList.add('flash')
-            console.debug(el)
-        })
+        [...document.getElementsByClassName('refreshable')].forEach(el => el.classList.add('flash'))
         setTimeout(() => {
             [...document.getElementsByClassName('refreshable')].forEach(el => el.classList.remove('flash'))
         }, 1000)
     }
 
     const loadCountryData = () => {
+        console.debug('loadCountryData()')
         el.loader_screen.classList.remove('hide')
         hideError()
         fetch(`data/${hash_param.country}.json`)
@@ -315,8 +325,9 @@
             })
     }
 
-    const fetchCountries = async () => {
+    const fetchCountryList = async () => {
         hideError()
+        console.debug('fetchCountryList()')
         const response = await fetch('data/countries.json')
         const new_countries = await (response.ok
             ? response.json()
@@ -334,7 +345,6 @@
             el.country_selector.appendChild(option)
         })
         el.country_selector.selectedIndex = selectedIndex
-        postInit()
     }
 
     const countryChanged = evt => {
@@ -359,7 +369,6 @@
             input.previousElementSibling.addEventListener('click', _ => { input.stepDown(); input.dispatchEvent(new Event('change')) })
             input.nextElementSibling.addEventListener('click', _ => { input.stepUp(); input.dispatchEvent(new Event('change')) })
         })
-        evaluateHash()
     }
 
     const showError = msg => {
@@ -382,10 +391,13 @@
         el.prediction_days = document.getElementById('prediction-days')
         el.population = document.getElementById('population')
         el.error_message = document.getElementById('error-message')
-        fetchCountries()
+        fetchCountryList()
             .then(
-                loadCountryData,
                 () => {
+                    evaluateHash()
+                    postInit()
+                },
+                status => {
                     showError(`Loading country list failed: ${status}. Reload page to retry …`)
                 })
     }

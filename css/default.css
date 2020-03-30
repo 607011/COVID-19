@@ -170,11 +170,11 @@ button:active {
 }
 
 @keyframes fadeInOut {
-    0% {
+    from {
         background-color: inherit;
         box-shadow: inherit;
     }
-    100% {
+    to {
         background-color: rgba(136, 255, 25, 0.8);
         box-shadow: 0px 0px 8px 0px rgba(136, 255, 25, 0.8);
     }

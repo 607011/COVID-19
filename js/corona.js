@@ -62,9 +62,9 @@
         el.loader_screen.classList.add('hide')
         const curr_date = confirmed.dates[confirmed.dates.length - 1]
         let dates = [...confirmed.dates]
+        const date = new Date(curr_date)
         for (let day = 0; day < hash_param.predict; ++day) {
-            const date = new Date(curr_date)
-            date.setDate(curr_date.getDate() + day + 1)
+            date.setDate(date.getDate() + day + 1)
             dates.push(date)
         }
         const predicted = confirmed.predicted

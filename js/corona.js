@@ -293,6 +293,7 @@
 
     const loadCountryData = () => {
         el.loader_screen.classList.remove('hide')
+        hideError()
         fetch(`data/${hash_param.country}.json`)
             .then(response => {
                 return response.ok
@@ -310,12 +311,12 @@
                 animateRefreshables()
             },
             status => {
-                // TODO: inform user about error
-                console.error(status)
+                showError(`Fetching data for »${hash_param.country}« failed: ${status}. Reload page to retry …`)
             })
     }
 
     const fetchCountries = async () => {
+        hideError()
         const response = await fetch('data/countries.json')
         const new_countries = await (response.ok
             ? response.json()
@@ -361,6 +362,16 @@
         evaluateHash()
     }
 
+    const showError = msg => {
+        el.error_message.innerText = msg
+        el.error_message.classList.add('show')
+    }
+
+    const hideError = msg => {
+        el.error_message.innerText = ''
+        el.error_message.classList.remove('show')
+    }
+
     const main = () => {
         el.country_selector = document.getElementById('country-selector')
         el.loader_screen = document.getElementById('loader-screen')
@@ -370,12 +381,12 @@
         el.latest_cases = document.getElementById('predicted-cases')
         el.prediction_days = document.getElementById('prediction-days')
         el.population = document.getElementById('population')
+        el.error_message = document.getElementById('error-message')
         fetchCountries()
             .then(
                 loadCountryData,
                 () => {
-                    // TODO: inform user about error
-                    console.error('fetchCountries() failed.')
+                    showError(`Loading country list failed: ${status}. Reload page to retry …`)
                 })
     }
     window.addEventListener('load', main)

@@ -297,6 +297,7 @@
                 console.debug('no updates')
                 // TODO: show "toast" or the like that there were no updates
             }
+            el.population.innerText = data.population.toLocaleString(locale)
             updateCharts(data)
         })
     }
@@ -325,16 +326,20 @@
         })
     }
 
+    const countryChanged = evt => {
+        confirmed = {}
+        last_update = new Date(1970)
+        updateHash({ country: evt.target.options[evt.target.selectedIndex].label })
+    }
+
+    const predictionDaysChanged = evt => {
+        const days = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
+        updateHash({ predict: days })
+    }
+
     const postInit = () => {
-        el.country_selector.addEventListener('change', evt => {
-            confirmed = {}
-            last_update = new Date(1970)
-            updateHash({ country: evt.target.options[evt.target.selectedIndex].label })
-        })
-        el.prediction_days.addEventListener('change', evt => {
-            const days = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
-            updateHash({ predict: days })
-        });
+        el.country_selector.addEventListener('change', countryChanged)
+        el.prediction_days.addEventListener('change', predictionDaysChanged);
         window.addEventListener('hashchange', hashChanged)
         document.getElementById('refresh-button').addEventListener('click', loadCountryData);
         [...document.getElementsByClassName('stepper')].forEach(stepper => {
@@ -354,7 +359,7 @@
         el.latest_date = document.getElementById('predicted-date')
         el.latest_cases = document.getElementById('predicted-cases')
         el.prediction_days = document.getElementById('prediction-days')
-        // console.debug(`window.location.hash = ${window.location.hash}`)
+        el.population = document.getElementById('population')
         loadCountryData()
     }
     window.addEventListener('load', main)

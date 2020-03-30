@@ -15,7 +15,16 @@ verbosity = 1
 json_file_template = 'data/{country:s}.json'
 path_latest = os.path.join('COVID-19-web-data', 'data')
 path_timeseries = os.path.join('COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
+population_filename = os.path.join('data', 'population.csv')
 prediction_days = 180
+
+def load_world_population_data(result):
+  with open(population_filename, 'r') as f:
+    reader = csv.reader(f, delimiter='\t', quotechar='"')
+    for row in reader:
+      result['countries'][row[0]] = {
+        'population': int(row[1]),
+      }
 
 
 def parse_latest(filename, result):
@@ -58,7 +67,8 @@ def parse_timeseries(filename, key, result):
       else:
         result['countries'][country][key] = np.add(result['countries'][country][key], [int(v) for v in row[4:]])
   for country in result['countries']:
-    result['countries'][country][key] = result['countries'][country][key].tolist()
+    if key in result['countries'][country]:
+      result['countries'][country][key] = result['countries'][country][key].tolist()
 
 
 def corona_curve(x, b0, x0, k, s):
@@ -74,7 +84,9 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
   if verbosity > 0:
     print('Current working directory: {:s}'.format(os.getcwd()))
 
+
   result = { 'countries': {} }
+  load_world_population_data(result)
   parse_latest(os.path.join(path_latest, 'cases_country.csv'), result)
   parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_confirmed_global.csv'), 'total', result)
   parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_recovered_global.csv'), 'recovered', result)
@@ -87,8 +99,10 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
 
   dates = None
   for country, d in sorted(result['countries'].items()):
+    if not 'total' in d:
+      continue
     if verbosity > 0:
-      print('- {:s}'.format(country))
+      print('- {:s} (population: {:d})'.format(country, result['countries'][country]['population']))
     if verbosity > 1:
       print('  Calculating active cases ...')
     d['active'] = []
@@ -126,7 +140,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
                 cases_since_quarantine[0],
                 day1_quarantine.toordinal(),
                 8e-9,
-                5.6e7
+                int(result['countries'][country]['population'] / 2)
             ],
             bounds=(
                 [
@@ -139,7 +153,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
                     cases_since_quarantine[-1],
                     (dt.datetime.now() + dt.timedelta(days=prediction_days)).toordinal(),
                     1e-8,
-                    83.5e6
+                    result['countries'][country]['population']
                 ]
             )
         )

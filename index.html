@@ -57,7 +57,7 @@
                 <div class="controls">
                     <div style="font-size: 120%; font-weight: bold;">COVID-19 Spread</div>
                     <div>
-                        <label for="country-selector">Select country:</label>
+                        <label for="country-selector">Select country</label>
                         <input type="search" list="countries" id="country-selector" name="country-selector"></input>
                         <datalist id="countries"></datalist>
                         <div id="flag"></div>
@@ -78,13 +78,13 @@
                         <span id="predicted-date">?</span><span id="predicted-cases">?</span>
                     </div>
                     <div>
+                        <button id="refresh-button">Refresh</button>
+                    </div>
+                    <div>
                         <label for="prediction-days">
                             predict next <i>n</i> days
                         </label>
                         <span class="stepper"><button>&minus;</button><input id="prediction-days" type="number" min="0" max="0" value="0" style="width: 3em;" /><button>&plus;</button></span>
-                    </div>
-                    <div>
-                        <button id="refresh-button">Refresh</button>
                     </div>
                 </div>
                 <div class="diff-chart-container">
@@ -100,6 +100,8 @@
                 &middot;
                 Code:
                 <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a>
+                &middot;
+                Copyright &copy; 2020 <a href="mailto:oliver.lau@gmail.com">Oliver Lau</a>
             </div>
         </div>
     </div>

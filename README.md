@@ -1,6 +1,6 @@
 # Covid-19
 
-_ Visualization of spread and predicted total SARS-CoV-2/Covid-19 cases _
+_Visualization of spread and predicted total SARS-CoV-2/Covid-19 cases_
 
 
 

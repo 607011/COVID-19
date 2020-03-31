@@ -24,8 +24,9 @@ html, body {
 
 .ui > * {
     flex-grow: 2;
-    flex-shrink: 1;
+    flex-shrink: 2;
     flex-basis: 100%;
+    flex-wrap: nowrap;
 }
 
 .sidebar {
@@ -38,9 +39,10 @@ html, body {
 }
 
 .main-chart-container {
-    flex: 2 0px;
+    flex-grow: 2;
+    flex-shrink: 3;
+    flex-basis: 0px;
     margin: 5px 7px 0 5px;
-    width: calc(100% - 245px);
     height: 80vh;
     max-height: 90vh;
     order: 2;
@@ -49,6 +51,25 @@ html, body {
 .footer {
     order: 3;
     padding: 5px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.footer > span {
+    text-align: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100%;
+    justify-content: space-between;
+}
+
+.footer > span:first-child {
+    text-align: left;
+}
+
+.footer > span:last-child {
+    text-align: right;
 }
 
 .controls {

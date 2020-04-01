@@ -89,6 +89,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
 
   result = { 'countries': {} }
   load_world_data(result)
+  # TODO: read CSV with pd.read_csv()
   parse_latest(os.path.join(path_latest, 'cases_country.csv'), result)
   parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_confirmed_global.csv'), 'total', result)
   parse_timeseries(os.path.join(path_timeseries, 'time_series_covid19_recovered_global.csv'), 'recovered', result)

@@ -34,21 +34,15 @@ Before deploying this app to a web server, some JSON files have to be generated 
 pipenv install
 ```
 
-To launch the script, enter the [pipenv](https://pipenv-fork.readthedocs.io/en/latest/) shell:
+After that you may run the script with
 
 ```
-pipenv shell
+pipenv run bin/update-data.py
 ```
 
-In that shell type
+This will generate the aforementioned JSON files containing the latest spread date for each country.
 
-```
-bin/update-data.py
-```
-
-to run the script. This will generate the aforementioned JSON files containing the latest spread date for each country.
-
-Now the data is prepared you can deploy the app to a webserver. 
+Now the data is prepared you can prepare the code to being deployed to a webserver.
 
 This app uses [webpack](https://webpack.js.org/) to bundle the files from src/ into the deployment directory dist/.
 
@@ -70,7 +64,16 @@ or, alternatively
 npm run build
 ```
 
-Now you can copy the files in dist/ to the web server of your choice. bin/deploy.sh contains a template for a script that copies the files via SSH to a remote directory. Feel free to modify it according to your enviroment.
+Now you can copy the files in dist/ to the web server of your choice. bin/deploy.sh contains a template for a script that copies the files via SSH to a remote directory:
+
+```
+DIST=dist
+SERVER=<the host name or IP address of your web server>
+REMOTE_DIR=<the directory to deploy to>
+tar -C ${DIST} -czf - . | ssh ${SERVER} "(tar -C ${REMOTE_DIR} -xzf - )"
+```
+
+Feel free to modify it according to your enviroment.
 
 
 ## License

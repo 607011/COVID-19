@@ -1,6 +1,6 @@
 # Covid-19
 
-_Visualization of spread and predicted total Covid-19 cases_
+_Visualization of Covid-19 spread and predicted total cases_
 
 ![Covid-19 web app](webapp-preview.png)
 
@@ -9,6 +9,7 @@ _Visualization of spread and predicted total Covid-19 cases_
  - Node.js ≥ 10
  - Git ≥ 1.8
  - Python ≥ 3.6
+ - a web server which can serve static files (no PHP or other server-side logic required)
 
 ## Installation
 

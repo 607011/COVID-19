@@ -6,7 +6,9 @@ _Visualization of spread and predicted total Covid-19 cases_
 
 ## Prerequisites
 
-
+ - Node.js ≥ 10
+ - Git ≥ 1.8
+ - Python ≥ 3.6
 
 ## Installation
 
@@ -15,7 +17,7 @@ The [code](https://github.com/ola-ct/COVID-19) for this web app is hosted on Git
 ```
 git clone https://github.com/ola-ct/COVID-19.git
 git submodule init
-git submodule update --remote
+cd COVID-19
 ```
 
 ## Deployment
@@ -46,7 +48,7 @@ Now the data is prepared you can prepare the code to being deployed to a webserv
 
 This app uses [webpack](https://webpack.js.org/) to bundle the files from src/ into the deployment directory dist/.
 
-If you haven't done it already, install the necessary Node modules: 
+If you haven't done it already, install the necessary Node modules (at least version 10 of [Node.js](https://nodejs.org/) is needed): 
 
 ```
 npm install --save-dev
@@ -55,13 +57,13 @@ npm install --save-dev
 After that you can bundle the files by running
 
 ```
-npx webpack
+npm run build
 ```
 
 or, alternatively
 
 ```
-npm run build
+npx webpack
 ```
 
 Now you can copy the files in dist/ to the web server of your choice. bin/deploy.sh contains a template for a script that copies the files via SSH to a remote directory:

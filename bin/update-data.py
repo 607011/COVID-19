@@ -60,8 +60,8 @@ def parse_latest(filename, result):
       result['countries'][country]['latest'] = {
           'last_update': row[1],
           'where': {
-              'lat': round(float(row[2]), 5),
-              'lon': round(float(row[3]), 5),
+              'lat': round(float(row[2]), 5) if row[2] != '' else row[2],
+              'lon': round(float(row[3]), 5) if row[3] != '' else row[3],
           },
           'total': int(row[4]),
           'deaths': int(row[5]),

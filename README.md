@@ -2,6 +2,7 @@
 
 _Visualization of spread and predicted total Covid-19 cases_
 
+![Covid-19 web app](webapp-preview.png)
 
 ## Prerequisites
 
@@ -9,7 +10,7 @@ _Visualization of spread and predicted total Covid-19 cases_
 
 ## Installation
 
-The ![code](https://github.com/ola-ct/COVID-19) for this web app is hosted on GitHub. To clone the repository and its submodules enter the following on a command-line:
+The [code](https://github.com/ola-ct/COVID-19) for this web app is hosted on GitHub. To clone the repository and its submodules enter the following on a command-line:
 
 ```
 git clone https://github.com/ola-ct/COVID-19.git
@@ -19,7 +20,7 @@ git submodule update --remote
 
 ## Deployment
 
-The latest Covid-19 spread data is fetched from Johns Hopkins' Center for Systems Science and Engineering (![CSSE](https://coronavirus.jhu.edu/map.html)) ![repository](https://github.com/CSSEGISandData/COVID-19). Type 
+The latest Covid-19 spread data is fetched from Johns Hopkins' Center for Systems Science and Engineering ([CSSE](https://coronavirus.jhu.edu/map.html)) [repository](https://github.com/CSSEGISandData/COVID-19). Type 
 
 ```
 gitmodule update --remote
@@ -33,7 +34,7 @@ Before deploying this app to a web server, some JSON files have to be generated 
 pipenv install
 ```
 
-To launch the script, enter the ![pipenv](https://pipenv-fork.readthedocs.io/en/latest/) shell:
+To launch the script, enter the [pipenv](https://pipenv-fork.readthedocs.io/en/latest/) shell:
 
 ```
 pipenv shell
@@ -49,7 +50,7 @@ to run the script. This will generate the aforementioned JSON files containing t
 
 Now the data is prepared you can deploy the app to a webserver. 
 
-This app uses ![webpack](https://webpack.js.org/) to bundle the files from src/ into the deployment directory dist/.
+This app uses [webpack](https://webpack.js.org/) to bundle the files from src/ into the deployment directory dist/.
 
 If you haven't done it already, install the necessary Node modules: 
 

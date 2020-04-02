@@ -42,7 +42,7 @@ After that you may run the script with
 pipenv run bin/update-data.py
 ```
 
-This will generate the aforementioned JSON files containing the latest spread date for each country.
+This will generate the aforementioned JSON files containing the latest spread data for each country.
 
 Now the data is prepared you can prepare the code to being deployed to a webserver.
 

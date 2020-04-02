@@ -16,8 +16,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// import 'moment'
-import './css/default.css';
+import './css/default.css'
+import NumberStepper from './stepper.js'
 
 (function (window) {
     'use strict'
@@ -259,7 +259,6 @@ import './css/default.css';
     }
 
     const evaluateHash = () => {
-        console.debug('evaluateHash()')
         let data = {}
         for (const param of window.location.hash.substring(1).split(';')) {
             const [key, value] = param.split('=')
@@ -268,9 +267,7 @@ import './css/default.css';
             }
         }
         data = Object.assign({}, Default, data)
-        console.debug('evaluateHash() data = ', data)
-        console.debug('evaluateHash() hash_param = ', hash_param)
-        const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.getAttribute('max'))
+        const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.max)
         if (countries.indexOf(data.country) >= 0) {
             el.country_selector.value = data.country
             if (data.country !== hash_param.country) {
@@ -289,7 +286,6 @@ import './css/default.css';
     }
 
     const hashChanged = evt => {
-        console.debug('hashChanged()', evt)
         if (evt && evt.oldURL !== evt.newURL) {
             evaluateHash()
         }
@@ -308,7 +304,6 @@ import './css/default.css';
     }
 
     const loadCountryData = () => {
-        console.debug('loadCountryData()')
         el.loader_screen.classList.remove('hide')
         hideError()
         fetch(`data/${hash_param.country}.json`)
@@ -319,7 +314,7 @@ import './css/default.css';
             })
             .then(data => {
                 [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
-                el.prediction_days.setAttribute('max', data.predicted ? data.predicted.active.length : 0)
+                el.prediction_days.max = data.predicted ? data.predicted.active.length : 0
                 el.flag.innerText = data.flag
                 // if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
                 //     console.log('no updates')
@@ -335,7 +330,6 @@ import './css/default.css';
 
     const fetchCountryList = async () => {
         hideError()
-        console.debug('fetchCountryList()')
         const response = await fetch('data/countries.json')
         const new_countries = await (response.ok
             ? response.json()
@@ -356,21 +350,15 @@ import './css/default.css';
     }
 
     const predictionDaysChanged = evt => {
-        const days = Math.min(+evt.target.value, +el.prediction_days.getAttribute('max'))
+        const days = Math.min(+evt.target.value, +el.prediction_days.max)
         updateHash({ predict: days })
     }
 
     const postInit = () => {
         el.country_selector.addEventListener('change', countryChanged)
-        el.prediction_days.addEventListener('change', predictionDaysChanged);
+        el.prediction_days.addEventListener('change', predictionDaysChanged)
         window.addEventListener('hashchange', hashChanged)
         document.getElementById('refresh-button').addEventListener('click', loadCountryData);
-        // TODO: convert <input type="number"> to Custom Element
-        [...document.getElementsByClassName('stepper')].forEach(stepper => {
-            const input = stepper.querySelector('input')
-            input.previousElementSibling.addEventListener('click', _ => { input.stepDown(); input.dispatchEvent(new Event('change')) })
-            input.nextElementSibling.addEventListener('click', _ => { input.stepUp(); input.dispatchEvent(new Event('change')) })
-        })
     }
 
     const showError = msg => {
@@ -384,6 +372,7 @@ import './css/default.css';
     }
 
     const main = () => {
+        customElements.define('number-stepper', NumberStepper)
         el.country_selector = document.getElementById('country-selector')
         el.flag = document.getElementById('flag')
         el.loader_screen = document.getElementById('loader-screen')

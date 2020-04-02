@@ -12,7 +12,7 @@ module.exports = {
   entry: {
     app: './index.js',
   },
-  watch: false,
+  watch: true,
   watchOptions: {
     ignored: [/node_modules/]
   },

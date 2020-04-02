@@ -115,7 +115,6 @@ input[type=search] {
     -webkit-appearance: none;
     height: auto;
 }
-
 .stepper input {
     height: 100%;
     text-align: right;
@@ -126,7 +125,6 @@ input[type=search] {
     padding-right: 0.5em;
     background-color: transparent;
 }
-
 .stepper button {
     text-align: center;
     width: 44px;
@@ -137,7 +135,6 @@ input[type=search] {
     background-color: #999;
     padding: 0;
 }
-
 .stepper button:active {
     background-color: #eee;
 }

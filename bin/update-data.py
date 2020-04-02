@@ -33,7 +33,7 @@ verbosity = 1
 json_file_template = 'src/data/{country:s}.json'
 path_latest = os.path.join('COVID-19-web-data', 'data')
 path_timeseries = os.path.join('COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
-population_filename = os.path.join('data', 'world-data.csv')
+population_filename = os.path.join('src', 'data', 'world-data.csv')
 prediction_days = 180
 
 def load_world_data(result):
@@ -114,7 +114,7 @@ Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
 
   # TODO: accumulate country data to produce world data
 
-  with open('data/countries.json', 'w+') as out:
+  with open('src/data/countries.json', 'w+') as out:
      out.write(json.dumps(list(result['countries'].keys())))
 
   dates = None

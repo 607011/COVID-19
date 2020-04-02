@@ -48,7 +48,7 @@ Now the data is prepared you can prepare the code to being deployed to a webserv
 
 This app uses [webpack](https://webpack.js.org/) to bundle the files from src/ into the deployment directory dist/.
 
-If you haven't done it already, install the necessary Node modules (at least version 10 of [Node.js](https://nodejs.org/) is needed): 
+If you haven't done it already, install the necessary Node modules: 
 
 ```
 npm install --save-dev

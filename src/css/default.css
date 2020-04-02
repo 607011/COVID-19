@@ -49,11 +49,11 @@ html, body {
 }
 
 .footer {
-    order: 3;
     padding: 5px;
     display: flex;
     flex-direction: row;
     width: 100%;
+    order: 3;
 }
 
 .footer > span {

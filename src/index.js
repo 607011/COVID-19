@@ -16,9 +16,11 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+// import 'moment'
+import './css/default.css';
+
 (function (window) {
     'use strict'
-
     const Default = {
         country: 'Germany',
         predict: 7,
@@ -47,7 +49,7 @@
         return date
     }
 
-    const updateCharts = data => {
+    const updateUI = data => {
         if (data) {
             confirmed = Object.assign({}, data)
             confirmed.dates = data.dates.map(date => fromISODate(date))
@@ -60,11 +62,15 @@
         document.getElementById('latest-recovered').innerText = confirmed.latest.recovered.toLocaleString(locale)
         document.getElementById('App').classList.remove('hidden')
         el.loader_screen.classList.add('hide')
-        const curr_date = confirmed.dates[confirmed.dates.length - 1]
+        updateCharts(data)
+    }
+
+    const updateCharts = data => {
         let dates = [...confirmed.dates]
-        const date = new Date(curr_date)
-        for (let day = 0; day < hash_param.predict; ++day) {
-            date.setDate(date.getDate() + day + 1)
+        const curr_date = confirmed.dates[confirmed.dates.length - 1]
+        for (let day = 1; day <= hash_param.predict; ++day) {
+            const date = new Date(curr_date)
+            date.setDate(curr_date.getDate() + day)
             dates.push(date)
         }
         const predicted = confirmed.predicted
@@ -276,7 +282,7 @@
             hash_param.predict = days
             el.prediction_days.value = days
             if (confirmed.active) {
-                updateCharts()
+                updateUI()
             }
         }
         updateHash(data)
@@ -319,7 +325,7 @@
                 //     console.log('no updates')
                 // }
                 el.population.innerText = data.population.toLocaleString(locale)
-                updateCharts(data);
+                updateUI(data);
                 animateRefreshables()
             },
             status => {

@@ -1,5 +1,4 @@
-*.html
-*.json
-*.png
-*.js
 *.css
+*.js
+data/
+

@@ -22,8 +22,8 @@
 <head>
     <meta charset="UTF-8">
     <title>COVID-19 – Current spread data and prediction of total cases</title>
-    <link async rel="stylesheet" href="app.css"/>
-    <link rel="icon" type="image/png" href="img/favicon.png"/>
+    <link async rel="stylesheet" href="app.css" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
     <script defer src="main.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
@@ -43,6 +43,7 @@
     background-position: 50% 50%;
     transition: all ease-in-out 150ms;
 }
+
 #loader-screen.hide {
     color: transparent;
     background-color: rgba(33, 33, 33, 0);
@@ -52,7 +53,7 @@
 
 <body>
     <div id="App" class="hidden">
-        <div class="ui">
+        <div id="ui">
             <aside class="sidebar">
                 <div class="controls">
                     <div style="font-size: 120%; font-weight: bold;">COVID-19 Spread</div>
@@ -84,7 +85,8 @@
                         <label for="prediction-days">
                             predict next <i>n</i> days
                         </label>
-                        <number-stepper id="prediction-days" innerwidth="3em" name="prediction-days" height="44px"></number-stepper>
+                        <number-stepper id="prediction-days" innerwidth="3em" name="prediction-days" height="44px">
+                        </number-stepper>
                     </div>
                 </div>
                 <div class="diff-chart-container">
@@ -94,13 +96,13 @@
             <div class="main-chart-container">
                 <canvas id="main-chart"></canvas>
             </div>
-            <div class="footer">
-                <span>Data source: <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a></span>
-                <span>Code: <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a></span>
-                <span>Copyright &copy; 2020 <a href="mailto:oliver.lau@gmail.com">Oliver Lau</a></span>
-            </div>
         </div>
-    </div>
+        <footer>
+            <span>Data source: <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a></span>
+            <span>Code: <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a></span>
+            <span>Copyright &copy; 2020 <a href="mailto:oliver.lau@gmail.com">Oliver Lau</a></span>
+        </footer>
+</div>
     <div id="loader-screen">Loading …</div>
     <div id="error-message"></div>
 </body>

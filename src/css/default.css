@@ -102,43 +102,6 @@ input[type=search] {
     padding: 5px 5px;
 }
 
-.stepper {
-    display: inline-block;
-    overflow: unset;
-    border: none;
-    background-color: #eee;
-    height: 44px;
-}
-
-.stepper input[type="number"]::-webkit-inner-spin-button,
-.stepper input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    height: auto;
-}
-.stepper input {
-    height: 100%;
-    text-align: right;
-    border: none;
-    overflow: hidden;
-    font-family: Calibri, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 150%;
-    padding-right: 0.5em;
-    background-color: transparent;
-}
-.stepper button {
-    text-align: center;
-    width: 44px;
-    height: 44px;
-    border: none;
-    font-size: 150%;
-    font-weight: bold;
-    background-color: #999;
-    padding: 0;
-}
-.stepper button:active {
-    background-color: #eee;
-}
-
 a {
     color: #eee;
     text-decoration: underline;

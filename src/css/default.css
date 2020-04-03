@@ -40,6 +40,7 @@ html, body {
     height: 80vh;
     max-height: 90vh;
     min-width: 500px;
+    align-self: flex-end;
 }
 
 footer {

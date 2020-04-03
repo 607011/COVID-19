@@ -7,12 +7,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+console.debug(process.argv.indexOf("--no-watch"))
 module.exports = {
   context: __dirname + '/src',
   entry: {
     app: './index.js',
   },
-  watch: true,
+  watch: process.argv.indexOf("--no-watch") < 0,
   watchOptions: {
     ignored: [/node_modules/]
   },

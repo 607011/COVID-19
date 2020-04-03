@@ -125,7 +125,8 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
   with open(os.path.join(data_path, 'countries.json'), 'w+') as out:
     out.write(json.dumps(confirmed_global.index.tolist()))
 
-  dates = None
+  dates = [datetime.strptime(d, '%m/%d/%y') for d in confirmed_global.columns[2:].tolist()]
+
   for country in sorted(confirmed_global.index.tolist()):
     if verbosity > 0:
       print(' - {:s}'.format(country))
@@ -133,9 +134,6 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
     deaths = deaths_global.loc[country][start_date:]
     recovered = recovered_global.loc[country][start_date:]
     active = confirmed - deaths - recovered
-    if not dates:
-      dates = [datetime.strptime(d, '%m/%d/%y') for d in confirmed.index.tolist()]
-
     doubling_rates = [None]
     deltas = [None]
     for i in range(1, active.values.size):

@@ -98,7 +98,7 @@ def corona_curve(x, b0, x0, k, s):
 def main():
   print('''
 COVID-19 data processor.
-Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
+Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
 ''')
 
   if verbosity > 0:

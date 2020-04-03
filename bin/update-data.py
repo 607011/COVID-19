@@ -34,24 +34,20 @@ def load_world_data(result):
 def parse_latest(filename, result):
   if verbosity > 0:
     print('Parsing "{:s}" ...'.format(filename))
-  with open(filename, 'r') as latest:
-    reader = csv.reader(latest, delimiter=',', quotechar='"')
-    reader.__next__()  # skip header
-    for row in reader:
-      country = row[0]
-      if not country in result['countries']:
-        result['countries'][country] = {}
-      result['countries'][country]['latest'] = {
-          'last_update': row[1],
-          'where': {
-              'lat': round(float(row[2]), 5) if row[2] != '' else row[2],
-              'lon': round(float(row[3]), 5) if row[3] != '' else row[3],
-          },
-          'total': int(row[4]),
-          'deaths': int(row[5]),
-          'recovered': int(row[6]),
-          'active': int(row[7]),
-      }
+  latest = pd.read_csv(os.path.join(path_latest, 'cases_country.csv'))
+  for _, d in latest.iterrows():
+    row = d.array
+    result['countries'][row[0]]['latest'] = {
+        'last_update': row[1],
+        'where': {
+            'lat': round(float(row[2]), 5) if row[2] != '' else row[2],
+            'lon': round(float(row[3]), 5) if row[3] != '' else row[3],
+        },
+        'total': int(row[4]),
+        'deaths': int(row[5]),
+        'recovered': int(row[6]),
+        'active': int(row[7]),
+    }
 
 
 def predict(confirmed, dates, country, result):
@@ -96,15 +92,13 @@ def predict(confirmed, dates, country, result):
     except ValueError as e:
       print('    **** Prediction failed! ValueError: {}'.format(e), file=sys.stderr)
     else:
-      predicted = list(
-        map(
-            lambda day: int(corona_curve((latest_day + timedelta(days=day)).toordinal(), *params)),
-            range(1, prediction_days+1)
-        )
+      predicted = map(
+          lambda day: int(corona_curve((latest_day + timedelta(days=day+1)).toordinal(), *params)),
+          range(prediction_days)
       )
       result['countries'][country]['predicted'] = {
           'from_date': (dates[-1] + timedelta(days=1)).strftime('%Y-%m-%d'),
-          'active': predicted,
+          'active': list(predicted),
       }
 
 

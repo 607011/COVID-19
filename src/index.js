@@ -109,7 +109,7 @@ import NumberStepper from './stepper.js'
                 options: {
                     title: {
                         display: true,
-                        text: '∆ active cases',
+                        text: '∆ infected',
                     },
                     responsive: true,
                     maintainAspectRatio: false,
@@ -166,7 +166,7 @@ import NumberStepper from './stepper.js'
                             data: confirmed.active,
                             type: 'bar',
                             yAxisID: 'A',
-                            label: 'active',
+                            label: 'infected',
                             backgroundColor: 'rgb(230, 88, 36)',
                             borderWidth: 0,
                             fill: 'transparent',
@@ -186,7 +186,7 @@ import NumberStepper from './stepper.js'
                             data: confirmed.deaths,
                             type: 'bar',
                             yAxisID: 'A',
-                            label: 'deaths',
+                            label: 'dead',
                             backgroundColor: '#D16EDC',
                             borderWidth: 0,
                             fill: 'transparent',

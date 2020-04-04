@@ -1,3 +1,7 @@
+/*
+    Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
+ */
+
 export default class NumberStepper extends HTMLElement {
   constructor() {
       super()

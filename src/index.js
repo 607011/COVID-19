@@ -370,6 +370,7 @@ import NumberStepper from './stepper.js'
     }
 
     const main = () => {
+        console.log('%cCOVID-19 spread%c - current data and prediction.\nCopyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
         customElements.define('number-stepper', NumberStepper)
         el.country_selector = document.getElementById('country-selector')
         el.flag = document.getElementById('flag')

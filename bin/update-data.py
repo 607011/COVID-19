@@ -51,13 +51,13 @@ def parse_latest(filename, result):
 
 
 def predict(confirmed, dates, country, result):
-  day1_quarantine = datetime(year=2020, month=3, day=20)
+  latest_day = dates[-1]
+  day1_quarantine = latest_day - timedelta(days=7)
   data = pd.DataFrame(data={'day': dates, 'cases': confirmed})
   cases_since_quarantine = np.array(data[data['day'] >= day1_quarantine]['cases'])
   if cases_since_quarantine[cases_since_quarantine > 0].size > 0:
     if verbosity > 1:
       print('  Predicting spread of SARS-CoV-2 ...')
-    latest_day = dates[-1]
     days_since_quarantine = np.array([d.toordinal() for d in data[data['day'] >= day1_quarantine]['day']])
 
     def corona_curve(x, b0, x0, k, s):

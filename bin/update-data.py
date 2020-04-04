@@ -4,7 +4,6 @@ import os
 import sys
 import csv
 import json
-import math
 import numpy as np
 import pandas as pd
 from datetime import timedelta, datetime

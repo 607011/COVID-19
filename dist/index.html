@@ -53,18 +53,19 @@
 
 <body>
     <div id="App" class="hidden">
+        <header>
+            COVID-19 — Current spread data and prediction of total cases
+        </header>
         <div id="ui">
             <aside class="sidebar">
                 <div class="controls">
-                    <div style="font-size: 120%; font-weight: bold;">COVID-19 Spread</div>
-                    <div>
-                        <label for="country-selector">Select country</label>
-                        <input type="search" list="countries" id="country-selector" name="country-selector"></input>
+                    <div class="country-selector">
+                        <input placeholder="Select country …" type="search" list="countries" id="country-selector"></input>
+                        <span id="flag"></span>
                         <datalist id="countries"></datalist>
-                        <div id="flag"></div>
                     </div>
                     <div class="grid-table-with-header refreshable">
-                        <span>Latest data</span>
+                        <span>Latest data <span id="refresh-button" class="reload"></span></span>
                         <span>Updated</span><span id="latest-date">–</span>
                         <span>Active</span><span id="latest-active">–</span>
                         <span>Deaths</span><span id="latest-deaths">–</span>
@@ -79,14 +80,10 @@
                         <span id="predicted-date">?</span><span id="predicted-cases">?</span>
                     </div>
                     <div>
-                        <button id="refresh-button">Refresh</button>
-                    </div>
-                    <div>
                         <label for="prediction-days">
                             predict next <i>n</i> days
                         </label>
-                        <number-stepper id="prediction-days" innerwidth="3em" name="prediction-days" height="44px">
-                        </number-stepper>
+                        <number-stepper id="prediction-days" innerwidth="3em" name="prediction-days" height="44px"></number-stepper>
                     </div>
                 </div>
                 <div class="diff-chart-container">

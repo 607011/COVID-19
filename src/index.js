@@ -275,7 +275,7 @@ import NumberStepper from './stepper.js'
                 loadCountryData()
             }
         }
-        if (days !== data.predict && days != hash_param.predict) {
+        if (days !== hash_param.predict) {
             hash_param.predict = days
             el.prediction_days.value = days
             if (confirmed.active) {
@@ -316,10 +316,8 @@ import NumberStepper from './stepper.js'
                 [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
                 el.prediction_days.max = data.predicted ? data.predicted.active.length : 0
                 el.flag.innerText = data.flag
-                // if (last_update.getTime() === fromISODate(data.latest.last_update).getTime()) {
-                //     console.log('no updates')
-                // }
                 el.population.innerText = data.population.toLocaleString(locale)
+                evaluateHash()
                 updateUI(data);
                 animateRefreshables()
             },
@@ -349,9 +347,9 @@ import NumberStepper from './stepper.js'
         updateHash({ country: evt.target.value })
     }
 
-    const predictionDaysChanged = evt => {
-        const days = Math.min(+evt.target.value, +el.prediction_days.max)
-        updateHash({ predict: days })
+    const predictionDaysChanged = () => {
+        console.debug('predictionDaysChanged()')
+        updateHash({ predict: Math.min(+el.prediction_days.value, +el.prediction_days.max) })
     }
 
     const postInit = () => {

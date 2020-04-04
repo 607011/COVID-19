@@ -62,10 +62,10 @@ import NumberStepper from './stepper.js'
         document.getElementById('latest-recovered').innerText = confirmed.latest.recovered.toLocaleString(locale)
         document.getElementById('App').classList.remove('hidden')
         el.loader_screen.classList.add('hide')
-        updateCharts(data)
+        updateCharts()
     }
 
-    const updateCharts = data => {
+    const updateCharts = () => {
         let dates = [...confirmed.dates]
         const curr_date = confirmed.dates[confirmed.dates.length - 1]
         for (let day = 1; day <= hash_param.predict; ++day) {

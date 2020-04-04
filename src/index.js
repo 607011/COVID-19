@@ -26,6 +26,7 @@ import NumberStepper from './stepper.js'
         predict: 7,
     }
     const el = {}
+    let refresh_interval_mins = 15
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
@@ -351,6 +352,7 @@ import NumberStepper from './stepper.js'
         el.prediction_days.addEventListener('change', predictionDaysChanged)
         window.addEventListener('hashchange', hashChanged)
         document.getElementById('refresh-button').addEventListener('click', loadCountryData);
+        setInterval(loadCountryData, 1000 * 60 * refresh_interval_mins)
     }
 
     const showError = msg => {

@@ -18,6 +18,7 @@
 
 import './css/default.css'
 import NumberStepper from './stepper.js'
+import rk4 from 'ode-rk4'
 
 (function (window) {
     'use strict'
@@ -30,6 +31,7 @@ import NumberStepper from './stepper.js'
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
+    let sir_chart = null
     let countries = []
     let hash_param = {
         country: null,
@@ -63,6 +65,7 @@ import NumberStepper from './stepper.js'
         document.getElementById('latest-recovered').innerText = confirmed.latest.recovered.toLocaleString(locale)
         document.getElementById('App').classList.remove('hidden')
         el.loader_screen.classList.add('hide')
+        calculateSIR()
         updateCharts()
     }
 
@@ -250,7 +253,132 @@ import NumberStepper from './stepper.js'
                     }
                 }
             })
+            updateSIRChart()
         }
+    }
+
+    const updateSIRChart = () => {
+        if (sir_chart) {
+            sir_chart.data.datasets[0].data = confirmed.sir.S
+            sir_chart.data.datasets[1].data = confirmed.sir.I
+            sir_chart.data.datasets[2].data = confirmed.sir.R
+            sir_chart.update()
+        }
+        else {
+            sir_chart = new Chart(document.getElementById('sir-chart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: confirmed.sir.t,
+                    datasets: [
+                        {
+                            data: confirmed.sir.S,
+                            borderColor: 'blue',
+                            fill: 'transparent',
+                            pointRadius: 0,
+                            showLine: true,
+                            lineTension: 0,
+                        },
+                        {
+                            data: confirmed.sir.I,
+                            borderColor: 'red',
+                            fill: 'transparent',
+                            pointRadius: 0,
+                            showLine: true,
+                            lineTension: 0,
+                        },
+                        {
+                            data: confirmed.sir.R,
+                            fill: 'transparent',
+                            pointRadius: 0,
+                            showLine: true,
+                            borderColor: 'green',
+                            lineTension: 0,
+                        },
+                    ]
+                },
+                options: {
+                    title: {
+                        display: false,
+                        text: 'SIR',
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        xAxes: [
+                            {
+                                gridLines: {
+                                    display: false,
+                                    drawTicks: false,
+                                },
+                                ticks: {
+                                    display: false,
+                                },
+                            }
+                        ],
+                        yAxes: [
+                            {
+                                gridLines: {
+                                    display: true,
+                                    drawTicks: false,
+                                },
+                                ticks: {
+                                    display: false,
+                                },
+                            },
+                        ],
+                    },
+                    animation: {
+                        duration: 250,
+                        easing: 'easeInOutQuad',
+                    }
+                }
+            })
+        }
+    }
+
+    const simulateSIR = (f, t0, y0, step, tmax) => {
+        let integrator = rk4(y0, f, t0, step)
+        let y = y0
+        let ta = []
+        let ya = []
+        ta.push(t0)
+        ya.push([...y])
+        for (let t = t0; t < tmax; t += step) {
+            integrator = integrator.step()
+            ya.push([...integrator.y])
+            ta.push(t)
+        }
+        return { t: ta, y: ya }
+    }
+
+    const calculateSIR = () => {
+        const S0 = confirmed.population - confirmed.recovered[confirmed.recovered.length-1] - confirmed.active[confirmed.active.length-1]
+        const I0 = confirmed.active[confirmed.active.length-1]
+        const R0 = confirmed.recovered[confirmed.recovered.length-1]
+        const Sstart = S0 / confirmed.population
+        const Istart = I0 / confirmed.population
+        const Rstart = R0 / confirmed.population
+        const maxT = 1000
+        const step = maxT / 100
+        const b = document.getElementById('beta').value
+        const g = document.getElementById('gamma').value
+        console.debug(b, g)
+        const sir = (dydt, y, _t) => {
+            dydt[0] = -b * y[0] * y[1]
+            dydt[1] = b * y[0] * y[1] - g * y[1]
+            dydt[2] = g * y[1]
+        }
+        const solution = simulateSIR(sir, 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+        confirmed.sir = {
+            t: solution.t,
+            S: solution.y.map(x => Math.round(x[0] * confirmed.population)),
+            I: solution.y.map(x => Math.round(x[1] * confirmed.population)),
+            R: solution.y.map(x => Math.round(x[2] * confirmed.population)),
+        }
+        updateSIRChart()
     }
 
     const evaluateHash = () => {
@@ -351,7 +479,9 @@ import NumberStepper from './stepper.js'
         el.country_selector.addEventListener('change', countryChanged)
         el.prediction_days.addEventListener('change', predictionDaysChanged)
         window.addEventListener('hashchange', hashChanged)
-        document.getElementById('refresh-button').addEventListener('click', loadCountryData);
+        document.getElementById('refresh-button').addEventListener('click', loadCountryData)
+        document.getElementById('beta').addEventListener('change', calculateSIR)
+        document.getElementById('gamma').addEventListener('change', calculateSIR)
         setInterval(loadCountryData, 1000 * 60 * refresh_interval_mins)
     }
 

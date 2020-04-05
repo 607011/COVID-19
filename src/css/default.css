@@ -111,7 +111,7 @@ footer > span:last-child {
     margin-bottom: 5px;
 }
 
-.diff-chart-container {
+.diff-chart-container, .sir-chart-container {
     margin-top: 5px;
     height: 20vh;
     max-height: 200px;

@@ -85,6 +85,15 @@
                         <number-stepper id="prediction-days" innerwidth="3em" name="prediction-days" height="44px"></number-stepper>
                     </div>
                 </div>
+                <div>
+                    <label for="beta">beta</label><input type="range" value="0.06" min="0" max="1" step="0.001" id="beta" name="beta">
+                </div>
+                <div>
+                    <label for="gamma">gamma</label><input type="range" value="0.005" min="0" max="1" step="0.001" id="gamma" name="gamma">
+                </div>
+                <div class="sir-chart-container">
+                    <canvas id="sir-chart"></canvas>
+                </div>
                 <div class="diff-chart-container">
                     <canvas id="diff-chart"></canvas>
                 </div>
@@ -101,28 +110,6 @@
     </div>
     <div id="loader-screen">Loading …</div>
     <div id="error-message"></div>
-    <!--
-    <svg width="100%" height="100%" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
-        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-        <defs>
-            <g id="refresh-icon-template">
-                <g>
-                    <path d="M15,1.641l0,5.042l-5.042,0l0,-2.004l3.038,0l0,-3.038l2.004,0Z" style="fill:#eee;" />
-                    <path
-                        d="M1.154,6.186c0.8,-2.985 3.526,-5.186 6.762,-5.186c2.567,0 4.813,1.385 6.032,3.448l-1.732,0.999c-0.873,-1.465 -2.473,-2.448 -4.3,-2.448c-2.304,0 -4.247,1.562 -4.825,3.684l-0.062,0l-1.875,-0.497Z"
-                        style="fill:#eee;" />
-                </g>
-                <g>
-                    <path d="M0.916,14.359l0,-5.042l5.042,0l0,2.004l-3.038,0l0,3.038l-2.004,0Z" style="fill:#eee;" />
-                    <path
-                        d="M14.762,9.814c-0.8,2.985 -3.526,5.186 -6.762,5.186c-2.567,0 -4.814,-1.385 -6.032,-3.447l1.732,-1c0.872,1.465 2.472,2.448 4.3,2.448c2.304,0 4.247,-1.562 4.825,-3.684l0.062,0l1.875,0.497Z"
-                        style="fill:#eee;" />
-                </g>
-            </g>
-        </defs>
-    </svg>
-    -->
 </body>
 
 </html>

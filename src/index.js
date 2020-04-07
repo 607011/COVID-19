@@ -63,6 +63,7 @@ import rk4 from 'ode-rk4'
         document.getElementById('latest-active').innerText = confirmed.latest.active.toLocaleString(locale)
         document.getElementById('latest-deaths').innerText = confirmed.latest.deaths.toLocaleString(locale)
         document.getElementById('latest-recovered').innerText = confirmed.latest.recovered.toLocaleString(locale)
+        document.getElementById('current-doubling').innerText = `${confirmed.doubling_rates[confirmed.doubling_rates.length-1]} days`
         document.getElementById('App').classList.remove('hidden')
         el.loader_screen.classList.add('hide')
         calculateSIR()

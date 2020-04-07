@@ -398,7 +398,6 @@ import rk4 from 'ode-rk4'
     }
 
     const predictionDaysChanged = () => {
-        console.debug('predictionDaysChanged()')
         updateHash({ predict: Math.min(+el.prediction_days.value, +el.prediction_days.max) })
     }
 

@@ -415,7 +415,7 @@ import rk4 from 'ode-rk4'
         el.error_message.classList.add('show')
     }
 
-    const hideError = msg => {
+    const hideError = () => {
         el.error_message.innerText = ''
         el.error_message.classList.remove('show')
     }

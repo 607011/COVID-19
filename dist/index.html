@@ -82,17 +82,8 @@
                         <label for="prediction-days">
                             predict next <i>n</i> days
                         </label>
-                        <number-stepper id="prediction-days" innerwidth="3em" name="prediction-days" height="44px"></number-stepper>
+                        <number-stepper id="prediction-days" name="prediction-days" value="0" min="0" max="30" innerwidth="3em" height="44px"></number-stepper>
                     </div>
-                </div>
-                <div>
-                    <label for="beta">beta</label><input type="range" value="0.06" min="0" max="1" step="0.001" id="beta" name="beta">
-                </div>
-                <div>
-                    <label for="gamma">gamma</label><input type="range" value="0.005" min="0" max="1" step="0.001" id="gamma" name="gamma">
-                </div>
-                <div class="sir-chart-container">
-                    <canvas id="sir-chart"></canvas>
                 </div>
                 <div class="diff-chart-container">
                     <canvas id="diff-chart"></canvas>

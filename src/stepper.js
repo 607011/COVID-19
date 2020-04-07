@@ -18,9 +18,9 @@ export default class NumberStepper extends HTMLElement {
       const downButton = document.createElement('button')
       this.input = document.createElement('input')
       this.input.type = 'number'
-      this.input.min = 0
-      this.input.max = 0
-      this.input.value = 0
+      this.input.min = +this.getAttribute('min')
+      this.input.max = +this.getAttribute('max')
+      this.input.value = +this.getAttribute('value')
       this.input.style.width = this.getAttribute('innerwidth')
       this.input.addEventListener('change', function() {
           this.dispatchEvent(this.changeEvent)

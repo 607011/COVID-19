@@ -7,7 +7,7 @@ import json
 import numpy as np
 import pandas as pd
 from datetime import timedelta, datetime
-from scipy.optimize import curve_fit
+from scipy import optimize, integrate
 
 verbosity = 1
 start_date = '1/22/20'
@@ -51,25 +51,26 @@ def parse_latest(filename, result):
 
 def predict(confirmed, dates, country, result):
   latest_day = dates[-1]
-  day1_quarantine = latest_day - timedelta(days=7)
+  day0 = latest_day - timedelta(days=7)
   data = pd.DataFrame(data={'day': dates, 'cases': confirmed})
-  cases_since_quarantine = np.array(data[data['day'] >= day1_quarantine]['cases'])
+  cases_since_quarantine = np.array(data[data['day'] >= day0]['cases'])
   if cases_since_quarantine[cases_since_quarantine > 0].size > 0:
     if verbosity > 1:
       print('  Predicting spread of SARS-CoV-2 ...')
-    days_since_quarantine = np.array([d.toordinal() for d in data[data['day'] >= day1_quarantine]['day']])
+    days_since_quarantine = np.array(
+        [d.toordinal() for d in data[data['day'] >= day0]['day']])
 
     def corona_curve(x, b0, x0, k, s):
       return s * 1 / (1 + np.exp(-1 * k * s * (x - x0)) * (s / b0 - 1))
 
     try:
-      params, _ = curve_fit(
+      params, _ = optimize.curve_fit(
           corona_curve,
           xdata=days_since_quarantine,
           ydata=cases_since_quarantine,
           p0=[
               cases_since_quarantine[0],
-              day1_quarantine.toordinal(),
+              day0.toordinal(),
               8e-9,
               int(result['countries'][country]['population'] / 2)
           ],
@@ -92,12 +93,15 @@ def predict(confirmed, dates, country, result):
       print('    **** Prediction failed! ValueError: {}'.format(e), file=sys.stderr)
     else:
       predicted = map(
-          lambda day: int(corona_curve((latest_day + timedelta(days=day+1)).toordinal(), *params)),
+          lambda day: int(corona_curve(
+              (latest_day + timedelta(days=day+1)).toordinal(), *params)),
           range(prediction_days)
       )
       result['countries'][country]['predicted'] = {
-          'from_date': (dates[-1] + timedelta(days=1)).strftime('%Y-%m-%d'),
-          'active': list(predicted),
+          'logistic_function': {
+              'from_date': (dates[-1] + timedelta(days=1)).strftime('%Y-%m-%d'),
+              'active': list(predicted),
+          }
       }
 
 
@@ -145,6 +149,52 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
         doubling_rates.append(None)
 
     predict(confirmed, dates, country, result)
+
+    # Calculate SIR
+    retrospect_days = 7
+    dt = dates[-1] - timedelta(days=retrospect_days)
+    day0 = '{:d}/{:d}/{:d}'.format(dt.month, dt.day, dt.year - 2000)
+    population = result['countries'][country]['population']
+    infected = active[day0:]
+    removed = recovered[day0:] + deaths[day0:]
+    susceptible = population - infected - removed
+    s = susceptible / population
+    i = infected / population
+    r = removed / population
+    s0 = s.values[0]
+    i0 = i.values[0]
+    r0 = r.values[0]
+    xdata = np.array(range(retrospect_days+1), dtype=float)
+
+    def sir_model(y, x, beta, gamma):
+        S = -beta * y[0] * y[1]
+        R = gamma * y[1]
+        I = -(S + R)
+        return S, I, R
+
+    def fit_s(x, beta, gamma):
+        return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,0]
+
+    def fit_i(x, beta, gamma):
+        return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,1]
+
+    def fit_r(x, beta, gamma):
+        return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,2]
+
+    try:
+      popt_s, _pcov = optimize.curve_fit(fit_s, xdata, s.values)
+      popt_i, _pcov = optimize.curve_fit(fit_i, xdata, i.values)
+      popt_r, _pcov = optimize.curve_fit(fit_r, xdata, r.values)
+    except RuntimeError as e:
+      print('WARNING: {}'.format(e), file=sys.stdout)
+
+    result['countries'][country]['predicted']['SIR'] = {
+      'from_date': dt.strftime('%Y-%m-%d'),
+      't': xdata.tolist(),
+      'S': { 'beta': popt_s[0], 'gamma': popt_s[1] },
+      'I': { 'beta': popt_i[0], 'gamma': popt_i[1] },
+      'R': { 'beta': popt_r[0], 'gamma': popt_r[1] },
+    }
 
     result['countries'][country]['delta'] = deltas
     result['countries'][country]['doubling_rates'] = doubling_rates

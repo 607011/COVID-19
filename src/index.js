@@ -27,7 +27,7 @@ import rk4 from 'ode-rk4'
         predict: 7,
     }
     const el = {}
-    let refresh_interval_mins = 15
+    let refresh_interval_mins = 60
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
@@ -77,9 +77,6 @@ import rk4 from 'ode-rk4'
             date.setDate(curr_date.getDate() + day)
             dates.push(date)
         }
-        const predicted = confirmed.predicted
-            ? new Array(confirmed.active.length).fill(null).concat(confirmed.predicted.active.slice(0, hash_param.predict))
-            : []
         dates = dates.map(d => d.toLocaleDateString(locale))
         el.current_date.innerText = dates[confirmed.dates.length - 1]
         el.latest_date.innerText = (hash_param.predict > 0 && confirmed.predicted)
@@ -89,7 +86,7 @@ import rk4 from 'ode-rk4'
             ? confirmed.active[confirmed.active.length - 1].toLocaleString(locale)
             : '–'
         el.latest_cases.innerText = (hash_param.predict > 0 && confirmed.predicted)
-            ? confirmed.predicted.active[hash_param.predict - 1].toLocaleString(locale)
+            ? confirmed.sir.I[confirmed.active.length + hash_param.predict - 1].toLocaleString(locale)
             : '–'
         if (diff_chart) {
             diff_chart.data.labels = dates.slice(0, confirmed.total.length)
@@ -156,8 +153,9 @@ import rk4 from 'ode-rk4'
             main_chart.data.datasets[0].data = confirmed.active
             main_chart.data.datasets[1].data = confirmed.recovered
             main_chart.data.datasets[2].data = confirmed.deaths
-            main_chart.data.datasets[3].data = predicted
-            main_chart.data.datasets[4].data = confirmed.doubling_rates
+            main_chart.data.datasets[3].data = confirmed.sir.I
+            main_chart.data.datasets[4].data = confirmed.sir.R
+            main_chart.data.datasets[5].data = confirmed.doubling_rates
             main_chart.update()
         }
         else {
@@ -194,11 +192,19 @@ import rk4 from 'ode-rk4'
                             order: 3,
                         },
                         {
-                            data: predicted,
+                            data: confirmed.sir.I,
                             type: 'bar',
                             yAxisID: 'A',
-                            label: 'Predicted total',
-                            backgroundColor: '#555',
+                            label: 'Predicted infections',
+                            backgroundColor: '#993B18',
+                            borderWidth: 0,
+                        },
+                        {
+                            data: confirmed.sir.R,
+                            type: 'bar',
+                            yAxisID: 'A',
+                            label: 'Predicted recoveries',
+                            backgroundColor: '#4F8C38',
                             borderWidth: 0,
                         },
                         {
@@ -253,89 +259,6 @@ import rk4 from 'ode-rk4'
                     }
                 }
             })
-            updateSIRChart()
-        }
-    }
-
-    const updateSIRChart = () => {
-        if (sir_chart) {
-            sir_chart.data.datasets[0].data = confirmed.sir.S
-            sir_chart.data.datasets[1].data = confirmed.sir.I
-            sir_chart.data.datasets[2].data = confirmed.sir.R
-            sir_chart.update()
-        }
-        else {
-            sir_chart = new Chart(document.getElementById('sir-chart').getContext('2d'), {
-                type: 'line',
-                data: {
-                    labels: confirmed.sir.t,
-                    datasets: [
-                        {
-                            data: confirmed.sir.S,
-                            borderColor: 'blue',
-                            fill: 'transparent',
-                            pointRadius: 0,
-                            showLine: true,
-                            lineTension: 0,
-                        },
-                        {
-                            data: confirmed.sir.I,
-                            borderColor: 'red',
-                            fill: 'transparent',
-                            pointRadius: 0,
-                            showLine: true,
-                            lineTension: 0,
-                        },
-                        {
-                            data: confirmed.sir.R,
-                            fill: 'transparent',
-                            pointRadius: 0,
-                            showLine: true,
-                            borderColor: 'green',
-                            lineTension: 0,
-                        },
-                    ]
-                },
-                options: {
-                    title: {
-                        display: false,
-                        text: 'SIR',
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false,
-                    },
-                    scales: {
-                        xAxes: [
-                            {
-                                gridLines: {
-                                    display: false,
-                                    drawTicks: false,
-                                },
-                                ticks: {
-                                    display: false,
-                                },
-                            }
-                        ],
-                        yAxes: [
-                            {
-                                gridLines: {
-                                    display: true,
-                                    drawTicks: false,
-                                },
-                                ticks: {
-                                    display: false,
-                                },
-                            },
-                        ],
-                    },
-                    animation: {
-                        duration: 250,
-                        easing: 'easeInOutQuad',
-                    }
-                }
-            })
         }
     }
 
@@ -355,30 +278,34 @@ import rk4 from 'ode-rk4'
     }
 
     const calculateSIR = () => {
-        const S0 = confirmed.population - confirmed.recovered[confirmed.recovered.length-1] - confirmed.active[confirmed.active.length-1]
-        const I0 = confirmed.active[confirmed.active.length-1]
-        const R0 = confirmed.recovered[confirmed.recovered.length-1]
+        const N = confirmed.active.length
+        const I0 = confirmed.active[N-1]
+        const R0 = confirmed.recovered[N-1]
+        const S0 = confirmed.population - I0 - R0
         const Sstart = S0 / confirmed.population
         const Istart = I0 / confirmed.population
         const Rstart = R0 / confirmed.population
-        const maxT = 1000
-        const step = maxT / 100
-        const b = document.getElementById('beta').value
-        const g = document.getElementById('gamma').value
-        console.debug(b, g)
-        const sir = (dydt, y, _t) => {
-            dydt[0] = -b * y[0] * y[1]
-            dydt[1] = b * y[0] * y[1] - g * y[1]
-            dydt[2] = g * y[1]
+        const predicted = confirmed.predicted.SIR
+        const maxT = Math.min(el.prediction_days.value, el.prediction_days.max)
+        const step = 1
+
+        function SIR_model(dydt, y, _t) {
+            dydt[0] = -this.b * y[0] * y[1]
+            dydt[1] = this.b * y[0] * y[1] - this.g * y[1]
+            dydt[2] = this.g * y[1]
         }
-        const solution = simulateSIR(sir, 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+
+        const solution_S = simulateSIR(SIR_model.bind({b: predicted.S.beta, g: predicted.S.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+        const solution_I = simulateSIR(SIR_model.bind({b: predicted.I.beta, g: predicted.I.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+        const solution_R = simulateSIR(SIR_model.bind({b: predicted.R.beta, g: predicted.R.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+        const total = solution_I.y.map((a, i) => a[1] + solution_R.y[i][2]).map(x => Math.round(x * confirmed.population))
         confirmed.sir = {
-            t: solution.t,
-            S: solution.y.map(x => Math.round(x[0] * confirmed.population)),
-            I: solution.y.map(x => Math.round(x[1] * confirmed.population)),
-            R: solution.y.map(x => Math.round(x[2] * confirmed.population)),
+            t: solution_S.t,
+            S: new Array(N).fill(null).concat(solution_S.y.slice(1).map(x => Math.round(x[0] * confirmed.population))),
+            I: new Array(N).fill(null).concat(solution_I.y.slice(1).map(x => Math.round(x[1] * confirmed.population))),
+            R: new Array(N).fill(null).concat(solution_R.y.slice(1).map(x => Math.round(x[2] * confirmed.population))),
+            total: total,
         }
-        updateSIRChart()
     }
 
     const evaluateHash = () => {
@@ -437,7 +364,6 @@ import rk4 from 'ode-rk4'
             })
             .then(data => {
                 [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
-                el.prediction_days.max = data.predicted ? data.predicted.active.length : 0
                 el.flag.innerText = data.flag
                 el.population.innerText = data.population.toLocaleString(locale)
                 evaluateHash()
@@ -480,8 +406,6 @@ import rk4 from 'ode-rk4'
         el.prediction_days.addEventListener('change', predictionDaysChanged)
         window.addEventListener('hashchange', hashChanged)
         document.getElementById('refresh-button').addEventListener('click', loadCountryData)
-        document.getElementById('beta').addEventListener('change', calculateSIR)
-        document.getElementById('gamma').addEventListener('change', calculateSIR)
         setInterval(loadCountryData, 1000 * 60 * refresh_interval_mins)
     }
 

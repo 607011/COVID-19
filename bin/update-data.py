@@ -14,7 +14,7 @@ start_date = '1/22/20'
 path_timeseries = os.path.join('COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
 data_path = os.path.join('src', 'data')
 population_filename = os.path.join(data_path, 'world-data.csv')
-json_file_template = os.path.join(data_path, '{country:s}.json')
+json_file_template = os.path.join('dist', 'data', '{country:s}.json')
 path_latest = os.path.join('COVID-19-web-data', 'data')
 prediction_days = 180
 

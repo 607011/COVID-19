@@ -64,20 +64,20 @@
                         <span id="flag"></span>
                         <datalist id="countries"></datalist>
                     </div>
-                    <div class="grid-table-with-header refreshable">
-                        <span>Latest data <span id="refresh-button"></span></span>
-                        <span>Updated</span><span id="latest-date">–</span>
-                        <span>Infections</span><span id="latest-active">–</span>
-                        <span>Deaths</span><span id="latest-deaths">–</span>
-                        <span>Recoveries</span><span id="latest-recovered">–</span>
-                        <span>Total cases</span><span id="latest-total">–</span>
-                        <span>Population</span><span id="population">–</span>
-                        <span>Doubling</span><span id="current-doubling">–</span>
+                    <div class="grid-table-with-header">
+                        <span>Latest data <span id="refresh-button"><svg width="16" height="16" viewBox="0 0 16 16"><use xlink:href="#refresh" fill="#eee"/></svg></span></span>
+                        <span>Updated</span><span id="latest-date" class="refreshable"></span>
+                        <span>Infections</span><span id="latest-active" class="refreshable"></span>
+                        <span>Deaths</span><span id="latest-deaths" class="refreshable"></span>
+                        <span>Recoveries</span><span id="latest-recovered" class="refreshable"></span>
+                        <span>Total cases</span> <span id="latest-total" class="refreshable"></span>
+                        <span>Population</span><span id="population"></span>
+                        <span>Doubling</span><span id="current-doubling" class="refreshable"></span>
                     </div>
-                    <div class="grid-table-with-header refreshable">
+                    <div class="grid-table-with-header">
                         <span>Confirmed infections</span>
-                        <span id="current-date">?</span><span id="current-cases">?</span>
-                        <span id="predicted-date">?</span><span id="predicted-cases">?</span>
+                        <span id="current-date" class="refreshable"></span><span id="current-cases" class="refreshable"></span>
+                        <span id="predicted-date" class="refreshable"></span><span id="predicted-cases" class="refreshable"></span>
                     </div>
                     <div>
                         <label for="prediction-days">
@@ -102,6 +102,23 @@
     </div>
     <div id="loader-screen">Loading …</div>
     <div id="error-message"></div>
+    <svg style="display: none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+        <defs>
+            <g id="up-indicator"><path d="M0 12 L12 12 L6 3 Z" /></g>
+            <g id="down-indicator"><path d="M0 3 L12 3 L6 12 Z" /></g>
+            <g id="equal-indicator"><path d="M3 3 L9 3 L9 9 L3 9 Z" /></g>
+            <g id="refresh">
+                <g>
+                    <path d="M15,1.641l0,5.042l-5.042,0l0,-2.004l3.038,0l0,-3.038l2.004,0Z"/>
+                    <path d="M1.154,6.186c0.8,-2.985 3.526,-5.186 6.762,-5.186c2.567,0 4.813,1.385 6.032,3.448l-1.732,0.999c-0.873,-1.465 -2.473,-2.448 -4.3,-2.448c-2.304,0 -4.247,1.562 -4.825,3.684l-0.062,0l-1.875,-0.497Z"/>
+                </g>
+                <g>
+                    <path d="M0.916,14.359l0,-5.042l5.042,0l0,2.004l-3.038,0l0,3.038l-2.004,0Z"/>
+                    <path d="M14.762,9.814c-0.8,2.985 -3.526,5.186 -6.762,5.186c-2.567,0 -4.814,-1.385 -6.032,-3.447l1.732,-1c0.872,1.465 2.472,2.448 4.3,2.448c2.304,0 4.247,-1.562 4.825,-3.684l0.062,0l1.875,0.497Z"/>
+                </g>
+            </g>
+        </defs>
+    </svg>
 </body>
 
 </html>

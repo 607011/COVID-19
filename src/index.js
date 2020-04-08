@@ -26,12 +26,16 @@ import rk4 from 'ode-rk4'
         country: 'Germany',
         predict: 7,
     }
-    const el = {}
+    const EqIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#equal-indicator" fill="#FF6633"></use></svg>'
+    const UpPosIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#up-indicator" fill="#63D427"></use></svg>'
+    const DwNegIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#down-indicator" fill="#D42C27"></use></svg>'
+    const UpNegIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#up-indicator" fill="#D42C27"></use></svg>'
+    const DwPosIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#down-indicator" fill="#63D427"></use></svg>'
+    let el = {}
     let refresh_interval_mins = 60
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
-    let sir_chart = null
     let countries = []
     let hash_param = {
         country: null,
@@ -39,6 +43,8 @@ import rk4 from 'ode-rk4'
     }
     let confirmed = {}
     let last_update = new Date(1970)
+
+    customElements.define('number-stepper', NumberStepper)
 
     const fromISODate = iso_date_string => {
         const [, year, month, day, ...time] = iso_date_string.match(/^(\d{4})-(\d{2})-(\d{2})(\s(\d{2}):(\d{2}):(\d{2}))?/)
@@ -52,18 +58,29 @@ import rk4 from 'ode-rk4'
         return date
     }
 
+    const almostEqual = (a, b, eps = 0.1) => Math.abs(a - b) < eps
+
+    const updateIfChanged = (el, newValue) => {
+        if (el.innerHTML !== newValue) {
+            el.innerHTML = newValue
+        }
+    }
+
     const updateUI = data => {
         if (data) {
             confirmed = Object.assign({}, data)
             confirmed.dates = data.dates.map(date => fromISODate(date))
         }
         last_update = fromISODate(confirmed.latest.last_update)
-        document.getElementById('latest-date').innerText = `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`
-        document.getElementById('latest-total').innerText = confirmed.latest.total.toLocaleString(locale)
-        document.getElementById('latest-active').innerText = confirmed.latest.active.toLocaleString(locale)
-        document.getElementById('latest-deaths').innerText = confirmed.latest.deaths.toLocaleString(locale)
-        document.getElementById('latest-recovered').innerText = confirmed.latest.recovered.toLocaleString(locale)
-        document.getElementById('current-doubling').innerText = `${confirmed.doubling_rates[confirmed.doubling_rates.length-1]} days`
+        updateIfChanged(el.latest_date, `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`)
+        updateIfChanged(el.latest_total, confirmed.latest.total.toLocaleString(locale))
+        updateIfChanged(el.latest_active, confirmed.latest.active.toLocaleString(locale))
+        updateIfChanged(el.latest_deaths, confirmed.latest.deaths.toLocaleString(locale))
+        updateIfChanged(el.latest_recovered, confirmed.latest.recovered.toLocaleString(locale))
+        const dbl = confirmed.doubling_rates[confirmed.doubling_rates.length-1]
+        const dbl1 = confirmed.doubling_rates[confirmed.doubling_rates.length-2]
+        const indicator = almostEqual(dbl, dbl1) ? EqIndicator : dbl > dbl1 ? UpPosIndicator : DwNegIndicator
+        updateIfChanged(el.current_doubling, (dbl > 0 && dbl1 > 0) ? `${dbl} days ${indicator}` : 'n/a')
         document.getElementById('App').classList.remove('hidden')
         el.loader_screen.classList.add('hide')
         calculateSIR()
@@ -79,16 +96,19 @@ import rk4 from 'ode-rk4'
             dates.push(date)
         }
         dates = dates.map(d => d.toLocaleDateString(locale))
-        el.current_date.innerText = dates[confirmed.dates.length - 1]
-        el.latest_date.innerText = (hash_param.predict > 0 && confirmed.predicted)
+        let indicator 
+        updateIfChanged(el.current_date, dates[confirmed.dates.length - 1])
+        updateIfChanged(el.predicted_date, (hash_param.predict > 0 && confirmed.predicted)
             ? dates[confirmed.dates.length - 1 + hash_param.predict]
-            : '–'
-        el.current_cases.innerText = confirmed.active
-            ? confirmed.active[confirmed.active.length - 1].toLocaleString(locale)
-            : '–'
-        el.latest_cases.innerText = (hash_param.predict > 0 && confirmed.predicted)
-            ? confirmed.sir.I[confirmed.active.length + hash_param.predict - 1].toLocaleString(locale)
-            : '–'
+            : '–')
+        indicator = confirmed.active[confirmed.active.length - 1] > confirmed.active[confirmed.active.length - 2] ? UpNegIndicator : DwPosIndicator
+        updateIfChanged(el.current_cases, confirmed.active
+            ? `${confirmed.active[confirmed.active.length - 1].toLocaleString(locale)} ${indicator}` 
+            : '–')
+        indicator = confirmed.sir.I[confirmed.active.length + hash_param.predict - 1] > confirmed.sir.I[confirmed.active.length + hash_param.predict - 2] ? UpNegIndicator : DwPosIndicator
+        updateIfChanged(el.predicted_cases, (hash_param.predict > 0 && confirmed.predicted)
+            ? `${confirmed.sir.I[confirmed.active.length + hash_param.predict - 1].toLocaleString(locale)} ${indicator}`
+            : '–')
         if (diff_chart) {
             diff_chart.data.labels = dates.slice(0, confirmed.total.length)
             diff_chart.data.datasets[0].data = confirmed.delta
@@ -278,33 +298,34 @@ import rk4 from 'ode-rk4'
         return { t: ta, y: ya }
     }
 
+    function SIR_model(dydt, y, _t) {
+        dydt[0] = -this.b * y[0] * y[1]
+        dydt[1] = this.b * y[0] * y[1] - this.g * y[1]
+        dydt[2] = this.g * y[1]
+    }
+
     const calculateSIR = () => {
         const N = confirmed.active.length
-        const I0 = confirmed.active[N-1]
-        const R0 = confirmed.recovered[N-1]
-        const S0 = confirmed.population - I0 - R0
-        const Sstart = S0 / confirmed.population
-        const Istart = I0 / confirmed.population
-        const Rstart = R0 / confirmed.population
-        const predicted = confirmed.predicted.SIR
+        const population = confirmed.population
+        const I0 = confirmed.active[N - 1]
+        const R0 = confirmed.recovered[N - 1]
+        const S0 = population - I0 - R0
+        const Sstart = S0 / population
+        const Istart = I0 / population
+        const Rstart = R0 / population
+        const pred = confirmed.predicted.SIR
         const maxT = Math.min(el.prediction_days.value, el.prediction_days.max)
         const step = 1
 
-        function SIR_model(dydt, y, _t) {
-            dydt[0] = -this.b * y[0] * y[1]
-            dydt[1] = this.b * y[0] * y[1] - this.g * y[1]
-            dydt[2] = this.g * y[1]
-        }
-
-        const solution_S = simulateSIR(SIR_model.bind({b: predicted.S.beta, g: predicted.S.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
-        const solution_I = simulateSIR(SIR_model.bind({b: predicted.I.beta, g: predicted.I.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
-        const solution_R = simulateSIR(SIR_model.bind({b: predicted.R.beta, g: predicted.R.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
-        const total = solution_I.y.map((a, i) => a[1] + solution_R.y[i][2]).map(x => Math.round(x * confirmed.population))
+        const solution_S = simulateSIR(SIR_model.bind({b: pred.S.beta, g: pred.S.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+        const solution_I = simulateSIR(SIR_model.bind({b: pred.I.beta, g: pred.I.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+        const solution_R = simulateSIR(SIR_model.bind({b: pred.R.beta, g: pred.R.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+        const total = solution_I.y.map((a, i) => a[1] + solution_R.y[i][2]).map(x => Math.round(x * population))
         confirmed.sir = {
             t: solution_S.t,
-            S: new Array(N).fill(null).concat(solution_S.y.slice(1).map(x => Math.round(x[0] * confirmed.population))),
-            I: new Array(N).fill(null).concat(solution_I.y.slice(1).map(x => Math.round(x[1] * confirmed.population))),
-            R: new Array(N).fill(null).concat(solution_R.y.slice(1).map(x => Math.round(x[2] * confirmed.population))),
+            S: new Array(N).fill(null).concat(solution_S.y.slice(1).map(x => Math.round(x[0] * population))),
+            I: new Array(N).fill(null).concat(solution_I.y.slice(1).map(x => Math.round(x[1] * population))),
+            R: new Array(N).fill(null).concat(solution_R.y.slice(1).map(x => Math.round(x[2] * population))),
             total: total,
         }
     }
@@ -347,13 +368,6 @@ import rk4 from 'ode-rk4'
         window.location.hash = '#' + Object.keys(new_hash_param).map(key => `${key}=${new_hash_param[key]}`).join(';')
     }
 
-    const animateRefreshables = () => {
-        [...document.getElementsByClassName('refreshable')].forEach(el => el.classList.add('flash'))
-        setTimeout(() => {
-            [...document.getElementsByClassName('refreshable')].forEach(el => el.classList.remove('flash'))
-        }, 1000)
-    }
-
     const loadCountryData = () => {
         el.loader_screen.classList.remove('hide')
         hideError()
@@ -364,12 +378,10 @@ import rk4 from 'ode-rk4'
                     : Promise.reject(response.status)
             })
             .then(data => {
-                [...document.getElementsByClassName('country')].forEach(el => el.innerText = data.country)
                 el.flag.innerText = data.flag
-                el.population.innerText = data.population.toLocaleString(locale)
+                updateIfChanged(el.population, data.population.toLocaleString(locale))
                 evaluateHash()
                 updateUI(data);
-                animateRefreshables()
             },
             status => {
                 showError(`Fetching data for »${hash_param.country}« failed: ${status}. Reload page to retry …`)
@@ -384,7 +396,7 @@ import rk4 from 'ode-rk4'
             : Promise.reject(response.status))
         countries = new_countries
         const datalist = document.getElementById('countries')
-        countries.sort().forEach((country, index) => {
+        countries.sort().forEach((country, _index) => {
             const option = document.createElement('option')
             option.value = country
             datalist.appendChild(option)
@@ -421,17 +433,37 @@ import rk4 from 'ode-rk4'
 
     const main = () => {
         console.log('%c COVID-19 spread %c - current data and prediction.\nCopyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
-        customElements.define('number-stepper', NumberStepper)
-        el.country_selector = document.getElementById('country-selector')
-        el.flag = document.getElementById('flag')
-        el.loader_screen = document.getElementById('loader-screen')
-        el.current_date = document.getElementById('current-date')
-        el.current_cases = document.getElementById('current-cases')
-        el.latest_date = document.getElementById('predicted-date')
-        el.latest_cases = document.getElementById('predicted-cases')
-        el.prediction_days = document.getElementById('prediction-days')
-        el.population = document.getElementById('population')
-        el.error_message = document.getElementById('error-message')
+        el = {
+            country_selector: document.getElementById('country-selector'),
+            flag: document.getElementById('flag'),
+            loader_screen: document.getElementById('loader-screen'),
+            current_date: document.getElementById('current-date'),
+            current_cases: document.getElementById('current-cases'),
+            current_doubling: document.getElementById('current-doubling'),
+            predicted_date: document.getElementById('predicted-date'),
+            predicted_cases: document.getElementById('predicted-cases'),
+            prediction_days: document.getElementById('prediction-days'),
+            population: document.getElementById('population'),
+            error_message: document.getElementById('error-message'),
+            latest_date: document.getElementById('latest-date'),
+            latest_total: document.getElementById('latest-total'),
+            latest_active: document.getElementById('latest-active'),
+            latest_deaths: document.getElementById('latest-deaths'),
+            latest_recovered: document.getElementById('latest-recovered'),
+            refreshables: [...document.getElementsByClassName('refreshable')],
+        }
+        el.refreshables.forEach(element => {
+            new MutationObserver((mutationsList, _observer) => {
+                for (let mutation of mutationsList) {
+                    if (mutation.type === 'childList') {
+                        mutation.target.classList.add('flash')
+                        setTimeout(() => {
+                            mutation.target.classList.remove('flash')
+                        }, 1000)
+                    }
+                }
+            }).observe(element, { childList: true, characterData: false, attributes: false, subtree: false })
+        })
         fetchCountryList()
             .then(
                 () => {

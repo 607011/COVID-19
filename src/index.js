@@ -412,7 +412,7 @@ import rk4 from 'ode-rk4'
         // })
         // observer.observe(el.country_selector, { childList: true, characterData: false, attributes: false, subtree: true });
         setTimeout(() => {
-            document.getElementById(`_Germany`).scrollIntoView({
+            document.getElementById(`_${country}`).scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',
             })

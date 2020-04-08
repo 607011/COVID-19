@@ -1,8 +1,8 @@
 Country	Population	Flag
 Afghanistan	38928346	🇦🇫
 Albania	2877797	🇦🇱
-Algeria	43851044	
-American Samoa	55191	
+Algeria	43851044	🇩🇿
+American Samoa	55191	🇦🇸
 Andorra	77265	🇦🇩
 Angola	32866272	🇦🇴
 Anguilla	15003	🇦🇮
@@ -13,13 +13,13 @@ Aruba	106766	🇦🇼
 Australia	25499884	🇦🇺
 Austria	9006398	🇦🇹
 Azerbaijan	10139177	🇦🇿
-Bahamas	393244	
+Bahamas	393244	🇧🇸
 Bahrain	1701575	🇧🇭
 Bangladesh	164689383	🇧🇩
 Barbados	287375	🇧🇧
-Belarus	9449323	
+Belarus	9449323	🇧🇾
 Belgium	11589623	🇧🇪
-Belize	397628	
+Belize	397628	🇧🇿
 Benin	12123200	🇧🇯
 Bermuda	62278	🇧🇲
 Bhutan	771608	🇧🇹
@@ -39,17 +39,17 @@ Cameroon	26545863	🇨🇲
 Canada	37742154	🇨🇦
 Caribbean Netherlands	26223	
 Cayman Islands	65722	🇰🇾
-Central African Republic	4829767	
+Central African Republic	4829767	🇨🇫
 Chad	16425864	🇹🇩
-Channel Islands	173863	
+Channel Islands	173863	🇰🇾
 Chile	19116201	🇨🇱
 China	1439323776	🇨🇳
 Colombia	50882891	🇨🇴
-Comoros	869601	
-Congo	5518087	
+Comoros	869601	🇰🇲
+Congo	5518087	🏴󠁣󠁤󠁢󠁣󠁿
 Congo (Brazzaville)	1800000	🇨🇬
 Congo (Kinshasa)	11860000	🇨🇩
-Cook Islands	17564	
+Cook Islands	17564	🇨🇰
 Costa Rica	5094118	🇨🇷
 Cote d'Ivoire	26378274	🇨🇮
 Croatia	4105267	🇭🇷
@@ -66,13 +66,13 @@ DR Congo	89561403
 Ecuador	17643054	🇪🇨
 Egypt	102334404	🇪🇬
 El Salvador	6486205	🇸🇻
-Equatorial Guinea	1402985	
+Equatorial Guinea	1402985	🇬🇶
 Eritrea	3546421	🇪🇷
 Estonia	1326535	🇪🇪
 Eswatini	1160164	🇸🇿
 Ethiopia	114963588	🇪🇹
 Faeroe Islands	48863	🇫🇴
-Falkland Islands	3480	
+Falkland Islands	3480	🇫🇰
 Fiji	896445	🇫🇯
 Finland	5540720	🇫🇮
 France	65273511	🇫🇷
@@ -84,8 +84,8 @@ Georgia	3989167	🇬🇪
 Germany	83783942	🇩🇪
 Ghana	31072940	🇬🇭
 Gibraltar	33691	🇬🇮
-Greece	10423054	
-Greenland	56770	
+Greece	10423054	🇬🇷
+Greenland	56770	🇬🇱
 Grenada	112523	🇬🇩
 Guadeloupe	400124	🇬🇵
 Guam	168775	🇬🇺
@@ -94,10 +94,10 @@ Guinea	13132795	🇬🇳
 Guinea-Bissau	1968001	🇬🇼
 Guyana	786552	🇬🇾
 Haiti	11402528	🇭🇹
-Holy See	801	
+Holy See	801	🇻🇦
 Honduras	9904607	🇭🇳
 Hong Kong	7496981	🇭🇰
-Hungary	9660351	
+Hungary	9660351	🇭🇺
 Iceland	341243	🇮🇸
 India	1380004385	🇮🇳
 Indonesia	273523615	🇮🇩
@@ -149,7 +149,7 @@ Montserrat	4992	🇲🇸
 Morocco	36910560	🇲🇦
 Mozambique	31255435	🇲🇿
 MS Zaandam	1829	
-Myanmar	54409800	
+Myanmar	54409800	🇲🇲
 Namibia	2540905	🇳🇦
 Nauru	10824	🇳🇷
 Nepal	29136808	🇳🇵
@@ -200,7 +200,7 @@ Slovenia	2078938	🇸🇮
 Solomon Islands	686884	🇸🇧
 Somalia	15893222	🇸🇴
 South Africa	59308690	🇿🇦
-South Sudan	11193725	
+South Sudan	11193725	🇸🇸
 Spain	46754778	🇪🇸
 Sri Lanka	21413249	🇱🇰
 Saint Vincent and the Grenadines	110940	🇻🇨
@@ -236,7 +236,7 @@ Vanuatu	307145	🇻🇺
 Venezuela	28435940	🇻🇪
 Vietnam	97338579	🇻🇳
 Wallis & Futuna	11239	🇼🇫
-West Bank and Gaza	4685000	
+West Bank and Gaza	4685000	🇵🇸
 Western Sahara	597339	🇪🇭
 Yemen	29825964	🇾🇪
 Zambia	18383955	🇿🇲

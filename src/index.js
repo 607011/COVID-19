@@ -24,7 +24,7 @@ import rk4 from 'ode-rk4'
     'use strict'
     const Default = {
         country: 'Germany',
-        predict: 7,
+        predict: 0,
     }
     const EqIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#equal-indicator" fill="#FF6633"></use></svg>'
     const UpPosIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#up-indicator" fill="#63D427"></use></svg>'

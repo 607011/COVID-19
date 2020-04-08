@@ -35,6 +35,7 @@ html, body {
     justify-content: space-between;
     width: 230px;
     max-width: 240px;
+    margin-right: 5px;
 }
 
 #refresh-button {
@@ -124,8 +125,62 @@ canvas {
     -ms-user-select: none;
 }
 
-.country-selector {
+#country-selector {
     margin-bottom: 10px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: 14pt 1fr;
+    row-gap: 0;
+    column-gap: 4px;
+}
+
+#country-selector span {
+    height: 16pt;
+    line-height: 14pt;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#country-selector span.selected {
+    background-color: #E65824;
+    color: #f8f8f8;
+    font-weight: bold;
+}
+
+#country-selector span.selected:hover {
+    background-color: rgb(250, 100, 45) !important;
+}
+
+#country-selector span:nth-child(even) {
+    cursor: pointer;
+    padding: 1px 3px 0 3px;
+}
+
+#country-selector span:nth-child(odd) {
+    padding: 2px 0 0 0;
+}
+
+#country-selector span:nth-child(even):hover {
+    background-color: #666;
+}
+
+#country-selector::-webkit-scrollbar {
+    width: 8px;
+}
+  
+#country-selector::-webkit-scrollbar-track {
+    background: transparent;
+}
+  
+#country-selector::-webkit-scrollbar-thumb {
+    background: #555;
+}
+  
+#country-selector::-webkit-scrollbar-thumb:hover {
+    background: #888;
 }
 
 input[type=search] {
@@ -135,13 +190,6 @@ input[type=search] {
     font-size: 100%;
     width: calc(100% - 40px);
     padding: 5px 5px;
-}
-
-#flag {
-    font-size: 32px;
-    display: inline-block;
-    height: 32px;
-    vertical-align: text-bottom;
 }
 
 #current-cases,

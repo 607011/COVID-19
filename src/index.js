@@ -340,7 +340,7 @@ import rk4 from 'ode-rk4'
         }
         data = Object.assign({}, Default, data)
         const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.max)
-        if (countries.indexOf(data.country) >= 0) {
+        if (Object.keys(countries).indexOf(data.country) >= 0) {
             el.country_selector.value = data.country
             if (data.country !== hash_param.country) {
                 hash_param.country = data.country
@@ -378,14 +378,25 @@ import rk4 from 'ode-rk4'
                     : Promise.reject(response.status)
             })
             .then(data => {
-                el.flag.innerText = data.flag
                 updateIfChanged(el.population, data.population.toLocaleString(locale))
                 evaluateHash()
-                updateUI(data);
+                updateUI(data)
+                activateCountry(data.country)
             },
             status => {
                 showError(`Fetching data for »${hash_param.country}« failed: ${status}. Reload page to retry …`)
             })
+    }
+
+    const activateCountry = country => {
+        console.debug(`activateCountry("${country}")`)
+        const country_el = document.getElementById(`_${country}`)
+        country_el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+        });
+        [...document.querySelectorAll('.country.selected')].forEach(el => el.classList.remove('selected'))
+        country_el.classList.add('selected')
     }
 
     const fetchCountryList = async () => {
@@ -395,18 +406,24 @@ import rk4 from 'ode-rk4'
             ? response.json()
             : Promise.reject(response.status))
         countries = new_countries
-        const datalist = document.getElementById('countries')
-        countries.sort().forEach((country, _index) => {
-            const option = document.createElement('option')
-            option.value = country
-            datalist.appendChild(option)
+        const root = document.getElementById('country-selector')
+        Object.keys(countries).sort().forEach((country, _index) => {
+            const flag = document.createElement('span')
+            flag.innerText = countries[country].flag
+            root.appendChild(flag)
+            const name = document.createElement('span')
+            name.innerText = country
+            name.id = `_${country}`
+            name.className = 'country'
+            name.addEventListener('click', () => { countryChanged(country) })
+            root.appendChild(name)
         })
     }
 
-    const countryChanged = evt => {
+    const countryChanged = country => {
         confirmed = {}
         last_update = new Date(1970)
-        updateHash({ country: evt.target.value })
+        updateHash({ country: country })
     }
 
     const predictionDaysChanged = () => {
@@ -414,7 +431,6 @@ import rk4 from 'ode-rk4'
     }
 
     const postInit = () => {
-        el.country_selector.addEventListener('change', countryChanged)
         el.prediction_days.addEventListener('change', predictionDaysChanged)
         window.addEventListener('hashchange', hashChanged)
         document.getElementById('refresh-button').addEventListener('click', loadCountryData)
@@ -435,7 +451,6 @@ import rk4 from 'ode-rk4'
         console.log('%c COVID-19 spread %c - current data and prediction.\nCopyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
         el = {
             country_selector: document.getElementById('country-selector'),
-            flag: document.getElementById('flag'),
             loader_screen: document.getElementById('loader-screen'),
             current_date: document.getElementById('current-date'),
             current_cases: document.getElementById('current-cases'),

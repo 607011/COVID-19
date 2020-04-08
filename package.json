@@ -4,6 +4,7 @@
   "description": "Visualization of spread and predicted total Covid-19 cases",
   "private": true,
   "scripts": {
+    "watch": "webpack --watch",
     "build": "webpack"
   },
   "repository": {

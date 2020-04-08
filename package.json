@@ -1,7 +1,7 @@
 {
   "name": "covid19",
   "version": "1.0.0",
-  "description": "Visualization of spread and predicted total Covid-19 cases",
+  "description": "Visualization of Covid-19 spread",
   "private": true,
   "scripts": {
     "watch": "webpack --watch",

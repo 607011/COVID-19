@@ -4,6 +4,7 @@ import os
 import sys
 import csv
 import json
+import math
 import numpy as np
 import pandas as pd
 from datetime import timedelta, datetime
@@ -12,12 +13,19 @@ from scipy import optimize, integrate
 verbosity = 1
 start_date = '1/22/20'
 path_timeseries = os.path.join('COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
-data_path = os.path.join('src', 'data')
-population_filename = os.path.join(data_path, 'world-data.csv')
-json_file_template = os.path.join('dist', 'data', '{country:s}.json')
+data_path = os.path.join('dist', 'data')
+population_filename = os.path.join('src', 'data', 'world-data.csv')
+json_file_template = os.path.join(data_path, '{country:s}.json')
 path_latest = os.path.join('COVID-19-web-data', 'data')
 prediction_days = 180
 
+def is_float(value):
+  try:
+    if math.isnan(float(value)):
+      return False
+    return True
+  except ValueError:
+    return False
 
 def load_world_data(result):
   with open(population_filename, 'r') as f:
@@ -29,7 +37,6 @@ def load_world_data(result):
         'flag': row[2],
       }
 
-
 def parse_latest(filename, result):
   if verbosity > 0:
     print('Parsing "{:s}" ...'.format(filename))
@@ -39,8 +46,8 @@ def parse_latest(filename, result):
     result['countries'][row[0]]['latest'] = {
         'last_update': row[1],
         'where': {
-            'lat': round(float(row[2]), 5) if row[2] != '' else row[2],
-            'lon': round(float(row[3]), 5) if row[3] != '' else row[3],
+            'lat': round(float(row[2]), 5) if is_float(row[2]) else None,
+            'lon': round(float(row[3]), 5) if is_float(row[3]) else None,
         },
         'total': int(row[4]),
         'deaths': int(row[5]),

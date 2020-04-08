@@ -133,7 +133,13 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
     .groupby('Country/Region').sum()
 
   with open(os.path.join(data_path, 'countries.json'), 'w+') as out:
-    out.write(json.dumps(confirmed_global.index.tolist()))
+    countries = {}
+    for country in confirmed_global.index.tolist():
+      countries[country] = {
+        'flag': result['countries'][country]['flag'],
+        'population': result['countries'][country]['population']
+      }
+    out.write(json.dumps(countries))
 
   dates = [datetime.strptime(d, '%m/%d/%y') for d in confirmed_global.columns[2:].tolist()]
 

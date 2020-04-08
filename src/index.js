@@ -80,7 +80,7 @@ import rk4 from 'ode-rk4'
         const dbl = confirmed.doubling_rates[confirmed.doubling_rates.length-1]
         const dbl1 = confirmed.doubling_rates[confirmed.doubling_rates.length-2]
         const indicator = almostEqual(dbl, dbl1) ? EqIndicator : dbl > dbl1 ? UpPosIndicator : DwNegIndicator
-        updateIfChanged(el.current_doubling, (dbl > 0 && dbl1 > 0) ? `${dbl} days ${indicator}` : 'n/a')
+        updateIfChanged(el.current_doubling, dbl > 0 ? `${dbl} days ${indicator}` : 'n/a')
         document.getElementById('App').classList.remove('hidden')
         el.loader_screen.classList.add('hide')
         calculateSIR()

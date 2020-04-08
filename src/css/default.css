@@ -130,7 +130,7 @@ canvas {
     overflow-y: auto;
     overflow-x: hidden;
     display: grid;
-    grid-template-columns: 14pt 1fr;
+    grid-template-columns: 1em 1fr;
     row-gap: 0;
     column-gap: 4px;
 }
@@ -139,9 +139,6 @@ canvas {
     height: 16pt;
     line-height: 14pt;
     display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 
 #country-selector span.selected {
@@ -157,6 +154,9 @@ canvas {
 #country-selector span:nth-child(even) {
     cursor: pointer;
     padding: 1px 3px 0 3px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #country-selector span:nth-child(odd) {

@@ -129,30 +129,34 @@ canvas {
     margin-bottom: 10px !important;
     overflow-y: auto;
     overflow-x: hidden;
+    min-width: 150px;
+
+}
+
+#country-selector > div {
     display: grid;
     grid-template-columns: 1em 1fr;
     row-gap: 0;
     column-gap: 4px;
-    min-width: 150px;
 }
 
-#country-selector span {
+#country-selector > div span {
     height: 16pt;
     line-height: 14pt;
     display: inline-block;
 }
 
-#country-selector span.selected {
+#country-selector > div span.selected {
     background-color: #E65824;
     color: #f8f8f8;
     font-weight: bold;
 }
 
-#country-selector span.selected:hover {
+#country-selector > div span.selected:hover {
     background-color: rgb(250, 100, 45) !important;
 }
 
-#country-selector span:nth-child(even) {
+#country-selector > div span:nth-child(even) {
     cursor: pointer;
     padding: 1px 3px 0 3px;
     text-overflow: ellipsis;
@@ -160,11 +164,11 @@ canvas {
     white-space: nowrap;
 }
 
-#country-selector span:nth-child(odd) {
+#country-selector > div span:nth-child(odd) {
     padding: 2px 0 0 0;
 }
 
-#country-selector span:nth-child(even):hover {
+#country-selector > div span:nth-child(even):hover {
     background-color: #666;
 }
 

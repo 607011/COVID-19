@@ -36,6 +36,7 @@ import rk4 from 'ode-rk4'
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
+    let selected_country = null
     let countries = []
     let hash_param = {
         country: null,
@@ -67,6 +68,7 @@ import rk4 from 'ode-rk4'
     }
 
     const updateUI = data => {
+        console.debug('updateUI()')
         if (data) {
             confirmed = Object.assign({}, data)
             confirmed.dates = data.dates.map(date => fromISODate(date))
@@ -331,6 +333,7 @@ import rk4 from 'ode-rk4'
     }
 
     const evaluateHash = () => {
+        console.debug('evaluateHash()')
         let data = {}
         for (const param of window.location.hash.substring(1).split(';')) {
             const [key, value] = param.split('=')
@@ -379,7 +382,7 @@ import rk4 from 'ode-rk4'
             })
             .then(data => {
                 updateIfChanged(el.population, data.population.toLocaleString(locale))
-                evaluateHash()
+                // evaluateHash()
                 updateUI(data)
                 activateCountry(data.country)
             },
@@ -390,16 +393,34 @@ import rk4 from 'ode-rk4'
 
     const activateCountry = country => {
         console.debug(`activateCountry("${country}")`)
-        const country_el = document.getElementById(`_${country}`)
-        country_el.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-        });
+        selected_country = country;
         [...document.querySelectorAll('.country.selected')].forEach(el => el.classList.remove('selected'))
-        country_el.classList.add('selected')
+        document.getElementById(`_${country}`).classList.add('selected')
+        // let observer = new MutationObserver((mutationsList, observer) => {
+        //     if (document.contains(div)) {
+        //         console.debug('fire()')
+        //         for (let mutation of mutationsList) {
+        //             if (mutation.type === 'childList') {
+        //                 document.getElementById(`_Germany`).scrollIntoView({
+        //                     behavior: 'smooth',
+        //                     block: 'nearest',
+        //                 })
+        //             }
+        //         }
+        //         observer.disconnect()
+        //     }
+        // })
+        // observer.observe(el.country_selector, { childList: true, characterData: false, attributes: false, subtree: true });
+        setTimeout(() => {
+            document.getElementById(`_Germany`).scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            })
+        }, 100)
     }
 
     const fetchCountryList = async () => {
+        console.debug('fetchCountryList()')
         hideError()
         const response = await fetch('data/countries.json')
         const new_countries = await (response.ok
@@ -407,17 +428,19 @@ import rk4 from 'ode-rk4'
             : Promise.reject(response.status))
         countries = new_countries
         const root = document.getElementById('country-selector')
+        const div = document.createElement('div')
         Object.keys(countries).sort().forEach((country, _index) => {
             const flag = document.createElement('span')
             flag.innerText = countries[country].flag
-            root.appendChild(flag)
+            div.appendChild(flag)
             const name = document.createElement('span')
             name.innerText = country
             name.id = `_${country}`
             name.className = 'country'
             name.addEventListener('click', () => { countryChanged(country) })
-            root.appendChild(name)
+            div.appendChild(name)
         })
+        root.appendChild(div)
     }
 
     const countryChanged = country => {
@@ -468,7 +491,7 @@ import rk4 from 'ode-rk4'
             refreshables: [...document.getElementsByClassName('refreshable')],
         }
         el.refreshables.forEach(element => {
-            new MutationObserver((mutationsList, _observer) => {
+            const observer = new MutationObserver((mutationsList, _observer) => {
                 for (let mutation of mutationsList) {
                     if (mutation.type === 'childList') {
                         mutation.target.classList.add('flash')
@@ -477,13 +500,14 @@ import rk4 from 'ode-rk4'
                         }, 1000)
                     }
                 }
-            }).observe(element, { childList: true, characterData: false, attributes: false, subtree: false })
+            })
+            observer.observe(element, { childList: true, characterData: false, attributes: false, subtree: false })
         })
         fetchCountryList()
             .then(
                 () => {
-                    evaluateHash()
                     postInit()
+                    evaluateHash()
                 },
                 status => {
                     showError(`Loading country list failed: ${status}. Reload page to retry …`)

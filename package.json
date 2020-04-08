@@ -34,7 +34,6 @@
     "csv-loader": "^3.0.2",
     "file-loader": "^6.0.0",
     "html-loader": "^1.0.0",
-    "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.9.0",
     "moment": "^2.24.0",
     "ode-rk4": "^1.1.3",

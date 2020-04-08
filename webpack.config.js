@@ -71,10 +71,6 @@ module.exports = {
           'file-loader'
         ]
       },
-      {
-        test: /\.(json)$/,
-        loader: 'json-loader',
-      },
     ],
   }
 };

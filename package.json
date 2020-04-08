@@ -28,7 +28,6 @@
   },
   "homepage": "https://ersatzworld.net/covid-19",
   "devDependencies": {
-    "chart.js": "^2.9.3",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",
     "cssnano": "^4.1.10",

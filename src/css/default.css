@@ -133,6 +133,7 @@ canvas {
     grid-template-columns: 1em 1fr;
     row-gap: 0;
     column-gap: 4px;
+    min-width: 150px;
 }
 
 #country-selector span {

@@ -1,6 +1,6 @@
 # Covid-19
 
-_Visualization of Covid-19 spread and predicted total cases_
+_Visualization of Covid-19 spread and predicted cases_
 
 ![Covid-19 web app](webapp-preview.png)
 

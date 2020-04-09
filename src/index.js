@@ -23,8 +23,8 @@ import rk4 from 'ode-rk4'
 (function (window) {
     'use strict'
     const Default = {
-        country: 'Germany',
-        predict: 0,
+        country: localStorage.getItem('country') || 'Germany',
+        predict: +localStorage.getItem('prediction_days') || 0,
     }
     const EqIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#equal-indicator" fill="#FF6633"></use></svg>'
     const UpPosIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#up-indicator" fill="#63D427"></use></svg>'
@@ -446,10 +446,12 @@ import rk4 from 'ode-rk4'
     const countryChanged = country => {
         confirmed = {}
         last_update = new Date(1970)
+        localStorage.setItem('country', country)
         updateHash({ country: country })
     }
 
     const predictionDaysChanged = () => {
+        localStorage.setItem('prediction_days', el.prediction_days.value)
         updateHash({ predict: Math.min(+el.prediction_days.value, +el.prediction_days.max) })
     }
 

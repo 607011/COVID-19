@@ -396,22 +396,7 @@ import rk4 from 'ode-rk4'
         selected_country = country;
         [...document.querySelectorAll('.country.selected')].forEach(el => el.classList.remove('selected'))
         document.getElementById(`_${country}`).classList.add('selected')
-        // let observer = new MutationObserver((mutationsList, observer) => {
-        //     if (document.contains(div)) {
-        //         console.debug('fire()')
-        //         for (let mutation of mutationsList) {
-        //             if (mutation.type === 'childList') {
-        //                 document.getElementById(`_Germany`).scrollIntoView({
-        //                     behavior: 'smooth',
-        //                     block: 'nearest',
-        //                 })
-        //             }
-        //         }
-        //         observer.disconnect()
-        //     }
-        // })
-        // observer.observe(el.country_selector, { childList: true, characterData: false, attributes: false, subtree: true });
-        setTimeout(() => {
+        setTimeout(() => { // TODO: replace this dirty hack by a MutationObserver based solution
             document.getElementById(`_${country}`).scrollIntoView({
                 behavior: 'smooth',
                 block: 'nearest',

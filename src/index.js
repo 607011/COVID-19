@@ -68,7 +68,6 @@ import rk4 from 'ode-rk4'
     }
 
     const updateUI = data => {
-        console.debug('updateUI()')
         if (data) {
             confirmed = Object.assign({}, data)
             confirmed.dates = data.dates.map(date => fromISODate(date))
@@ -92,10 +91,12 @@ import rk4 from 'ode-rk4'
     const updateCharts = () => {
         let dates = [...confirmed.dates]
         const curr_date = confirmed.dates[confirmed.dates.length - 1]
-        for (let day = 1; day <= hash_param.predict; ++day) {
-            const date = new Date(curr_date)
-            date.setDate(curr_date.getDate() + day)
-            dates.push(date)
+        if (confirmed.predicted) {
+            for (let day = 1; day <= hash_param.predict; ++day) {
+                const date = new Date(curr_date)
+                date.setDate(curr_date.getDate() + day)
+                dates.push(date)
+            }    
         }
         dates = dates.map(d => d.toLocaleDateString(locale))
         let indicator 
@@ -107,10 +108,12 @@ import rk4 from 'ode-rk4'
         updateIfChanged(el.current_cases, confirmed.active
             ? `${confirmed.active[confirmed.active.length - 1].toLocaleString(locale)} ${indicator}` 
             : '–')
-        indicator = confirmed.sir.I[confirmed.active.length + hash_param.predict - 1] > confirmed.sir.I[confirmed.active.length + hash_param.predict - 2] ? UpNegIndicator : DwPosIndicator
-        updateIfChanged(el.predicted_cases, (hash_param.predict > 0 && confirmed.predicted)
-            ? `${confirmed.sir.I[confirmed.active.length + hash_param.predict - 1].toLocaleString(locale)} ${indicator}`
-            : '–')
+        if (confirmed.predicted) {
+            indicator = confirmed.sir.I[confirmed.active.length + hash_param.predict - 1] > confirmed.sir.I[confirmed.active.length + hash_param.predict - 2] ? UpNegIndicator : DwPosIndicator
+            updateIfChanged(el.predicted_cases, (hash_param.predict > 0 && confirmed.predicted)
+                ? `${confirmed.sir.I[confirmed.active.length + hash_param.predict - 1].toLocaleString(locale)} ${indicator}`
+                : '–')    
+        }
         if (diff_chart) {
             diff_chart.data.labels = dates.slice(0, confirmed.total.length)
             diff_chart.data.datasets[0].data = confirmed.delta
@@ -176,9 +179,9 @@ import rk4 from 'ode-rk4'
             main_chart.data.datasets[0].data = confirmed.active
             main_chart.data.datasets[1].data = confirmed.recovered
             main_chart.data.datasets[2].data = confirmed.deaths
-            main_chart.data.datasets[3].data = confirmed.sir.I
-            main_chart.data.datasets[4].data = confirmed.sir.R
-            main_chart.data.datasets[5].data = confirmed.doubling_rates
+            main_chart.data.datasets[3].data = confirmed.doubling_rates
+            main_chart.data.datasets[4].data = confirmed.predicted ? confirmed.sir.I : null
+            main_chart.data.datasets[5].data = confirmed.predicted ? confirmed.sir.R : null
             main_chart.update()
         }
         else {
@@ -215,22 +218,6 @@ import rk4 from 'ode-rk4'
                             order: 3,
                         },
                         {
-                            data: confirmed.sir.I,
-                            type: 'bar',
-                            yAxisID: 'A',
-                            label: 'Predicted infections',
-                            backgroundColor: '#993B18',
-                            borderWidth: 0,
-                        },
-                        {
-                            data: confirmed.sir.R,
-                            type: 'bar',
-                            yAxisID: 'A',
-                            label: 'Predicted recoveries',
-                            backgroundColor: '#4F8C38',
-                            borderWidth: 0,
-                        },
-                        {
                             data: confirmed.doubling_rates,
                             type: 'line',
                             yAxisID: 'B',
@@ -239,6 +226,22 @@ import rk4 from 'ode-rk4'
                             backgroundColor: '#5BA5E6',
                             showLine: false,
                             order: 0,
+                        },
+                        {
+                            data: confirmed.predicted ? confirmed.sir.I : null,
+                            type: 'bar',
+                            yAxisID: 'A',
+                            label: 'Predicted infections',
+                            backgroundColor: '#993B18',
+                            borderWidth: 0,
+                        },
+                        {
+                            data: confirmed.predicted ? confirmed.sir.R : null,
+                            type: 'bar',
+                            yAxisID: 'A',
+                            label: 'Predicted recoveries',
+                            backgroundColor: '#4F8C38',
+                            borderWidth: 0,
                         },
                     ]
                 },
@@ -307,6 +310,9 @@ import rk4 from 'ode-rk4'
     }
 
     const calculateSIR = () => {
+        const pred = confirmed.predicted ? confirmed.predicted.SIR : null
+        if (pred === null)
+            return
         const N = confirmed.active.length
         const population = confirmed.population
         const I0 = confirmed.active[N - 1]
@@ -315,7 +321,6 @@ import rk4 from 'ode-rk4'
         const Sstart = S0 / population
         const Istart = I0 / population
         const Rstart = R0 / population
-        const pred = confirmed.predicted.SIR
         const maxT = Math.min(el.prediction_days.value, el.prediction_days.max)
         const step = 1
 
@@ -333,7 +338,6 @@ import rk4 from 'ode-rk4'
     }
 
     const evaluateHash = () => {
-        console.debug('evaluateHash()')
         let data = {}
         for (const param of window.location.hash.substring(1).split(';')) {
             const [key, value] = param.split('=')
@@ -382,7 +386,6 @@ import rk4 from 'ode-rk4'
             })
             .then(data => {
                 updateIfChanged(el.population, data.population.toLocaleString(locale))
-                // evaluateHash()
                 updateUI(data)
                 activateCountry(data.country)
             },
@@ -392,7 +395,7 @@ import rk4 from 'ode-rk4'
     }
 
     const activateCountry = country => {
-        console.debug(`activateCountry("${country}")`)
+        el.prediction_container.style.visibility = confirmed.predicted ? 'visible' : 'hidden'
         selected_country = country;
         [...document.querySelectorAll('.country.selected')].forEach(el => el.classList.remove('selected'))
         document.getElementById(`_${country}`).classList.add('selected')
@@ -405,7 +408,6 @@ import rk4 from 'ode-rk4'
     }
 
     const fetchCountryList = async () => {
-        console.debug('fetchCountryList()')
         hideError()
         const response = await fetch('data/countries.json')
         const new_countries = await (response.ok
@@ -458,9 +460,10 @@ import rk4 from 'ode-rk4'
     }
 
     const main = () => {
-        console.log('%c COVID-19 spread %c - current data and prediction.\nCopyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
+        console.log('%c COVID-19 spread %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
         el = {
             country_selector: document.getElementById('country-selector'),
+            prediction_container: document.getElementById('prediction-container'),
             loader_screen: document.getElementById('loader-screen'),
             current_date: document.getElementById('current-date'),
             current_cases: document.getElementById('current-cases'),
@@ -490,7 +493,7 @@ import rk4 from 'ode-rk4'
             })
             observer.observe(element, { childList: true, characterData: false, attributes: false, subtree: false })
         })
-        console.debug(`w x h = ${window.innerWidth} x ${window.innerHeight}`)
+        console.debug(`w × h = ${window.innerWidth} x ${window.innerHeight}`)
         Chart.defaults.global.defaultFontFamily = 'Inria Sans, sans-serif'
         Chart.defaults.global.defaultFontSize = 13
         Chart.defaults.global.defaultFontColor = '#888'

@@ -92,6 +92,7 @@ button:active {
   }
   set max(v) {
       this.input.max = v
+      this.input.value = Math.min(+this.input.value, v)
   }
   get max() {
       return this.input.max

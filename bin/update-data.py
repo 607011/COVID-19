@@ -18,6 +18,7 @@ population_filename = os.path.join('src', 'data', 'world-data.csv')
 json_file_template = os.path.join(data_path, '{country:s}.json')
 path_latest = os.path.join('COVID-19-web-data', 'data')
 prediction_days = 180
+excluded_from_prediction = ['Diamond Princess', 'MS Zaandam']
 
 def is_float(value):
   try:
@@ -161,53 +162,54 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
       else:
         doubling_rates.append(None)
 
-    predict(confirmed, dates, country, result)
+    if not country in excluded_from_prediction:
+      predict(confirmed, dates, country, result)
 
-    # Calculate SIR
-    retrospect_days = 7
-    dt = dates[-1] - timedelta(days=retrospect_days)
-    day0 = '{:d}/{:d}/{:d}'.format(dt.month, dt.day, dt.year - 2000)
-    population = result['countries'][country]['population']
-    infected = active[day0:]
-    removed = recovered[day0:] + deaths[day0:]
-    susceptible = population - infected - removed
-    s = susceptible / population
-    i = infected / population
-    r = removed / population
-    s0 = s.values[0]
-    i0 = i.values[0]
-    r0 = r.values[0]
-    xdata = np.array(range(retrospect_days+1), dtype=float)
+      # Calculate SIR
+      retrospect_days = 7
+      dt = dates[-1] - timedelta(days=retrospect_days)
+      day0 = '{:d}/{:d}/{:d}'.format(dt.month, dt.day, dt.year - 2000)
+      population = result['countries'][country]['population']
+      infected = active[day0:]
+      removed = recovered[day0:] + deaths[day0:]
+      susceptible = population - infected - removed
+      s = susceptible / population
+      i = infected / population
+      r = removed / population
+      s0 = s.values[0]
+      i0 = i.values[0]
+      r0 = r.values[0]
+      xdata = np.array(range(retrospect_days+1), dtype=float)
 
-    def sir_model(y, x, beta, gamma):
-        S = -beta * y[0] * y[1]
-        R = gamma * y[1]
-        I = -(S + R)
-        return S, I, R
+      def sir_model(y, x, beta, gamma):
+          S = -beta * y[0] * y[1]
+          R = gamma * y[1]
+          I = -(S + R)
+          return S, I, R
 
-    def fit_s(x, beta, gamma):
-        return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,0]
+      def fit_s(x, beta, gamma):
+          return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,0]
 
-    def fit_i(x, beta, gamma):
-        return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,1]
+      def fit_i(x, beta, gamma):
+          return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,1]
 
-    def fit_r(x, beta, gamma):
-        return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,2]
+      def fit_r(x, beta, gamma):
+          return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,2]
 
-    try:
-      popt_s, _pcov = optimize.curve_fit(fit_s, xdata, s.values)
-      popt_i, _pcov = optimize.curve_fit(fit_i, xdata, i.values)
-      popt_r, _pcov = optimize.curve_fit(fit_r, xdata, r.values)
-    except RuntimeError as e:
-      print('WARNING: {}'.format(e), file=sys.stdout)
+      try:
+        popt_s, _pcov = optimize.curve_fit(fit_s, xdata, s.values)
+        popt_i, _pcov = optimize.curve_fit(fit_i, xdata, i.values)
+        popt_r, _pcov = optimize.curve_fit(fit_r, xdata, r.values)
+      except RuntimeError as e:
+        print('WARNING: {}'.format(e), file=sys.stdout)
 
-    result['countries'][country]['predicted']['SIR'] = {
-      'from_date': dt.strftime('%Y-%m-%d'),
-      't': xdata.tolist(),
-      'S': { 'beta': popt_s[0], 'gamma': popt_s[1] },
-      'I': { 'beta': popt_i[0], 'gamma': popt_i[1] },
-      'R': { 'beta': popt_r[0], 'gamma': popt_r[1] },
-    }
+      result['countries'][country]['predicted']['SIR'] = {
+        'from_date': dt.strftime('%Y-%m-%d'),
+        't': xdata.tolist(),
+        'S': { 'beta': popt_s[0], 'gamma': popt_s[1] },
+        'I': { 'beta': popt_i[0], 'gamma': popt_i[1] },
+        'R': { 'beta': popt_r[0], 'gamma': popt_r[1] },
+      }
 
     result['countries'][country]['delta'] = deltas
     result['countries'][country]['doubling_rates'] = doubling_rates

@@ -183,15 +183,6 @@ canvas {
     background: #888;
 }
 
-input[type=search] {
-    display: inline-block;
-    border: none;
-    font-family: Calibri, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 100%;
-    width: calc(100% - 40px);
-    padding: 5px 5px;
-}
-
 #current-cases,
 #predicted-cases {
     font-weight: bold;

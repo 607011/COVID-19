@@ -1,8 +1,8 @@
-# Covid-19
+# COVID-19
 
-_Visualization of Covid-19 spread and predicted cases_
+_Visualization of COVID-19 spread and predicted cases_
 
-![Covid-19 web app](webapp-preview.png)
+![COVID-19 web app](webapp-preview.png)
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ cd COVID-19
 
 ## Deployment
 
-The latest Covid-19 spread data is fetched from Johns Hopkins' Center for Systems Science and Engineering ([CSSE](https://coronavirus.jhu.edu/map.html)) [repository](https://github.com/CSSEGISandData/COVID-19). Type 
+The latest COVID-19 spread data is fetched from Johns Hopkins' Center for Systems Science and Engineering ([CSSE](https://coronavirus.jhu.edu/map.html)) [repository](https://github.com/CSSEGISandData/COVID-19). Type
 
 ```
 gitmodule update --remote

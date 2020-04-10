@@ -107,7 +107,7 @@ footer > span:last-child {
 }
 
 #prediction-container > * {
-    vertical-align: text-bottom;
+    vertical-align: bottom;
 }
 
 .diff-chart-container {

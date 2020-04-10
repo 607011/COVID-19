@@ -47,6 +47,24 @@ html, body {
     width: 44px;
     height: 44px;
     cursor: pointer;
+    transform-origin: 20px 20px;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotate {
+    animation-name: rotation;
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.7, 0.5);
+    animation-duration: 1s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
 }
 
 .main-chart-container {

@@ -56,4 +56,7 @@
       max-width: 230px;
       order: 2;
   }
+  .main-chart-container {
+    margin-left: 0;
+  }
 }

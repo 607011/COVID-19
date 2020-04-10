@@ -17,8 +17,8 @@ The [code](https://github.com/ola-ct/COVID-19) for this web app is hosted on Git
 
 ```
 git clone https://github.com/ola-ct/COVID-19.git
-git submodule init
 cd COVID-19
+git submodule init
 ```
 
 ## Deployment

@@ -27,11 +27,11 @@ import rk4 from 'ode-rk4'
         country: localStorage.getItem('country') || 'Germany',
         predict: +localStorage.getItem('prediction_days') || 0,
     }
-    const EqIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="equal" xlink:href="#equal-indicator" fill="#FF6633"></use></svg>'
-    const UpPosIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, good" xlink:href="#up-indicator" fill="#63D427"></use></svg>'
-    const DwNegIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, bad" xlink:href="#down-indicator" fill="#D42C27"></use></svg>'
-    const UpNegIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, bad" xlink:href="#up-indicator" fill="#D42C27"></use></svg>'
-    const DwPosIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, good" xlink:href="#down-indicator" fill="#63D427"></use></svg>'
+    const EqIndicator = '<span><svg title="almost equal, okay" width="12" height="12" viewBox="0 0 12 12"><use aria-label="almost equal, okay" xlink:href="#equal-indicator" fill="#FF6633"></use></svg></span>'
+    const UpPosIndicator = '<span title="up, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, good" xlink:href="#up-indicator" fill="#63D427"></use></svg></span>'
+    const DwNegIndicator = '<span title="down, bad"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, bad" xlink:href="#down-indicator" fill="#D42C27"></use></svg></span>'
+    const UpNegIndicator = '<span title="up, bad"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, bad" xlink:href="#up-indicator" fill="#D42C27"></use></svg></span>'
+    const DwPosIndicator = '<span title="down, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, good" xlink:href="#down-indicator" fill="#63D427"></use></svg></span>'
     let el = {}
     let refresh_interval_mins = 60
     let locale = 'de-DE'

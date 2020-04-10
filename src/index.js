@@ -494,7 +494,6 @@ import rk4 from 'ode-rk4'
             })
             observer.observe(element, { childList: true, characterData: false, attributes: false, subtree: false })
         })
-        console.debug(`w × h = ${window.innerWidth} x ${window.innerHeight}`)
         Chart.defaults.global.defaultFontFamily = 'Inria Sans, sans-serif'
         Chart.defaults.global.defaultFontSize = 13
         Chart.defaults.global.defaultFontColor = '#888'

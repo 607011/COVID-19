@@ -1,6 +1,6 @@
 /*
-    COVID-19 spread visualization and active cases prediction.
-    Copyright (c) 2020 Oliver Lau <oliver.lau@gmail.com>
+    COVID-19 spread visualization and prediction.
+    Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

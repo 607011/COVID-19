@@ -18,9 +18,9 @@ export default class NumberStepper extends HTMLElement {
       const downButton = document.createElement('button')
       this.input = document.createElement('input')
       this.input.type = 'number'
-      this.input.min = +this.getAttribute('min')
-      this.input.max = +this.getAttribute('max')
-      this.input.value = +this.getAttribute('value')
+      this.input.min = this.getAttribute('min') | 0
+      this.input.max = this.getAttribute('max') | 0
+      this.input.value = this.getAttribute('value') | 0
       this.input.style.width = this.getAttribute('innerwidth')
       this.input.addEventListener('change', function() {
           this.dispatchEvent(this.changeEvent)
@@ -46,12 +46,16 @@ export default class NumberStepper extends HTMLElement {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Calibri, Geneva, Arial, Helvetica, sans-serif;
+  font-family: 'Inria Sans', sans-serif;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 span {
   display: inline-block;
   border: none;
   background-color: #eee;
+  white-space: nowrap;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {

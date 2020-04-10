@@ -17,6 +17,7 @@
  */
 
 import './css/default.css'
+import './css/tiny.css'
 import NumberStepper from './stepper.js'
 import rk4 from 'ode-rk4'
 
@@ -112,7 +113,7 @@ import rk4 from 'ode-rk4'
             indicator = confirmed.sir.I[confirmed.active.length + hash_param.predict - 1] > confirmed.sir.I[confirmed.active.length + hash_param.predict - 2] ? UpNegIndicator : DwPosIndicator
             updateIfChanged(el.predicted_cases, (hash_param.predict > 0 && confirmed.predicted)
                 ? `${confirmed.sir.I[confirmed.active.length + hash_param.predict - 1].toLocaleString(locale)} ${indicator}`
-                : '–')    
+                : '–')
         }
         if (diff_chart) {
             diff_chart.data.labels = dates.slice(0, confirmed.total.length)
@@ -136,7 +137,7 @@ import rk4 from 'ode-rk4'
                 options: {
                     title: {
                         display: true,
-                        text: '∆ infected',
+                        text: '∆ Infections',
                     },
                     responsive: true,
                     maintainAspectRatio: false,

@@ -36,6 +36,7 @@
     <meta http-equiv="content-type" content="text/html">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link async href="app.css" media="screen" rel="stylesheet"/>
+    <link async href="tiny.css" media="only screen and (max-width: 768px)" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="img/favicon.png"/>
     <script defer src="main.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
@@ -105,13 +106,14 @@
             <h1>COVID-19 — Current spread data and prediction</h1>
         </header>
         <div id="ui">
-            <aside class="sidebar">
+            <aside class="sidebar left">
                 <div id="country-selector"></div>
             </aside>
-            <aside class="sidebar">
+            <aside class="sidebar right">
                 <div class="controls">
+                    <div class="tiny"><h1>COVID-19 spread</h1></div>
                     <div class="grid-table-with-header">
-                        <span>Latest data <span id="refresh-button"><svg width="16" height="16" viewBox="0 0 16 16"><use xlink:href="#refresh" fill="#eee"/></svg></span></span>
+                        <span >Latest data</span>
                         <span>Updated</span><span id="latest-date" class="refreshable"></span>
                         <span>Infections</span><span id="latest-active" class="refreshable"></span>
                         <span>Deaths</span><span id="latest-deaths" class="refreshable"></span>
@@ -130,6 +132,7 @@
                             predict next n days
                         </label>
                         <number-stepper id="prediction-days" name="prediction-days" value="0" min="0" max="30" innerwidth="3em" height="44px"></number-stepper>
+                        <span id="refresh-button" title="refresh data"><svg width="44" height="44" viewBox="0 0 44 44"><g transform="scale(2.5 2.5)"><use xlink:href="#refresh" fill="#ccc"/></g></svg></span>
                     </div>
                 </div>
                 <div class="diff-chart-container">

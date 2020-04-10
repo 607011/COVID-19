@@ -1,0 +1,59 @@
+@media only screen and (max-width: 768px) {
+  #ui {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: stretch;
+      align-content: stretch;
+  }
+  .tiny {
+    display: initial;
+  }
+  #country-selector {
+      max-height: 90vh;
+  }
+  #country-selector > div {
+      grid-template-columns: 2em 1fr;
+      column-gap: 0;
+  }
+  #country-selector > div span {
+      height: 40px;
+      line-height: 35px;
+      font-size: 160%;
+      border-bottom: 1px solid #777;
+      padding: 0 3px 0 0;
+  }
+  #country-selector > div span:nth-child(odd) {
+      padding: 0;
+  }    
+  header {
+      display: none;
+  }
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .sidebar {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+  }
+  .sidebar.right {
+      flex-direction: row;
+      margin: 0;
+      width: 100%;
+      max-width: calc(100% - 240px);
+  }
+  .controls {
+      width: 50%;
+      order: 1;
+  }
+  .diff-chart-container {
+      margin: 0 0 0 10px;
+      height: 90vh;
+      max-height: unset;
+      max-width: 230px;
+      order: 2;
+  }
+}

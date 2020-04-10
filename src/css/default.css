@@ -19,6 +19,10 @@ html, body {
     padding: 5px;
 }
 
+.tiny {
+    display: none;
+}
+
 #ui {
     display: flex;
     flex-direction: row;
@@ -40,13 +44,9 @@ html, body {
 
 #refresh-button {
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 44px;
+    height: 44px;
     cursor: pointer;
-}
-
-#refresh-button:hover {
-    background-color: #555;
 }
 
 .main-chart-container {
@@ -106,7 +106,11 @@ footer > span:last-child {
     margin-bottom: 5px;
 }
 
-.diff-chart-container, .sir-chart-container {
+#prediction-container > * {
+    vertical-align: text-bottom;
+}
+
+.diff-chart-container {
     margin-top: 5px;
     height: 20vh;
     max-height: 200px;
@@ -125,7 +129,6 @@ canvas {
     overflow-y: auto;
     overflow-x: hidden;
     min-width: 150px;
-
 }
 
 #country-selector > div {

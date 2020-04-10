@@ -37,12 +37,12 @@ import rk4 from 'ode-rk4'
     let locale = 'de-DE'
     let main_chart = null
     let diff_chart = null
-    let selected_country = null
     let countries = []
     let hash_param = {
         country: null,
         predict: null,
     }
+    let last_selected_country = ''
     let confirmed = {}
     let last_update = new Date(1970)
 
@@ -83,8 +83,7 @@ import rk4 from 'ode-rk4'
         const dbl1 = confirmed.doubling_rates[confirmed.doubling_rates.length-2]
         const indicator = almostEqual(dbl, dbl1) ? EqIndicator : dbl > dbl1 ? UpPosIndicator : DwNegIndicator
         updateIfChanged(el.current_doubling, dbl > 0 ? `${dbl.toFixed(1)} days ${indicator}` : 'n/a')
-        document.getElementById('App').classList.remove('hidden')
-        el.loader_screen.classList.add('hide')
+        el.refresh_button.classList.remove('rotate')
         calculateSIR()
         updateCharts()
     }
@@ -377,7 +376,10 @@ import rk4 from 'ode-rk4'
     }
 
     const loadCountryData = () => {
-        el.loader_screen.classList.remove('hide')
+        if (hash_param.country !== last_selected_country) {
+            el.loader_screen.classList.remove('hidden')
+            last_selected_country = hash_param.country
+        }
         hideError()
         fetch(`data/${hash_param.country}.json`)
             .then(response => {
@@ -389,6 +391,8 @@ import rk4 from 'ode-rk4'
                 updateIfChanged(el.population, data.population.toLocaleString(locale))
                 updateUI(data)
                 activateCountry(data.country)
+                el.app.classList.remove('hidden')
+                el.loader_screen.classList.add('hidden')
             },
             status => {
                 showError(`Fetching data for »${hash_param.country}« failed: ${status}. Reload page to retry …`)
@@ -396,9 +400,8 @@ import rk4 from 'ode-rk4'
     }
 
     const activateCountry = country => {
-        el.prediction_container.style.visibility = confirmed.predicted ? 'visible' : 'hidden'
-        selected_country = country;
         [...document.querySelectorAll('.country.selected')].forEach(el => el.classList.remove('selected'))
+        el.prediction_container.style.visibility = confirmed.predicted ? 'visible' : 'hidden'
         document.getElementById(`_${country}`).classList.add('selected')
         setTimeout(() => { // TODO: replace this dirty hack by a MutationObserver based solution
             document.getElementById(`_${country}`).scrollIntoView({
@@ -445,8 +448,11 @@ import rk4 from 'ode-rk4'
 
     const postInit = () => {
         el.prediction_days.addEventListener('change', predictionDaysChanged)
+        el.refresh_button.addEventListener('click', () => {
+            el.refresh_button.classList.add('rotate')
+            loadCountryData()
+        })
         window.addEventListener('hashchange', hashChanged)
-        document.getElementById('refresh-button').addEventListener('click', loadCountryData)
         setInterval(loadCountryData, 1000 * 60 * refresh_interval_mins)
     }
 
@@ -463,6 +469,7 @@ import rk4 from 'ode-rk4'
     const main = () => {
         console.log('%c COVID-19 spread %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
         el = {
+            app: document.getElementById('App'),
             country_selector: document.getElementById('country-selector'),
             prediction_container: document.getElementById('prediction-container'),
             loader_screen: document.getElementById('loader-screen'),
@@ -479,6 +486,7 @@ import rk4 from 'ode-rk4'
             latest_active: document.getElementById('latest-active'),
             latest_deaths: document.getElementById('latest-deaths'),
             latest_recovered: document.getElementById('latest-recovered'),
+            refresh_button: document.getElementById('refresh-button'),
             refreshables: [...document.getElementsByClassName('refreshable')],
         }
         el.refreshables.forEach(element => {

@@ -45,26 +45,26 @@ pipenv run bin/update-data.py
 
 This will generate the aforementioned JSON files containing the latest spread data for each country.
 
-Now the data is prepared you can prepare the code to being deployed to a webserver.
+Now the data are prepared in folder dist/data/ you can prepare the code for deployment to a web server.
 
 This app uses [webpack](https://webpack.js.org/) to bundle the files from src/ into the deployment directory dist/.
 
-If you haven't done it already, install the necessary Node modules: 
+If you haven't done it already, install the necessary [Node](https://nodejs.org/) modules: 
 
 ```
 npm install --save-dev
 ```
 
-After that you can bundle the files by running
+After that you can bundle the files for production use by running
+
+```
+npx webpack --mode="production" --no-watch
+```
+
+or, alternatively to produce debug friendly code and let webpack watch and rebuild changed files
 
 ```
 npm run build
-```
-
-or, alternatively
-
-```
-npx webpack
 ```
 
 Now you can copy the files in dist/ to the web server of your choice. bin/deploy.sh contains a template for a script that copies the files via SSH to a remote directory:

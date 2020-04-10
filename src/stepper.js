@@ -20,12 +20,14 @@ export default class NumberStepper extends HTMLElement {
       this.input.type = 'number'
       this.input.min = this.getAttribute('min') | 0
       this.input.max = this.getAttribute('max') | 0
+      this.input.step = this.getAttribute('step') || 1
       this.input.value = this.getAttribute('value') | 0
       this.input.style.width = this.getAttribute('innerwidth')
       this.input.addEventListener('change', function() {
           this.dispatchEvent(this.changeEvent)
       }.bind(this))
       downButton.innerHTML = '&minus;'
+      downButton.title = `decrease by ${this.input.step}`
       downButton.style.width = h
       downButton.style.height = h
       downButton.addEventListener('click', function() {
@@ -34,6 +36,7 @@ export default class NumberStepper extends HTMLElement {
       }.bind(this))
       const upButton = document.createElement('button')
       upButton.innerHTML = '&plus;'
+      upButton.title = `increase by ${this.input.step}`
       upButton.style.width = h
       upButton.style.height = h
       upButton.addEventListener('click', function() {
@@ -46,7 +49,7 @@ export default class NumberStepper extends HTMLElement {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inria Sans', sans-serif;
+  font-family: inherit;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -59,6 +62,7 @@ span {
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
+  -moz-appearance: none;
   -webkit-appearance: none;
   height: auto;
 }
@@ -92,7 +96,7 @@ button:active {
       return this.input.value
   }
   set value(v) {
-      this.input.value = v
+      this.input.value = Math.max(+this.input.min, Math.min(v, +this.input.max))
   }
   set max(v) {
       this.input.max = v
@@ -100,5 +104,11 @@ button:active {
   }
   get max() {
       return this.input.max
+  }
+  set step(v) {
+    this.input.step = Math.max(v, 0)
+  }
+  get step() {
+    return this.input.step
   }
 }

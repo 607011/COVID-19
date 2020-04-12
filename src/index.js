@@ -456,8 +456,7 @@ import rk4 from 'ode-rk4'
         [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => tab.classList.remove('active'))
         evt.currentTarget.classList.add('active');
         [...document.querySelectorAll('#chart-tabs .tabcontent')].forEach(tab => tab.classList.add('hidden'));
-        const target_tab = evt.target.dataset.target;
-        document.querySelector(target_tab).classList.remove('hidden')
+        document.querySelector(evt.target.dataset.target).classList.remove('hidden')
     }
 
     const postInit = () => {

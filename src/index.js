@@ -116,7 +116,8 @@ import rk4 from 'ode-rk4'
         }
         if (diff_chart) {
             diff_chart.data.labels = dates.slice(0, confirmed.total.length)
-            diff_chart.data.datasets[0].data = confirmed.delta
+            diff_chart.data.datasets[0].data = confirmed.diffs.infected
+            diff_chart.data.datasets[1].data = confirmed.diffs.deaths
             diff_chart.update()
         }
         else {
@@ -126,22 +127,26 @@ import rk4 from 'ode-rk4'
                     labels: dates.slice(0, confirmed.total.length),
                     datasets: [
                         {
-                            data: confirmed.delta,
-                            backgroundColor: (function(_opaque, ctx) {
-                                return ctx.dataset.data[ctx.dataIndex] < 0 ? '#63D427' : '#D42C27'
-                            }).bind(null, false),
+                            data: confirmed.diffs.infected,
+                            backgroundColor: '#D42C27',
+                            label: 'Infections',
+                        },
+                        {
+                            data: confirmed.diffs.deaths,
+                            backgroundColor: '#D16EDC',
+                            label: 'Deaths',
                         }
                     ]
                 },
                 options: {
                     title: {
                         display: true,
-                        text: '∆ Infections',
+                        text: 'Daily new',
                     },
                     responsive: true,
                     maintainAspectRatio: false,
                     legend: {
-                        display: false,
+                        display: true,
                     },
                     scales: {
                         xAxes: [
@@ -162,8 +167,9 @@ import rk4 from 'ode-rk4'
                                     drawTicks: false,
                                 },
                                 ticks: {
-                                    display: false,
+                                    display: true,
                                 },
+                                position: 'right',
                             },
                         ],    
                     },

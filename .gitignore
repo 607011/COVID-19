@@ -1,6 +1,5 @@
 .vscode
 .DS_Store
-tmp/
 node_modules/
 .ipynb_checkpoints/
 SIR-test-Copy1.ipynb

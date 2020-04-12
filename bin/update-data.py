@@ -29,7 +29,6 @@ import json
 import math
 import numpy as np
 import pandas as pd
-from urllib.request import urlopen
 from functools import partial
 from datetime import timedelta, datetime
 from scipy import optimize, integrate
@@ -92,14 +91,14 @@ def load_ecdc_diff_data(result, dates):
   diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
   if verbosity > 0:
     print('Processing ECDC daily diff data ...')
-  sparse = pd.DataFrame(data=[[d, (first_day + timedelta(days=d)).strftime('%d/%m/%Y'), 0, 0] for d in range(dt.days+1)], columns=('dt', 'dateRep', 'cases', 'deaths'))
+  all_days = pd.DataFrame(data=[[d, (first_day + timedelta(days=d)).strftime('%d/%m/%Y'), 0, 0] for d in range(dt.days+1)], columns=('dt', 'dateRep', 'cases', 'deaths'))
   for country in diff_data.countriesAndTerritories.unique():
     mapped_country = country_mapping[country] if country in country_mapping else country
     mapped_country = mapped_country.replace('_', ' ')
     data = diff_data[diff_data['countriesAndTerritories'] == country]
     data.insert(2, 'dt', data.loc[:, 'dateRep'].apply(lambda date: (datetime.strptime(date, '%d/%m/%Y') - first_day).days))
     data = data[data['dt'] >= 0]
-    data = pd.merge_ordered(data.loc[:, ['dt', 'dateRep', 'cases', 'deaths']], sparse, right_by='dt', how='left')
+    data = pd.merge_ordered(data.loc[:, ['dt', 'dateRep', 'cases', 'deaths']], all_days, right_by='dt', how='left')
     data.to_csv(os.path.join(tmp_path, 'ecdc-{:s}.csv'.format(country)), index=False)
     if mapped_country in result['countries']:
       result['countries'][mapped_country]['diffs'] = {
@@ -184,16 +183,9 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
     recovered = recovered_global.loc[country][start_date:]
     active = confirmed - deaths - recovered
     doubling_rates = [None]
-    diffs_total = [0]
-    new_infections = [0]
     for i in range(1, active.values.size):
       prev_active = active.values[i - 1]
       curr_active = active.values[i]
-      diff_active = int(curr_active - prev_active)
-      diff_recovered = int(recovered.values[i] - recovered.values[i - 1])
-      diff_deaths = int(deaths.values[i] - deaths.values[i - 1])
-      new_infections.append(diff_active - diff_recovered - diff_deaths)
-      diffs_total.append(diff_active)
       if prev_active > 0 and curr_active > prev_active:
         doubling_rates.append(round(1 / np.log2(curr_active / prev_active), 2))
       else:
@@ -230,13 +222,7 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
         'R': { 'beta': popt_r[0], 'gamma': popt_r[1] },
       }
 
-    if not 'diffs' in result['countries'][country]:
-      print('******', country)
-      result['countries'][country]['diffs'] = {}
-    if 'total' in result['countries'][country]['diffs']:
-      result['countries'][country]['diffs']['total'] = diffs_total
     result['countries'][country]['doubling_rates'] = doubling_rates
-    result['countries'][country]['new_active'] = new_infections
     result['countries'][country]['total'] = confirmed.values.astype(int).tolist()
     result['countries'][country]['active'] = active.values.astype(int).tolist()
     result['countries'][country]['recovered'] = recovered.values.astype(int).tolist()

@@ -29,18 +29,25 @@ import json
 import math
 import numpy as np
 import pandas as pd
+from urllib.request import urlopen
+from functools import partial
 from datetime import timedelta, datetime
 from scipy import optimize, integrate
 
 verbosity = 1
 start_date = '1/22/20'
+first_day = datetime.strptime(start_date, '%m/%d/%y')
+
 path_timeseries = os.path.join('COVID-19', 'csse_covid_19_data', 'csse_covid_19_time_series')
-data_path = os.path.join('dist', 'data')
-population_filename = os.path.join('src', 'data', 'world-data.csv')
-json_file_template = os.path.join(data_path, '{country:s}.json')
+dst_path = os.path.join('dist', 'data')
+src_path = os.path.join('src', 'data')
+tmp_path = os.path.join('tmp', 'data')
+population_filename = os.path.join(src_path, 'world-data.csv')
+json_file_template = os.path.join(dst_path, '{country:s}.json')
 path_latest = os.path.join('COVID-19-web-data', 'data')
 prediction_days = 180
 excluded_from_prediction = ['Diamond Princess', 'MS Zaandam']
+
 
 def is_float(value):
   try:
@@ -49,6 +56,7 @@ def is_float(value):
     return True
   except ValueError:
     return False
+
 
 def load_world_data(result):
   with open(population_filename, 'r') as f:
@@ -59,6 +67,46 @@ def load_world_data(result):
         'population': int(row[1]),
         'flag': row[2],
       }
+
+
+def load_ecdc_diff_data(result, dates):
+  country_mapping = {
+    'Brunei_Darussalam': 'Brunei',
+    'United_States_of_America': 'US',
+    'United_Republic_of_Tanzania': 'Tanzania',
+    'Taiwan': 'Taiwan*',
+    'Timor_Leste': 'Timor-Leste',
+    'Palestine': 'West Bank and Gaza',
+    'South_Korea': 'Korea, South',
+    'Guinea_Bissau': 'Guinea-Bissau',
+    'Congo': 'Congo (Kinshasa)',
+    'Myanmar': 'Burma',
+    'Cote_dIvoire': 'Cote d\'Ivoire',
+    'Cape_Verde': 'Cabo Verde',
+  }
+  latest_day = dates[-1]
+  dt = latest_day - first_day
+  if verbosity > 0:
+    print('Reading ECDC daily diff data ...')
+  diff_data = pd.read_csv('https://opendata.ecdc.europa.eu/covid19/casedistribution/csv')
+  diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
+  if verbosity > 0:
+    print('Processing ECDC daily diff data ...')
+  sparse = pd.DataFrame(data=[[d, (first_day + timedelta(days=d)).strftime('%d/%m/%Y'), 0, 0] for d in range(dt.days+1)], columns=('dt', 'dateRep', 'cases', 'deaths'))
+  for country in diff_data.countriesAndTerritories.unique():
+    mapped_country = country_mapping[country] if country in country_mapping else country
+    mapped_country = mapped_country.replace('_', ' ')
+    data = diff_data[diff_data['countriesAndTerritories'] == country]
+    data.insert(2, 'dt', data.loc[:, 'dateRep'].apply(lambda date: (datetime.strptime(date, '%d/%m/%Y') - first_day).days))
+    data = data[data['dt'] >= 0]
+    data = pd.merge_ordered(data.loc[:, ['dt', 'dateRep', 'cases', 'deaths']], sparse, right_by='dt', how='left')
+    data.to_csv(os.path.join(tmp_path, 'ecdc-{:s}.csv'.format(country)), index=False)
+    if mapped_country in result['countries']:
+      result['countries'][mapped_country]['diffs'] = {
+        'infected': data['cases'].tolist(),
+        'deaths': data['deaths'].tolist(),
+      }
+
 
 def parse_latest(filename, result):
   if verbosity > 0:
@@ -79,60 +127,15 @@ def parse_latest(filename, result):
     }
 
 
-def predict(confirmed, dates, country, result):
-  latest_day = dates[-1]
-  day0 = latest_day - timedelta(days=7)
-  data = pd.DataFrame(data={'day': dates, 'cases': confirmed})
-  cases_since_quarantine = np.array(data[data['day'] >= day0]['cases'])
-  if cases_since_quarantine[cases_since_quarantine > 0].size > 0:
-    if verbosity > 1:
-      print('  Predicting spread of SARS-CoV-2 ...')
-    days_since_quarantine = np.array(
-        [d.toordinal() for d in data[data['day'] >= day0]['day']])
+def sir_model(y, x, beta, gamma):
+  S = -beta * y[0] * y[1]
+  R = gamma * y[1]
+  I = -(S + R)
+  return S, I, R
 
-    def corona_curve(x, b0, x0, k, s):
-      return s * 1 / (1 + np.exp(-1 * k * s * (x - x0)) * (s / b0 - 1))
 
-    try:
-      params, _ = optimize.curve_fit(
-          corona_curve,
-          xdata=days_since_quarantine,
-          ydata=cases_since_quarantine,
-          p0=[
-              cases_since_quarantine[0],
-              day0.toordinal(),
-              8e-9,
-              int(result['countries'][country]['population'] / 2)
-          ],
-          bounds=(
-              [
-                  0,
-                  days_since_quarantine[0],
-                  1e-11,
-                  cases_since_quarantine[-1]
-              ],
-              [
-                  cases_since_quarantine[-1],
-                  (datetime.now() + timedelta(days=prediction_days)).toordinal(),
-                  1e-8,
-                  result['countries'][country]['population']
-              ]
-          )
-      )
-    except ValueError as e:
-      print('    **** Prediction failed! ValueError: {}'.format(e), file=sys.stderr)
-    else:
-      predicted = map(
-          lambda day: int(corona_curve(
-              (latest_day + timedelta(days=day+1)).toordinal(), *params)),
-          range(prediction_days)
-      )
-      result['countries'][country]['predicted'] = {
-          'logistic_function': {
-              'from_date': (dates[-1] + timedelta(days=1)).strftime('%Y-%m-%d'),
-              'active': list(predicted),
-          }
-      }
+def _fit(s0, i0, r0, index, x, beta, gamma):
+  return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,index]
 
 
 def main():
@@ -144,10 +147,6 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
   if verbosity > 0:
     print('Current working directory: {:s}'.format(os.getcwd()))
 
-  result = { 'countries': {} }
-  load_world_data(result)
-  parse_latest(os.path.join(path_latest, 'cases_country.csv'), result)
-
   confirmed_global = pd.read_csv(os.path.join(path_timeseries, 'time_series_covid19_confirmed_global.csv'))\
     .groupby('Country/Region').sum()
   deaths_global = pd.read_csv(os.path.join(path_timeseries, 'time_series_covid19_deaths_global.csv'))\
@@ -155,7 +154,11 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
   recovered_global = pd.read_csv(os.path.join(path_timeseries, 'time_series_covid19_recovered_global.csv'))\
     .groupby('Country/Region').sum()
 
-  with open(os.path.join(data_path, 'countries.json'), 'w+') as out:
+  result = { 'countries': {} }
+  load_world_data(result)
+  parse_latest(os.path.join(path_latest, 'cases_country.csv'), result)
+
+  with open(os.path.join(dst_path, 'countries.json'), 'w+') as out:
     countries = {}
     for country in confirmed_global.index.tolist():
       countries[country] = {
@@ -165,6 +168,13 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
     out.write(json.dumps(countries))
 
   dates = [datetime.strptime(d, '%m/%d/%y') for d in confirmed_global.columns[2:].tolist()]
+  retrospect_days = 7
+  dt = dates[-1] - timedelta(days=retrospect_days)
+
+  load_ecdc_diff_data(result, dates)
+
+  day0 = '{:d}/{:d}/{:d}'.format(dt.month, dt.day, dt.year - 2000)
+  xdata = np.array(range(retrospect_days+1), dtype=float)
 
   for country in sorted(confirmed_global.index.tolist()):
     if verbosity > 0:
@@ -174,23 +184,24 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
     recovered = recovered_global.loc[country][start_date:]
     active = confirmed - deaths - recovered
     doubling_rates = [None]
-    deltas = [None]
+    diffs_total = [0]
+    new_infections = [0]
     for i in range(1, active.values.size):
-      prev_cases = active.values[i - 1]
-      curr_cases = active.values[i]
-      deltas.append(int(curr_cases - prev_cases))
-      if prev_cases > 0 and curr_cases > prev_cases:
-        doubling_rates.append(round(1 / np.log2(curr_cases / prev_cases), 2))
+      prev_active = active.values[i - 1]
+      curr_active = active.values[i]
+      diff_active = int(curr_active - prev_active)
+      diff_recovered = int(recovered.values[i] - recovered.values[i - 1])
+      diff_deaths = int(deaths.values[i] - deaths.values[i - 1])
+      new_infections.append(diff_active - diff_recovered - diff_deaths)
+      diffs_total.append(diff_active)
+      if prev_active > 0 and curr_active > prev_active:
+        doubling_rates.append(round(1 / np.log2(curr_active / prev_active), 2))
       else:
         doubling_rates.append(None)
 
     if not country in excluded_from_prediction:
-      predict(confirmed, dates, country, result)
-
+      result['countries'][country]['predicted'] = {}
       # Calculate SIR
-      retrospect_days = 7
-      dt = dates[-1] - timedelta(days=retrospect_days)
-      day0 = '{:d}/{:d}/{:d}'.format(dt.month, dt.day, dt.year - 2000)
       population = result['countries'][country]['population']
       infected = active[day0:]
       removed = recovered[day0:] + deaths[day0:]
@@ -201,23 +212,9 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
       s0 = s.values[0]
       i0 = i.values[0]
       r0 = r.values[0]
-      xdata = np.array(range(retrospect_days+1), dtype=float)
-
-      def sir_model(y, x, beta, gamma):
-          S = -beta * y[0] * y[1]
-          R = gamma * y[1]
-          I = -(S + R)
-          return S, I, R
-
-      def fit_s(x, beta, gamma):
-          return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,0]
-
-      def fit_i(x, beta, gamma):
-          return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,1]
-
-      def fit_r(x, beta, gamma):
-          return integrate.odeint(sir_model, (s0, i0, r0), x, args=(beta, gamma))[:,2]
-
+      fit_s = partial(_fit, s0, i0, r0, 0)
+      fit_i = partial(_fit, s0, i0, r0, 1)
+      fit_r = partial(_fit, s0, i0, r0, 2)
       try:
         popt_s, _pcov = optimize.curve_fit(fit_s, xdata, s.values)
         popt_i, _pcov = optimize.curve_fit(fit_i, xdata, i.values)
@@ -227,14 +224,19 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
 
       result['countries'][country]['predicted']['SIR'] = {
         'from_date': dt.strftime('%Y-%m-%d'),
-        't': xdata.tolist(),
+        # 't': xdata.tolist(),
         'S': { 'beta': popt_s[0], 'gamma': popt_s[1] },
         'I': { 'beta': popt_i[0], 'gamma': popt_i[1] },
         'R': { 'beta': popt_r[0], 'gamma': popt_r[1] },
       }
 
-    result['countries'][country]['delta'] = deltas
+    if not 'diffs' in result['countries'][country]:
+      print('******', country)
+      result['countries'][country]['diffs'] = {}
+    if 'total' in result['countries'][country]['diffs']:
+      result['countries'][country]['diffs']['total'] = diffs_total
     result['countries'][country]['doubling_rates'] = doubling_rates
+    result['countries'][country]['new_active'] = new_infections
     result['countries'][country]['total'] = confirmed.values.astype(int).tolist()
     result['countries'][country]['active'] = active.values.astype(int).tolist()
     result['countries'][country]['recovered'] = recovered.values.astype(int).tolist()

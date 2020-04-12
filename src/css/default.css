@@ -77,15 +77,13 @@ html, body {
 }
 
 .tab {
-    background-color: #666;
-    width: 100%;
     display: flex;
+    justify-content: flex-start;
 }
 
 .tab button {
+    background-color: #666;
     align-self: flex-start;
-    flex-grow: 1;
-    background-color: inherit;
     border: none;
     outline: none;
     cursor: pointer;
@@ -156,6 +154,10 @@ footer > span:last-child {
 }
 
 #prediction-container > * {
+    vertical-align: bottom;
+}
+
+#prediction-container > * > * {
     vertical-align: bottom;
 }
 

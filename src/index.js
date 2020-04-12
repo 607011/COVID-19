@@ -141,7 +141,7 @@ import rk4 from 'ode-rk4'
                 options: {
                     title: {
                         display: true,
-                        text: 'Daily new',
+                        text: 'Daily new …',
                     },
                     responsive: true,
                     maintainAspectRatio: false,

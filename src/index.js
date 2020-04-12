@@ -140,8 +140,7 @@ import rk4 from 'ode-rk4'
                 },
                 options: {
                     title: {
-                        display: true,
-                        text: 'Daily new …',
+                        display: false,
                     },
                     responsive: true,
                     maintainAspectRatio: false,
@@ -156,7 +155,7 @@ import rk4 from 'ode-rk4'
                                     drawTicks: false,
                                 },
                                 ticks: {
-                                    display: false,
+                                    display: true,
                                 },
                             }
                         ],
@@ -170,6 +169,7 @@ import rk4 from 'ode-rk4'
                                     display: true,
                                 },
                                 position: 'right',
+                                beginAtZero: true,
                             },
                         ],    
                     },
@@ -452,8 +452,19 @@ import rk4 from 'ode-rk4'
         updateHash({ predict: Math.min(+el.prediction_days.value, +el.prediction_days.max) })
     }
 
+    const chartSelected = evt => {
+        [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => tab.classList.remove('active'))
+        evt.currentTarget.classList.add('active');
+        [...document.querySelectorAll('#chart-tabs .tabcontent')].forEach(tab => tab.classList.add('hidden'));
+        const target_tab = evt.target.dataset.target;
+        document.querySelector(target_tab).classList.remove('hidden')
+    }
+
     const postInit = () => {
-        el.prediction_days.addEventListener('change', predictionDaysChanged)
+        el.prediction_days.addEventListener('change', predictionDaysChanged);
+        [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => {
+            tab.addEventListener('click', chartSelected)
+        })
         el.refresh_button.addEventListener('click', () => {
             el.refresh_button.classList.add('rotate')
             loadCountryData()

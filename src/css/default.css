@@ -67,14 +67,45 @@ html, body {
     animation-iteration-count: infinite;
 }
 
-.main-chart-container {
-    position: relative;
-    margin-left: 10px;
+#chart-tabs{
+    align-self: flex-start;
+    flex-grow: 1;
     height: 100%;
     min-height: 300px;
     min-width: 500px;
-    align-self: flex-end;
+    margin-left: 10px;
+}
+
+.tab {
+    background-color: #666;
+    width: 100%;
+    display: flex;
+}
+
+.tab button {
+    align-self: flex-start;
     flex-grow: 1;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 16px;
+    transition: 250ms;
+    color: #222;
+    font-size: 100%;
+    font-family: inherit;
+}
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: block;
+}
+
+.main-chart-container {
+    height: 100%;
 }
 
 header, h1 {
@@ -129,9 +160,7 @@ footer > span:last-child {
 }
 
 .diff-chart-container {
-    margin-top: 5px;
-    height: 20vh;
-    max-height: 200px;
+    height: 100%;
 }
 
 canvas {

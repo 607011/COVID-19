@@ -133,12 +133,18 @@
                         <span id="refresh-button" title="refresh data"><svg width="44" height="44" viewBox="0 0 44 44"><g transform="scale(2.5 2.5)"><use aria-label="refresh data" xlink:href="#refresh" fill="#ccc"/></g></svg></span>
                     </div>
                 </div>
-                <div class="diff-chart-container">
+            </aside>
+            <div id="chart-tabs">
+                <div class="tab">
+                    <button id="tab-button-totals" data-target=".main-chart-container" class="tablinks active">Total cases</button>
+                    <button id="tab-button-daily" data-target=".diff-chart-container" class="tablinks">Daily new cases</button>
+                </div>
+                <div class="tabcontent diff-chart-container hidden">
                     <canvas id="diff-chart"></canvas>
                 </div>
-            </aside>
-            <div class="main-chart-container">
-                <canvas id="main-chart"></canvas>
+                <div class="tabcontent main-chart-container">
+                    <canvas id="main-chart"></canvas>
+                </div>
             </div>
         </div>
         <footer>

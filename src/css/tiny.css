@@ -38,27 +38,29 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      max-width: 50%;
+      width: unset;
+  }
+  .sidebar.left {
+      max-width: calc(100% - 250px);
+      order: 2;
   }
   .sidebar.right {
       flex-direction: row;
       margin: 0;
-      width: 100%;
-      max-width: calc(100% - 240px);
-  }
-  .controls {
-      width: 50%;
+      max-width: 240px;
+      width: unset;
       order: 1;
   }
-  .diff-chart-container {
-      margin: 0 0 0 10px;
-      height: 90vh;
-      max-height: unset;
-      max-width: 230px;
-      min-width: 150px;
-      width: 50%;
-      order: 2;
+  .controls {
+      order: 1;
   }
-  .main-chart-container {
-    margin-left: 0;
+  .tab button {
+    height: 40px;
+    line-height: 35px;
+    font-size: 100%;
+  }
+  #chart-tabs {
+      order: 3;
   }
 }

@@ -227,7 +227,7 @@ import rk4 from 'ode-rk4'
                             data: confirmed.doubling_rates,
                             type: 'line',
                             yAxisID: 'B',
-                            label: 'Days per doubling',
+                            label: 'Days for doubling',
                             pointStyle: 'circle',
                             backgroundColor: '#5BA5E6',
                             showLine: false,

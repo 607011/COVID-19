@@ -1,7 +1,7 @@
 {
   "name": "covid19",
   "version": "1.0.0",
-  "description": "Visualization of Covid-19 spread",
+  "description": "Visualization of COVID-19 spread",
   "private": true,
   "scripts": {
     "watch": "webpack --watch",
@@ -12,14 +12,14 @@
     "url": "git+https://github.com/ola-ct/COVID-19.git"
   },
   "keywords": [
-    "Covid-19",
-    "COVID-19",
     "Corona",
-    "Virus",
-    "Pandemic",
+    "novel Corona virus",
+    "COVID-19",
     "SARS-CoV-2",
-    "Web-App",
-    "Visualization"
+    "virus",
+    "pandemic",
+    "web app",
+    "visualization"
   ],
   "author": "Oliver Lau",
   "license": "GPL-3.0-or-later",

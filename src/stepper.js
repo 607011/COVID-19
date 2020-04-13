@@ -23,6 +23,7 @@ export default class NumberStepper extends HTMLElement {
       this.input.step = this.getAttribute('step') || 1
       this.input.value = this.getAttribute('value') | 0
       this.input.style.width = this.getAttribute('innerwidth')
+      this.input.style.height = h
       this.input.addEventListener('change', function() {
           this.dispatchEvent(this.changeEvent)
       }.bind(this))
@@ -30,6 +31,7 @@ export default class NumberStepper extends HTMLElement {
       downButton.title = `decrease by ${this.input.step}`
       downButton.style.width = h
       downButton.style.height = h
+      downButton.className = 'left'
       downButton.addEventListener('click', function() {
           this.input.stepDown()
           this.dispatchEvent(this.changeEvent)
@@ -39,6 +41,7 @@ export default class NumberStepper extends HTMLElement {
       upButton.title = `increase by ${this.input.step}`
       upButton.style.width = h
       upButton.style.height = h
+      upButton.className = 'right'
       upButton.addEventListener('click', function() {
           this.input.stepUp()
           this.dispatchEvent(this.changeEvent)
@@ -57,7 +60,7 @@ export default class NumberStepper extends HTMLElement {
 span {
   display: inline-block;
   border: none;
-  background-color: #eee;
+  background-color: transparent;
   white-space: nowrap;
 }
 input[type="number"]::-webkit-inner-spin-button,
@@ -67,13 +70,12 @@ input[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 input {
-  height: 100%;
   text-align: right;
   border: none;
   overflow: hidden;
   font-size: 150%;
   padding-right: 0.5em;
-  background-color: transparent;
+  background-color: #eee;
 }
 button {
   text-align: center;
@@ -82,6 +84,12 @@ button {
   font-weight: bold;
   background-color: #999;
   padding: 0;
+}
+button.left {
+  border-radius: 50% 0 0 50%;
+}
+button.right {
+  border-radius: 0 50% 50% 0;
 }
 button:active {
   background-color: #eee;

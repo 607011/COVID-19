@@ -74,6 +74,12 @@ html, body {
     justify-content: flex-start;
 }
 
+.tab > .filler {
+    display: inline-block;
+    flex-grow: 2;
+    border-bottom: 1px solid #666;
+}
+
 .tab button {
     background-color: #555;
     border-top: 1px solid #666;

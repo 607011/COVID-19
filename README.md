@@ -26,7 +26,7 @@ git submodule init
 The latest COVID-19 spread data is fetched from Johns Hopkins' Center for Systems Science and Engineering ([CSSE](https://coronavirus.jhu.edu/map.html)) [repository](https://github.com/CSSEGISandData/COVID-19). Type
 
 ```
-gitmodule update --remote
+git submodule update --remote
 ```
 
 to update the data residing in the two Git submodules.
@@ -34,6 +34,7 @@ to update the data residing in the two Git submodules.
 Before deploying this app to a web server, some JSON files have to be generated from this data using bin/update-data.py. This script has some dependencies which you can resolve by executing
 
 ```
+pip3 install pipenv
 pipenv install
 ```
 

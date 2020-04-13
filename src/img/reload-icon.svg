@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g>
-        <g>
-            <path d="M15,1.641l0,5.042l-5.042,0l0,-2.004l3.038,0l0,-3.038l2.004,0Z" style="fill:#eee;"/>
-            <path d="M1.154,6.186c0.8,-2.985 3.526,-5.186 6.762,-5.186c2.567,0 4.813,1.385 6.032,3.448l-1.732,0.999c-0.873,-1.465 -2.473,-2.448 -4.3,-2.448c-2.304,0 -4.247,1.562 -4.825,3.684l-0.062,0l-1.875,-0.497Z" style="fill:#eee;"/>
-        </g>
-    </g>
-    <g>
-        <g>
-            <path d="M0.916,14.359l0,-5.042l5.042,0l0,2.004l-3.038,0l0,3.038l-2.004,0Z" style="fill:#eee;"/>
-            <path d="M14.762,9.814c-0.8,2.985 -3.526,5.186 -6.762,5.186c-2.567,0 -4.814,-1.385 -6.032,-3.447l1.732,-1c0.872,1.465 2.472,2.448 4.3,2.448c2.304,0 4.247,-1.562 4.825,-3.684l0.062,0l1.875,0.497Z" style="fill:#eee;"/>
-        </g>
-    </g>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 4 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g><g><path d="M3.35,0.62l0,1.031l-1.031,0l0,-0.41l0.621,0l0,-0.621l0.41,0Z" style="fill:#eee;"/><path d="M0.519,1.549c0.163,-0.61 0.721,-1.06 1.382,-1.06c0.525,0 0.985,0.283 1.234,0.705l-0.354,0.204c-0.179,-0.3 -0.506,-0.501 -0.88,-0.501c-0.471,0 -0.868,0.32 -0.986,0.754l-0.013,0l-0.383,-0.102Z" style="fill:#eee;"/></g></g><g><g><path d="M0.47,3.22l0,-1.031l1.031,0l0,0.41l-0.621,0l0,0.621l-0.41,0Z" style="fill:#eee;"/><path d="M3.301,2.291c-0.163,0.61 -0.721,1.06 -1.382,1.06c-0.525,0 -0.985,-0.283 -1.234,-0.705l0.354,-0.204c0.179,0.3 0.506,0.501 0.88,0.501c0.471,0 0.868,-0.32 0.986,-0.754l0.013,0l0.383,0.102Z" style="fill:#eee;"/></g></g></svg>

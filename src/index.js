@@ -32,6 +32,7 @@ import rk4 from 'ode-rk4'
     const DwNegIndicator = '<span title="down, bad"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, bad" xlink:href="#down-indicator" fill="#D42C27"></use></svg></span>'
     const UpNegIndicator = '<span title="up, bad"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, bad" xlink:href="#up-indicator" fill="#D42C27"></use></svg></span>'
     const DwPosIndicator = '<span title="down, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, good" xlink:href="#down-indicator" fill="#63D427"></use></svg></span>'
+    const ActivityIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#loader-icon"/></svg>'
     let el = {}
     let refresh_interval_mins = 60
     let locale = 'de-DE'
@@ -83,7 +84,6 @@ import rk4 from 'ode-rk4'
         const dbl1 = confirmed.doubling_rates[confirmed.doubling_rates.length-2]
         const indicator = almostEqual(dbl, dbl1) ? EqIndicator : dbl > dbl1 ? UpPosIndicator : DwNegIndicator
         updateIfChanged(el.current_doubling, dbl > 0 ? `${dbl.toFixed(1)} days ${indicator}` : 'n/a')
-        el.refresh_button.classList.remove('rotate')
         calculateSIR()
         updateCharts()
     }
@@ -382,11 +382,10 @@ import rk4 from 'ode-rk4'
     }
 
     const loadCountryData = () => {
-        if (hash_param.country !== last_selected_country) {
-            el.loader_screen.classList.remove('hidden')
-            last_selected_country = hash_param.country
-        }
-        hideError()
+        last_selected_country = hash_param.country
+        showStatus(`${ActivityIndicator} Loading …`)
+        const flagEl = document.getElementById(`flag-${hash_param.country}`)
+        flagEl.innerHTML = ActivityIndicator
         fetch(`data/${hash_param.country}.json`)
             .then(response => {
                 return response.ok
@@ -397,8 +396,12 @@ import rk4 from 'ode-rk4'
                 updateIfChanged(el.population, data.population.toLocaleString(locale))
                 updateUI(data)
                 activateCountry(data.country)
+                flagEl.innerHTML = countries[data.country].flag
                 el.app.classList.remove('hidden')
-                el.loader_screen.classList.add('hidden')
+                if (!el.loader_screen.classList.contains('hidden')) {
+                    el.loader_screen.classList.add('hidden')
+                }
+                clearStatus()
             },
             status => {
                 showError(`Fetching data for »${hash_param.country}« failed: ${status}. Reload page to retry …`)
@@ -418,7 +421,7 @@ import rk4 from 'ode-rk4'
     }
 
     const fetchCountryList = async () => {
-        hideError()
+        clearStatus()
         const response = await fetch('data/countries.json')
         const new_countries = await (response.ok
             ? response.json()
@@ -429,6 +432,7 @@ import rk4 from 'ode-rk4'
         Object.keys(countries).sort().forEach((country, _index) => {
             const flag = document.createElement('span')
             flag.innerText = countries[country].flag
+            flag.id = `flag-${country}`
             div.appendChild(flag)
             const name = document.createElement('span')
             name.innerText = country
@@ -464,22 +468,22 @@ import rk4 from 'ode-rk4'
         [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => {
             tab.addEventListener('click', chartSelected)
         })
-        el.refresh_button.addEventListener('click', () => {
-            el.refresh_button.classList.add('rotate')
-            loadCountryData()
-        })
         window.addEventListener('hashchange', hashChanged)
         setInterval(loadCountryData, 1000 * 60 * refresh_interval_mins)
     }
 
-    const showError = msg => {
-        el.error_message.innerText = msg
-        el.error_message.classList.add('show')
+    const showStatus = msg => {
+        el.status.innerHTML = msg
+        el.status.className = ''
     }
 
-    const hideError = () => {
-        el.error_message.innerText = ''
-        el.error_message.classList.remove('show')
+    const showError = msg => {
+        showStatus(msg)
+        el.status.classList.add('error')
+    }
+
+    const clearStatus = () => {
+        el.status.innerHTML = ''
     }
 
     const main = () => {
@@ -496,13 +500,12 @@ import rk4 from 'ode-rk4'
             predicted_cases: document.getElementById('predicted-cases'),
             prediction_days: document.getElementById('prediction-days'),
             population: document.getElementById('population'),
-            error_message: document.getElementById('error-message'),
+            status: document.getElementById('status'),
             latest_date: document.getElementById('latest-date'),
             latest_total: document.getElementById('latest-total'),
             latest_active: document.getElementById('latest-active'),
             latest_deaths: document.getElementById('latest-deaths'),
             latest_recovered: document.getElementById('latest-recovered'),
-            refresh_button: document.getElementById('refresh-button'),
             refreshables: [...document.getElementsByClassName('refreshable')],
         }
         el.refreshables.forEach(element => {

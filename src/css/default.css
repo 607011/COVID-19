@@ -42,14 +42,6 @@ html, body {
     margin-right: 5px;
 }
 
-#refresh-button {
-    display: inline-block;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
-    transform-origin: 20px 20px;
-}
-
 @keyframes rotation {
     from {
         transform: rotate(0);
@@ -60,9 +52,10 @@ html, body {
 }
 
 .rotate {
+    display: inline-block;
     animation-name: rotation;
-    animation-timing-function: cubic-bezier(0.2, 0.7, 0.7, 0.5);
-    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-duration: 400ms;
     animation-direction: normal;
     animation-iteration-count: infinite;
 }
@@ -108,8 +101,8 @@ html, body {
     display: block;
 }
 
-.main-chart-container {
-    height: 100%;
+.main-chart-container, .diff-chart-container {
+    height: calc(100% - 30px);
 }
 
 header, h1 {
@@ -120,10 +113,10 @@ header, h1 {
 }
 
 footer {
-    padding: 5px;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
-    height: 20px;
+    white-space: nowrap;
     color: #777;
     background-color: #222;
     font-size: 85%;
@@ -156,7 +149,7 @@ footer > span:last-child {
 }
 
 .controls > div {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 #prediction-container > * {
@@ -165,10 +158,6 @@ footer > span:last-child {
 
 #prediction-container > * > * {
     vertical-align: bottom;
-}
-
-.diff-chart-container {
-    height: 100%;
 }
 
 canvas {
@@ -288,24 +277,6 @@ canvas {
     animation-iteration-count: 1;
 }
 
-#error-message {
-    position: fixed;
-    visibility: hidden;
-    bottom: -44px;
-    left: 0;
-    right: 0;
-    height: 44px;
-    color: white;
-    font-weight: bold;
-    padding: 0.5ex 1em;
-    line-height: 34px;
-    background-color: rgb(197, 13, 13);
-    transition-property: all;
-    transition-duration: 200ms;
-    transition-timing-function: ease-out;
-}
-
-#error-message.show {
-    visibility: visible;
-    bottom: 0;
+#status {
+    color: #eee;
 }

@@ -116,8 +116,8 @@ import rk4 from 'ode-rk4'
         }
         if (diff_chart) {
             diff_chart.data.labels = dates.slice(0, confirmed.total.length)
-            diff_chart.data.datasets[0].data = confirmed.diffs.infected
-            diff_chart.data.datasets[1].data = confirmed.diffs.deaths
+            diff_chart.data.datasets[0].data = confirmed.diffs ? confirmed.diffs.infected : null
+            diff_chart.data.datasets[1].data = confirmed.diffs ? confirmed.diffs.deaths : null
             diff_chart.update()
         }
         else {
@@ -127,12 +127,12 @@ import rk4 from 'ode-rk4'
                     labels: dates.slice(0, confirmed.total.length),
                     datasets: [
                         {
-                            data: confirmed.diffs.infected,
+                            data: confirmed.diffs ? confirmed.diffs.infected : null,
                             backgroundColor: '#D42C27',
                             label: 'Infections',
                         },
                         {
-                            data: confirmed.diffs.deaths,
+                            data: confirmed.diffs ? confirmed.diffs.deaths : null,
                             backgroundColor: '#D16EDC',
                             label: 'Deaths',
                         }

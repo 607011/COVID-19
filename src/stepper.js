@@ -72,6 +72,7 @@ input[type="number"]::-webkit-outer-spin-button {
 input {
   text-align: right;
   border: none;
+  border-radius: 0;
   overflow: hidden;
   font-size: 150%;
   padding-right: 0.5em;

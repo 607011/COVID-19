@@ -53,7 +53,6 @@ html, body {
     display: block;
     animation-name: fadeIn;
     animation-timing-function: ease;
-    animation-duration: 2000ms;
     animation-fill-mode: both;
     animation-iteration-count: 1;
 }
@@ -71,6 +70,11 @@ html, body {
     100% {
         opacity: 0;
     }
+}
+
+#clipboard {
+    position: fixed;
+    left: -9999px;
 }
 
 .sidebar {

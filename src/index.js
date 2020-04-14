@@ -488,15 +488,9 @@ import rk4 from 'ode-rk4'
     }
 
     const copyToClipboard = msg => {
-        const el = document.createElement('textarea')
-        el.value = msg
-        el.setAttribute('readonly', '')
-        el.style.position = 'fixed'
-        el.style.left = '-9999px'
-        document.body.appendChild(el)
-        el.select()
+        el.clipboard.value = msg
+        el.clipboard.select()
         document.execCommand('copy')
-        document.body.removeChild(el)
     }
 
     const postInit = () => {
@@ -538,6 +532,7 @@ import rk4 from 'ode-rk4'
         el = {
             app: document.getElementById('App'),
             toast: document.getElementById('toast'),
+            clipboard: document.getElementById('clipboard'),
             country_selector: document.getElementById('country-selector'),
             prediction_container: document.getElementById('prediction-container'),
             loader_screen: document.getElementById('loader-screen'),

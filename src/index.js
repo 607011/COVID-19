@@ -503,12 +503,14 @@ import rk4 from 'ode-rk4'
         document.getElementById('share-button').addEventListener('click', evt => {
             if (evt.button === 0) {
                 copyToClipboard(window.location.href)
-                el.toast.classList.add('visible')
+                const dur = 2000
                 el.toast.innerHTML = 'Link copied to clipboard.'
+                el.toast.classList.add('visible')
+                el.toast.style.animationDuration = `${dur}ms`
                 el.toast.style.top = `${evt.clientY}px`
                 el.toast.style.left = `calc(${evt.clientX}px - ${window.getComputedStyle(el.toast).width})`
                 evt.stopPropagation()
-                setTimeout(() => { el.toast.classList.remove('visible') }, 2000)
+                setTimeout(() => { el.toast.classList.remove('visible') }, dur)
             }
         })
     }

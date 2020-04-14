@@ -90,7 +90,6 @@ html, body {
     outline: none;
     cursor: pointer;
     padding: 5px 16px;
-    transition: 250ms;
     color: #888;
     font-size: 100%;
     font-family: inherit;

@@ -38,6 +38,41 @@ html, body {
     z-index: 1;
 }
 
+#toast {
+    position: absolute;
+    display: none;
+    width: auto;
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #aaa;
+    color: #222;
+    border: 1px solid #ccc;
+}
+
+#toast.visible {
+    display: block;
+    animation-name: fadeIn;
+    animation-timing-function: ease;
+    animation-duration: 2000ms;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -100,6 +135,10 @@ header, h1 {
     font-weight: bold;
     height: 33px;
     overflow: hidden;
+}
+
+#share-button {
+    cursor: pointer;
 }
 
 footer {
@@ -188,6 +227,7 @@ canvas {
 
 #country-selector > div span.selected:hover {
     background-color: rgb(250, 100, 45) !important;
+    color: white;
 }
 
 #country-selector > div span:nth-child(even) {

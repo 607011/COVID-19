@@ -480,20 +480,46 @@ import rk4 from 'ode-rk4'
         updateHash({ predict: Math.min(+el.prediction_days.value, +el.prediction_days.max) })
     }
 
+    const viewChanged = evt => {
+        const view = ViewTargetMapping[evt.target.dataset.target]
+        localStorage.setItem('view', view)
+        updateHash({ view })
+    }
+
+    const copyToClipboard = msg => {
+        const el = document.createElement('textarea')
+        el.value = msg
+        el.setAttribute('readonly', '')
+        el.style.position = 'fixed'
+        el.style.left = '-9999px'
+        document.body.appendChild(el)
+        el.select()
+        document.execCommand('copy')
+        document.body.removeChild(el)
+    }
+
     const postInit = () => {
         el.prediction_days.addEventListener('change', predictionDaysChanged);
         [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => {
-            tab.addEventListener('click', evt => {
-                updateHash({ view: ViewTargetMapping[evt.target.dataset.target] })
-            })
+            tab.addEventListener('click', viewChanged)
         })
         window.addEventListener('hashchange', hashChanged)
         setInterval(loadCountryData, 1000 * 60 * refresh_interval_mins)
+        document.getElementById('share-button').addEventListener('click', evt => {
+            if (evt.button === 0) {
+                copyToClipboard(window.location.href)
+                el.toast.classList.add('visible')
+                el.toast.innerHTML = 'Link copied to clipboard.'
+                el.toast.style.top = `${evt.clientY}px`
+                el.toast.style.left = `calc(${evt.clientX}px - ${window.getComputedStyle(el.toast).width})`
+                evt.stopPropagation()
+                setTimeout(() => { el.toast.classList.remove('visible') }, 2000)
+            }
+        })
     }
 
     const showStatus = msg => {
         el.status.innerHTML = msg
-        el.status.className = ''
     }
 
     const showError = msg => {
@@ -503,12 +529,14 @@ import rk4 from 'ode-rk4'
 
     const clearStatus = () => {
         el.status.innerHTML = ''
+        el.status.classList.remove('error')
     }
 
     const main = () => {
         console.log('%c COVID-19 spread %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
         el = {
             app: document.getElementById('App'),
+            toast: document.getElementById('toast'),
             country_selector: document.getElementById('country-selector'),
             prediction_container: document.getElementById('prediction-container'),
             loader_screen: document.getElementById('loader-screen'),

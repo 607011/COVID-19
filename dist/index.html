@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
 <!--
     COVID-19: Visualization of spread and prediction.
@@ -106,7 +106,10 @@
 <body>
     <div id="App" class="hidden">
         <header>
-            <h1>COVID-19 — Current data and prediction</h1>
+            <h1>
+                <span id="share-button" title="Copy link to clipboard" style="float:right; position:relative;"><svg width="16" height="16" viewPort="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><use xlink:href="#share-symbol"></use></svg></span>
+                COVID-19 — Current data and prediction
+            </h1>
         </header>
         <div id="ui">
             <aside class="sidebar left">
@@ -169,6 +172,7 @@
         </footer>
     </div>
     <div id="loader-screen">Loading …</div>
+    <div id="toast"></div>
     <svg style="display: none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
         <defs>
             <g id="up-indicator"><path d="M0 12L12 12L6 3Z"/></g>
@@ -179,6 +183,13 @@
                 <circle cx="6" cy="9" r="3" fill="#E65824"><animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="0ms"/></circle>
                 <circle cx="8.598076211353316" cy="4.5" r="3" fill="#7CDC58"><animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="100ms"/></circle>
                 <circle cx="3.401923788646685" cy="4.5" r="3" fill="#D16EDC"><animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="200ms"/></circle>
+            </g>
+            <g id="share-symbol" fill="#eee">
+                <line x1="6" y1="8" x2="13" y2="3" stroke-width="1.2" stroke="#eee"/>
+                <line x1="6" y1="8" x2="13" y2="13" stroke-width="1.2" stroke="#eee"/>
+                <circle cx="6" cy="8" r="2.4"/>
+                <circle cx="13" cy="3" r="2.4"/>
+                <circle cx="13" cy="13" r="2.4"/>
             </g>
         </defs>
     </svg>

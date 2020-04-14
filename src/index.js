@@ -27,6 +27,7 @@ import rk4 from 'ode-rk4'
         country: localStorage.getItem('country') || 'Germany',
         predict: +localStorage.getItem('prediction_days') || 0,
         view: localStorage.getItem('view') || 'totals',
+        refresh_secs: localStorage.getItem('refresh_secs') || 60 * 60,
     }
     const EqIndicator = '<span title="almost equal, okay"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="almost equal, okay" xlink:href="#equal-indicator" fill="#FF6633"></use></svg></span>'
     const UpPosIndicator = '<span title="up, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, good" xlink:href="#up-indicator" fill="#63D427"></use></svg></span>'
@@ -43,7 +44,6 @@ import rk4 from 'ode-rk4'
         return [b, a]
     }))
     let el = {}
-    let refresh_interval_mins = 60
     let locale = 'de-DE'
     let main_chart = null
     let daily_chart = null
@@ -52,10 +52,12 @@ import rk4 from 'ode-rk4'
         country: null,
         predict: null,
         view: null,
+        refresh_secs: null,
     }
     let last_selected_country = ''
     let confirmed = {}
     let last_update = new Date(1970)
+    let refresh_timer = null
 
     customElements.define('number-stepper', NumberStepper)
 
@@ -384,6 +386,15 @@ import rk4 from 'ode-rk4'
             [...document.querySelectorAll('#chart-tabs .tabcontent')].forEach(tab => tab.classList.add('hidden'));
             document.querySelector(ViewTargetMappingReverse[hash_param.view]).classList.remove('hidden')
         }
+        if (data.refresh_secs !== hash_param.refresh_secs) {
+            hash_param.refresh_secs = +data.refresh_secs
+            if (refresh_timer !== null) {
+                clearInterval(refresh_timer)
+            }
+            if (hash_param.refresh_secs > 0) {
+                refresh_timer = setInterval(loadCountryData, 1000 * hash_param.refresh_secs)
+            }
+        }
         updateHash(data)
     }
 
@@ -499,7 +510,6 @@ import rk4 from 'ode-rk4'
             tab.addEventListener('click', viewChanged)
         })
         window.addEventListener('hashchange', hashChanged)
-        setInterval(loadCountryData, 1000 * 60 * refresh_interval_mins)
         document.getElementById('share-button').addEventListener('click', evt => {
             if (evt.button === 0) {
                 copyToClipboard(window.location.href)

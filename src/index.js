@@ -509,19 +509,21 @@ import rk4 from 'ode-rk4'
         [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => {
             tab.addEventListener('click', viewChanged)
         })
-        window.addEventListener('hashchange', hashChanged)
-        document.getElementById('share-button').addEventListener('click', evt => {
-            if (evt.button === 0) {
-                copyToClipboard(window.location.href)
-                const dur = 2000
-                el.toast.innerHTML = 'Link copied to clipboard.'
-                el.toast.classList.add('visible')
-                el.toast.style.animationDuration = `${dur}ms`
-                el.toast.style.top = `${evt.clientY}px`
-                el.toast.style.left = `calc(${evt.clientX}px - ${window.getComputedStyle(el.toast).width})`
-                evt.stopPropagation()
-                setTimeout(() => { el.toast.classList.remove('visible') }, dur)
-            }
+        window.addEventListener('hashchange', hashChanged);
+        [...document.getElementsByClassName('share-button')].forEach(button => {
+            button.addEventListener('click', evt => {
+                if (evt.button === 0) {
+                    copyToClipboard(window.location.href)
+                    const dur = 2000
+                    el.toast.innerHTML = 'Link copied to clipboard.'
+                    el.toast.classList.add('visible')
+                    el.toast.style.animationDuration = `${dur}ms`
+                    el.toast.style.top = `${evt.clientY}px`
+                    el.toast.style.left = `calc(${evt.clientX}px - ${window.getComputedStyle(el.toast).width})`
+                    evt.stopPropagation()
+                    setTimeout(() => { el.toast.classList.remove('visible') }, dur)
+                }
+            })
         })
     }
 

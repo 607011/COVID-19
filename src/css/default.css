@@ -141,8 +141,12 @@ header, h1 {
     overflow: hidden;
 }
 
-#share-button {
+.share-button {
     cursor: pointer;
+}
+
+.float-right {
+    float: right;
 }
 
 footer {

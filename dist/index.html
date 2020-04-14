@@ -2,47 +2,47 @@
 <html lang="en-US">
 
 <!--
-    COVID-19: Visualization of spread and prediction.
-    Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
+  COVID-19: Visualization of spread and prediction.
+  Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
 <head>
-    <meta charset="UTF-8">
-    <title>COVID-19 – Current spread and prediction</title>
-    <meta name="description" content="COVID-19 – Current spread and prediction"/>
-    <meta name="keywords" content="novel Corona virus, Corona, virus, COVID-19, SARS-CoV-2, visualization, prediction, SIR model"/>
-    <meta name="author" content="Oliver Lau"/>
-    <meta name="copyright" content="Oliver Lau"/>
-    <meta name="designer" content="Oliver Lau">
-    <meta name="publisher" content="Oliver Lau">
-    <meta name="robots" content="index,follow"/>
-    <meta name="language" content="english"/>
-    <meta name="revisit-after" content="1 day">
-    <meta name="distribution" content="web">
-    <meta name="HandheldFriendly" content="true"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:url" content="https://corona.ersatzworld.net/"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="COVID-19 – Current spread and prediction"/>
-    <meta property="og:description" content="Visualization of COVID-19 spread, including daily changes"/>
-    <meta property="og:image" content="https://corona.ersatzworld.net/img/preview-600x600.jpg"/>
-    <link async href="app.css" media="screen" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="img/favicon.png"/>
-    <script defer src="main.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <meta charset="UTF-8">
+  <title>COVID-19 – Current spread and prediction</title>
+  <meta name="description" content="COVID-19 – Current spread and prediction" />
+  <meta name="keywords" content="novel Corona virus, Corona, virus, COVID-19, SARS-CoV-2, visualization, prediction, SIR model" />
+  <meta name="author" content="Oliver Lau" />
+  <meta name="copyright" content="Oliver Lau" />
+  <meta name="designer" content="Oliver Lau">
+  <meta name="publisher" content="Oliver Lau">
+  <meta name="robots" content="index,follow" />
+  <meta name="language" content="english" />
+  <meta name="revisit-after" content="1 day">
+  <meta name="distribution" content="web">
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:url" content="https://corona.ersatzworld.net/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="COVID-19 – Current spread and prediction" />
+  <meta property="og:description" content="Visualization of COVID-19 spread, including daily changes" />
+  <meta property="og:image" content="https://corona.ersatzworld.net/img/preview-600x600.jpg" />
+  <link async href="app.css" media="screen" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <script defer src="main.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
 
 <style type="text/css">
@@ -55,6 +55,7 @@
   src: local('Inria Sans Regular'), local('InriaSans-Regular'), url(https://fonts.gstatic.com/s/inriasans/v1/ptRMTiqXYfZMCOiVj9kQ1Of4KCFtpe4OZA.woff2) format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+
 /* latin */
 @font-face {
   font-family: 'Inria Sans';
@@ -64,6 +65,7 @@
   src: local('Inria Sans Regular'), local('InriaSans-Regular'), url(https://fonts.gstatic.com/s/inriasans/v1/ptRMTiqXYfZMCOiVj9kQ1On4KCFtpe4.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
 /* latin-ext */
 @font-face {
   font-family: 'Inria Sans';
@@ -73,6 +75,7 @@
   src: local('Inria Sans Bold'), local('InriaSans-Bold'), url(https://fonts.gstatic.com/s/inriasans/v1/ptRPTiqXYfZMCOiVj9kQ3FLdPQJPqMQ0bX8JQA.woff2) format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+
 /* latin */
 @font-face {
   font-family: 'Inria Sans';
@@ -82,6 +85,7 @@
   src: local('Inria Sans Bold'), local('InriaSans-Bold'), url(https://fonts.gstatic.com/s/inriasans/v1/ptRPTiqXYfZMCOiVj9kQ3FLdPQxPqMQ0bX8.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
 #loader-screen {
   position: fixed;
   top: 0;
@@ -96,6 +100,7 @@
   background-position: 50% 50%;
   transition: all ease-in-out 150ms;
 }
+
 #loader-screen.hide {
   color: transparent;
   background-color: rgba(33, 33, 33, 0);
@@ -104,96 +109,122 @@
 </style>
 
 <body>
-    <div id="App" class="hidden">
-        <header>
+  <div id="App" class="hidden">
+    <header>
+      <h1>
+        <span class="share-button float-right" title="Copy link to clipboard">
+          <svg width="16" height="16" viewPort="0 0 16 16">
+            <use xlink:href="#share-symbol"></use>
+          </svg>
+        </span>
+        COVID-19 — Current data and prediction
+      </h1>
+    </header>
+    <div id="ui">
+      <aside class="sidebar left">
+        <div id="country-selector"></div>
+      </aside>
+      <aside class="sidebar right">
+        <div class="controls">
+          <div class="tiny">
             <h1>
-                <span id="share-button" title="Copy link to clipboard" style="float:right; position:relative;"><svg width="16" height="16" viewPort="0 0 16 16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><use xlink:href="#share-symbol"></use></svg></span>
-                COVID-19 — Current data and prediction
+              <span class="share-button float-right" title="Copy link to clipboard">
+                <svg width="16" height="16" viewPort="0 0 16 16">
+                  <use xlink:href="#share-symbol"></use>
+                </svg>
+              </span>
+              COVID-19 spread
             </h1>
-        </header>
-        <div id="ui">
-            <aside class="sidebar left">
-                <div id="country-selector"></div>
-            </aside>
-            <aside class="sidebar right">
-                <div class="controls">
-                    <div class="tiny"><h1>COVID-19 spread</h1></div>
-                    <div class="grid-table-with-header">
-                        <span>Latest data</span>
-                        <span>Updated</span><span id="latest-date" class="refreshable"></span>
-                        <span>Infections</span><span id="latest-active" class="refreshable"></span>
-                        <span>Deaths</span><span id="latest-deaths" class="refreshable"></span>
-                        <span>Recoveries</span><span id="latest-recovered" class="refreshable"></span>
-                        <span>Total cases</span> <span id="latest-total" class="refreshable"></span>
-                        <span>Population</span><span id="population" class="refreshable"></span>
-                        <span>Doubling</span><span id="current-doubling" class="refreshable"></span>
-                    </div>
-                    <div class="grid-table-with-header">
-                        <span>Confirmed infections</span>
-                        <span id="current-date" class="refreshable"></span><span id="current-cases" class="refreshable"></span>
-                        <span id="predicted-date" class="refreshable"></span><span id="predicted-cases" class="refreshable"></span>
-                    </div>
-                    <div id="prediction-container">
-                        <div>
-                            <label for="prediction-days">
-                                predict n days
-                            </label>
-                        </div>
-                        <div>
-                            <number-stepper id="prediction-days" name="prediction-days" value="0" min="0" max="30" step="1" innerwidth="3em" height="44px"></number-stepper>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-            <div id="chart-tabs">
-                <div class="tab">
-                    <button id="tab-button-totals" data-target="#totals-chart-container" class="tablinks active">Total cases</button>
-                    <button id="tab-button-daily" data-target="#daily-chart-container" class="tablinks">Daily new cases</button>
-                    <span class="filler"></span>
-                </div>
-                <div id="daily-chart-container" class="tabcontent chart-container hidden">
-                    <canvas id="daily-chart"></canvas>
-                </div>
-                <div id="totals-chart-container" class="tabcontent chart-container">
-                    <canvas id="main-chart"></canvas>
-                </div>
+          </div>
+          <div class="grid-table-with-header">
+            <span>Latest data</span>
+            <span>Updated</span><span id="latest-date" class="refreshable"></span>
+            <span>Infections</span><span id="latest-active" class="refreshable"></span>
+            <span>Deaths</span><span id="latest-deaths" class="refreshable"></span>
+            <span>Recoveries</span><span id="latest-recovered" class="refreshable"></span>
+            <span>Total cases</span> <span id="latest-total" class="refreshable"></span>
+            <span>Population</span><span id="population" class="refreshable"></span>
+            <span>Doubling</span><span id="current-doubling" class="refreshable"></span>
+          </div>
+          <div class="grid-table-with-header">
+            <span>Confirmed infections</span>
+            <span id="current-date" class="refreshable"></span><span id="current-cases" class="refreshable"></span>
+            <span id="predicted-date" class="refreshable"></span><span id="predicted-cases" class="refreshable"></span>
+          </div>
+          <div id="prediction-container">
+            <div>
+              <label for="prediction-days">
+                predict n days
+              </label>
             </div>
+            <div>
+              <number-stepper id="prediction-days" name="prediction-days" value="0" min="0" max="30" step="1" innerwidth="3em" height="44px"></number-stepper>
+            </div>
+          </div>
         </div>
-        <footer>
-            <div id="status"></div>
-            <span>
-                Copyright © 2020 <a href="mailto:oliver@ersatzworld.net">Oliver Lau</a>
-                –
-                Code: <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a>
-                –
-                Data sources:
-                <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a>,
-                <a href="https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide" target="_blank">ECDC</a>
-        </footer>
+      </aside>
+      <div id="chart-tabs">
+        <div class="tab">
+          <button id="tab-button-totals" data-target="#totals-chart-container" class="tablinks active">Total
+            cases</button>
+          <button id="tab-button-daily" data-target="#daily-chart-container" class="tablinks">Daily new cases</button>
+          <span class="filler"></span>
+        </div>
+        <div id="daily-chart-container" class="tabcontent chart-container hidden">
+          <canvas id="daily-chart"></canvas>
+        </div>
+        <div id="totals-chart-container" class="tabcontent chart-container">
+          <canvas id="main-chart"></canvas>
+        </div>
+      </div>
     </div>
-    <div id="loader-screen">Loading …</div>
-    <div id="toast"></div>
-    <input type="text" id="clipboard" readonly/>
-    <svg style="display: none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-        <defs>
-            <g id="up-indicator"><path d="M0 12L12 12L6 3Z"/></g>
-            <g id="down-indicator"><path d="M0 3L12 3L6 12Z"/></g>
-            <g id="equal-indicator"><path d="M3 3L9 3L9 9L3 9Z"/></g>
-            <g id="loader-icon">
-                <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 6 6" to="360 6 6" dur="600ms" repeatCount="indefinite"/>
-                <circle cx="6" cy="9" r="3" fill="#E65824"><animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="0ms"/></circle>
-                <circle cx="8.598076211353316" cy="4.5" r="3" fill="#7CDC58"><animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="100ms"/></circle>
-                <circle cx="3.401923788646685" cy="4.5" r="3" fill="#D16EDC"><animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="200ms"/></circle>
-            </g>
-            <g id="share-symbol" fill="#eee">
-                <line x1="6" y1="8" x2="13" y2="3" stroke-width="1.2" stroke="#eee"/>
-                <line x1="6" y1="8" x2="13" y2="13" stroke-width="1.2" stroke="#eee"/>
-                <circle cx="6" cy="8" r="2.4"/>
-                <circle cx="13" cy="3" r="2.4"/>
-                <circle cx="13" cy="13" r="2.4"/>
-            </g>
-        </defs>
-    </svg>
+    <footer>
+      <div id="status"></div>
+      <span>
+        Copyright © 2020 <a href="mailto:oliver@ersatzworld.net">Oliver Lau</a>
+        –
+        Code: <a href="https://github.com/ola-ct/COVID-19" target="_blank">github.com/ola-ct</a>
+        –
+        Data sources:
+        <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank">CSSE</a>,
+        <a href="https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide" target="_blank">ECDC</a>
+    </footer>
+  </div>
+  <div id="loader-screen"></div>
+  <div id="toast"></div>
+  <input type="text" id="clipboard" readonly/>
+  <svg style="display: none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+    <defs>
+      <g id="up-indicator">
+        <path d="M0 12L12 12L6 3Z" />
+      </g>
+      <g id="down-indicator">
+        <path d="M0 3L12 3L6 12Z" />
+      </g>
+      <g id="equal-indicator">
+        <path d="M3 3L9 3L9 9L3 9Z" />
+      </g>
+      <g id="loader-icon">
+        <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="0 6 6" to="360 6 6" dur="600ms" repeatCount="indefinite" />
+        <circle cx="6" cy="9" r="3" fill="#E65824">
+          <animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="0ms" />
+        </circle>
+        <circle cx="8.598076211353316" cy="4.5" r="3" fill="#7CDC58">
+          <animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="100ms" />
+        </circle>
+        <circle cx="3.401923788646685" cy="4.5" r="3" fill="#D16EDC">
+          <animate attributeName="r" values="1.1;2.9;1.1" dur="400ms" repeatCount="indefinite" begin="200ms" />
+        </circle>
+      </g>
+      <g id="share-symbol" fill="#eee">
+        <line x1="6" y1="8" x2="13" y2="3" stroke-width="1.2" stroke="#eee" />
+        <line x1="6" y1="8" x2="13" y2="13" stroke-width="1.2" stroke="#eee" />
+        <circle cx="6" cy="8" r="2.4" />
+        <circle cx="13" cy="3" r="2.4" />
+        <circle cx="13" cy="13" r="2.4" />
+      </g>
+    </defs>
+  </svg>
 </body>
 
 </html>

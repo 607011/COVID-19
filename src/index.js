@@ -26,6 +26,7 @@ import rk4 from 'ode-rk4'
     const Default = {
         country: localStorage.getItem('country') || 'Germany',
         predict: +localStorage.getItem('prediction_days') || 0,
+        view: localStorage.getItem('view') || 'totals',
     }
     const EqIndicator = '<span><svg title="almost equal, okay" width="12" height="12" viewBox="0 0 12 12"><use aria-label="almost equal, okay" xlink:href="#equal-indicator" fill="#FF6633"></use></svg></span>'
     const UpPosIndicator = '<span title="up, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, good" xlink:href="#up-indicator" fill="#63D427"></use></svg></span>'
@@ -33,15 +34,24 @@ import rk4 from 'ode-rk4'
     const UpNegIndicator = '<span title="up, bad"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, bad" xlink:href="#up-indicator" fill="#D42C27"></use></svg></span>'
     const DwPosIndicator = '<span title="down, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, good" xlink:href="#down-indicator" fill="#63D427"></use></svg></span>'
     const ActivityIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#loader-icon"/></svg>'
+    const ViewTargetMapping = {
+        '#daily-chart-container': 'daily',
+        '#totals-chart-container': 'totals',
+    }
+    const ViewTargetMappingReverse = Object.fromEntries(Object.entries(ViewTargetMapping).map(entry => {
+        const [a, b] = entry
+        return [b, a]
+    }))
     let el = {}
     let refresh_interval_mins = 60
     let locale = 'de-DE'
     let main_chart = null
-    let diff_chart = null
+    let daily_chart = null
     let countries = []
     let hash_param = {
         country: null,
         predict: null,
+        view: null,
     }
     let last_selected_country = ''
     let confirmed = {}
@@ -114,14 +124,14 @@ import rk4 from 'ode-rk4'
                 ? `${confirmed.sir.I[confirmed.active.length + hash_param.predict - 1].toLocaleString(locale)} ${indicator}`
                 : '–')
         }
-        if (diff_chart) {
-            diff_chart.data.labels = dates.slice(0, confirmed.total.length)
-            diff_chart.data.datasets[0].data = confirmed.diffs ? confirmed.diffs.infected : null
-            diff_chart.data.datasets[1].data = confirmed.diffs ? confirmed.diffs.deaths : null
-            diff_chart.update()
+        if (daily_chart) {
+            daily_chart.data.labels = dates.slice(0, confirmed.total.length)
+            daily_chart.data.datasets[0].data = confirmed.diffs ? confirmed.diffs.infected : null
+            daily_chart.data.datasets[1].data = confirmed.diffs ? confirmed.diffs.deaths : null
+            daily_chart.update()
         }
         else {
-            diff_chart = new Chart(document.getElementById('diff-chart').getContext('2d'), {
+            daily_chart = new Chart(document.getElementById('daily-chart').getContext('2d'), {
                 type: 'bar',
                 data: {
                     labels: dates.slice(0, confirmed.total.length),
@@ -352,7 +362,6 @@ import rk4 from 'ode-rk4'
             }
         }
         data = Object.assign({}, Default, data)
-        const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.max)
         if (Object.keys(countries).indexOf(data.country) >= 0) {
             el.country_selector.value = data.country
             if (data.country !== hash_param.country) {
@@ -360,12 +369,20 @@ import rk4 from 'ode-rk4'
                 loadCountryData()
             }
         }
+        const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.max)
         if (days !== hash_param.predict) {
             hash_param.predict = days
             el.prediction_days.value = days
             if (confirmed.active) {
                 updateUI()
             }
+        }
+        if (data.view !== hash_param.view && Object.keys(ViewTargetMappingReverse).includes(data.view)) {
+            hash_param.view = data.view;
+            [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => tab.classList.remove('active'))
+            document.getElementById(`tab-button-${data.view}`).classList.add('active');
+            [...document.querySelectorAll('#chart-tabs .tabcontent')].forEach(tab => tab.classList.add('hidden'));
+            document.querySelector(ViewTargetMappingReverse[hash_param.view]).classList.remove('hidden')
         }
         updateHash(data)
     }
@@ -463,17 +480,12 @@ import rk4 from 'ode-rk4'
         updateHash({ predict: Math.min(+el.prediction_days.value, +el.prediction_days.max) })
     }
 
-    const chartSelected = evt => {
-        [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => tab.classList.remove('active'))
-        evt.currentTarget.classList.add('active');
-        [...document.querySelectorAll('#chart-tabs .tabcontent')].forEach(tab => tab.classList.add('hidden'));
-        document.querySelector(evt.target.dataset.target).classList.remove('hidden')
-    }
-
     const postInit = () => {
         el.prediction_days.addEventListener('change', predictionDaysChanged);
         [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => {
-            tab.addEventListener('click', chartSelected)
+            tab.addEventListener('click', evt => {
+                updateHash({ view: ViewTargetMapping[evt.target.dataset.target] })
+            })
         })
         window.addEventListener('hashchange', hashChanged)
         setInterval(loadCountryData, 1000 * 60 * refresh_interval_mins)

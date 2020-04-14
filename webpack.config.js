@@ -46,7 +46,8 @@ module.exports = {
     new CopyPlugin([
       { from: 'data/*.json' },
       { from: 'static/*.js' },
-      { from: 'img/*.png' }
+      { from: 'img/*.png' },
+      { from: 'img/*.jpg' },
     ]),
   ],
   module: {

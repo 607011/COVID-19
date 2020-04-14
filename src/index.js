@@ -472,12 +472,13 @@ import rk4 from 'ode-rk4'
         confirmed = {}
         last_update = new Date(1970)
         localStorage.setItem('country', country)
-        updateHash({ country: country })
+        updateHash({ country })
     }
 
     const predictionDaysChanged = () => {
-        localStorage.setItem('prediction_days', el.prediction_days.value)
-        updateHash({ predict: Math.min(+el.prediction_days.value, +el.prediction_days.max) })
+        const predict = Math.min(+el.prediction_days.value, +el.prediction_days.max)
+        localStorage.setItem('prediction_days', predict)
+        updateHash({ predict })
     }
 
     const viewChanged = evt => {

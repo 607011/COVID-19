@@ -417,7 +417,7 @@ import rk4 from 'ode-rk4'
                 behavior: 'smooth',
                 block: 'nearest',
             })
-        }, 100)
+        }, 200)
     }
 
     const fetchCountryList = async () => {
@@ -438,7 +438,14 @@ import rk4 from 'ode-rk4'
             name.innerText = country
             name.id = `_${country}`
             name.className = 'country'
-            name.addEventListener('click', () => { countryChanged(country) })
+            name.addEventListener('click', () => { 
+                if (last_selected_country === country) {
+                    loadCountryData()
+                }
+                else {
+                    countryChanged(country)
+                }
+            })
             div.appendChild(name)
         })
         root.appendChild(div)

@@ -88,6 +88,7 @@ def load_ecdc_diff_data(result, dates):
   if verbosity > 0:
     print('Reading ECDC daily diff data ...')
   diff_data = pd.read_csv('https://opendata.ecdc.europa.eu/covid19/casedistribution/csv')
+  diff_data.drop(['day', 'month', 'year', 'geoId', 'countryterritoryCode', 'popData2018'], axis=1, inplace=True)
   diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
   if verbosity > 0:
     print('Processing ECDC daily diff data ...')
@@ -98,7 +99,8 @@ def load_ecdc_diff_data(result, dates):
     data = diff_data[diff_data['countriesAndTerritories'] == country]
     data.insert(2, 'dt', data.loc[:, 'dateRep'].apply(lambda date: (datetime.strptime(date, '%d/%m/%Y') - first_day).days))
     data = data[data['dt'] >= 0]
-    data = pd.merge_ordered(data.loc[:, ['dt', 'dateRep', 'cases', 'deaths']], all_days, right_by='dt', how='left')
+    # XXX: merge_ordered() takes too long. Find a replacement that performes better!
+    data = pd.merge_ordered(data, all_days, right_by='dt', how='left')
     data.to_csv(os.path.join(tmp_path, 'ecdc-{:s}.csv'.format(country)), index=False)
     if mapped_country in result['countries']:
       result['countries'][mapped_country]['diffs'] = {

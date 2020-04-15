@@ -88,6 +88,7 @@ import rk4 from 'ode-rk4'
             confirmed.dates = [...new Array(confirmed.active.length)].map((_, day) => new Date(first_date + day * 86400000))
         }
         last_update = fromISODate(confirmed.latest.last_update)
+        // TODO: display up/down indicators
         updateIfChanged(el.latest_date, `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`)
         updateIfChanged(el.latest_total, confirmed.latest.total.toLocaleString(locale))
         updateIfChanged(el.latest_active, confirmed.latest.active.toLocaleString(locale))

@@ -104,16 +104,14 @@ import rk4 from 'ode-rk4'
 
     const updateCharts = () => {
         let dates = [...confirmed.dates]
-        const curr_date = confirmed.dates[confirmed.dates.length - 1]
         if (confirmed.predicted) {
+            const curr_date = confirmed.dates[confirmed.dates.length - 1].getTime()
             for (let day = 1; day <= hash_param.predict; ++day) {
-                const date = new Date(curr_date)
-                date.setDate(curr_date.getDate() + day)
-                dates.push(date)
-            }    
+                dates.push(new Date(curr_date + day * 86400000))
+            }
         }
         dates = dates.map(d => d.toLocaleDateString(locale))
-        let indicator 
+        let indicator
         updateIfChanged(el.current_date, dates[confirmed.dates.length - 1])
         updateIfChanged(el.predicted_date, (hash_param.predict > 0 && confirmed.predicted)
             ? dates[confirmed.dates.length - 1 + hash_param.predict]

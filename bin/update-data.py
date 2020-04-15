@@ -234,7 +234,7 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
 
     with open(json_file, 'w+') as out:
       output_data = result['countries'][country]
-      output_data['dates'] = [d.strftime('%Y-%m-%d') for d in dates]
+      output_data['first_date'] = dates[0].strftime('%Y-%m-%d')
       output_data['country'] = country
       out.write(json.dumps(output_data))
       if verbosity > 1:

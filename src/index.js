@@ -84,7 +84,8 @@ import rk4 from 'ode-rk4'
     const updateUI = data => {
         if (data) {
             confirmed = Object.assign({}, data)
-            confirmed.dates = data.dates.map(date => fromISODate(date))
+            const first_date = fromISODate(data.first_date).getTime()
+            confirmed.dates = [...new Array(confirmed.active.length)].map((_, day) => new Date(first_date + day * 86400000))
         }
         last_update = fromISODate(confirmed.latest.last_update)
         updateIfChanged(el.latest_date, `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`)

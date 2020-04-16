@@ -81,6 +81,10 @@ import rk4 from 'ode-rk4'
         }
     }
 
+    const lastOf = arr => {
+        return arr[arr.length - 1]
+    }
+
     const updateUI = data => {
         if (data) {
             confirmed = Object.assign({}, data)
@@ -105,7 +109,7 @@ import rk4 from 'ode-rk4'
     const updateCharts = () => {
         let dates = [...confirmed.dates]
         if (confirmed.predicted) {
-            const curr_date = confirmed.dates[confirmed.dates.length - 1].getTime()
+            const curr_date = lastOf(confirmed.dates).getTime()
             for (let day = 1; day <= hash_param.predict; ++day) {
                 dates.push(new Date(curr_date + day * 86400000))
             }
@@ -333,8 +337,8 @@ import rk4 from 'ode-rk4'
             return
         const N = confirmed.active.length
         const population = confirmed.population
-        const I0 = confirmed.active[N - 1]
-        const R0 = confirmed.recovered[N - 1]
+        const I0 = lastOf(confirmed.active)
+        const R0 = lastOf(confirmed.recovered)
         const S0 = population
         const Sstart = S0 / population
         const Istart = I0 / population

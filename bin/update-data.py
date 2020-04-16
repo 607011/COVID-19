@@ -251,6 +251,7 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
       out.write(json.dumps(output_data))
       if verbosity > 1:
         print('  Ready.')
+  print()
 
 
 if __name__ == '__main__':

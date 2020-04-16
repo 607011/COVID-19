@@ -63,11 +63,14 @@ span {
   background-color: transparent;
   white-space: nowrap;
 }
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: none;
+  height: auto;
+}
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  -moz-appearance: none;
   -webkit-appearance: none;
-  height: auto;
 }
 input {
   text-align: right;

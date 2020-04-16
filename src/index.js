@@ -92,15 +92,20 @@ import rk4 from 'ode-rk4'
             confirmed.dates = [...new Array(confirmed.active.length)].map((_, day) => new Date(first_date + day * 86400000))
         }
         last_update = fromISODate(confirmed.latest.last_update)
-        // TODO: display up/down indicators
+        let indicator
         updateIfChanged(el.latest_date, `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`)
-        updateIfChanged(el.latest_total, confirmed.latest.total.toLocaleString(locale))
-        updateIfChanged(el.latest_active, confirmed.latest.active.toLocaleString(locale))
-        updateIfChanged(el.latest_deaths, confirmed.latest.deaths.toLocaleString(locale))
-        updateIfChanged(el.latest_recovered, confirmed.latest.recovered.toLocaleString(locale))
-        const dbl = confirmed.doubling_rates[confirmed.doubling_rates.length-1]
-        const dbl1 = confirmed.doubling_rates[confirmed.doubling_rates.length-2]
-        const indicator = almostEqual(dbl, dbl1) ? EqIndicator : dbl > dbl1 ? UpPosIndicator : DwNegIndicator
+        const total = lastOf(confirmed.active) + lastOf(confirmed.deaths) + lastOf(confirmed.recovered)
+        indicator = confirmed.latest.total === total ? EqIndicator : confirmed.latest.total < total ? DwPosIndicator : UpNegIndicator
+        updateIfChanged(el.latest_total, `${confirmed.latest.total.toLocaleString(locale)} ${indicator}`)
+        indicator = confirmed.latest.active === lastOf(confirmed.active) ? EqIndicator : confirmed.latest.active < lastOf(confirmed.active) ? DwPosIndicator : UpNegIndicator
+        updateIfChanged(el.latest_active, `${confirmed.latest.active.toLocaleString(locale)} ${indicator}`)
+        indicator = confirmed.latest.deaths === lastOf(confirmed.deaths) ? EqIndicator : confirmed.latest.deaths < lastOf(confirmed.deaths) ? DwPosIndicator : UpNegIndicator
+        updateIfChanged(el.latest_deaths, `${confirmed.latest.deaths.toLocaleString(locale)} ${indicator}`)
+        indicator = confirmed.latest.recovered === lastOf(confirmed.recovered) ? EqIndicator : confirmed.latest.recovered < lastOf(confirmed.recovered) ? DwNegIndicator : UpPosIndicator
+        updateIfChanged(el.latest_recovered, `${confirmed.latest.recovered.toLocaleString(locale)} ${indicator}`)
+        const dbl = lastOf(confirmed.doubling_rates)
+        const dbl1 = confirmed.doubling_rates[confirmed.doubling_rates.length - 2]
+        indicator = almostEqual(dbl, dbl1) ? EqIndicator : dbl > dbl1 ? UpPosIndicator : DwNegIndicator
         updateIfChanged(el.current_doubling, dbl > 0 ? `${dbl.toFixed(1)} days ${indicator}` : 'n/a')
         calculateSIR()
         updateCharts()

@@ -335,16 +335,15 @@ import rk4 from 'ode-rk4'
         const population = confirmed.population
         const I0 = confirmed.active[N - 1]
         const R0 = confirmed.recovered[N - 1]
-        const S0 = population - I0 - R0
+        const S0 = population
         const Sstart = S0 / population
         const Istart = I0 / population
         const Rstart = R0 / population
         const maxT = Math.min(el.prediction_days.value, el.prediction_days.max)
         const step = 1
-
-        const solution_S = simulateSIR(SIR_model.bind({b: pred.S.beta, g: pred.S.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
-        const solution_I = simulateSIR(SIR_model.bind({b: pred.I.beta, g: pred.I.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
-        const solution_R = simulateSIR(SIR_model.bind({b: pred.R.beta, g: pred.R.gamma}), 0, [Sstart - Istart, Istart, Rstart], step, maxT)
+        const solution_S = simulateSIR(SIR_model.bind({b: pred.S.beta, g: pred.S.gamma}), 0, [Sstart - Istart - Rstart, Istart, Rstart], step, maxT)
+        const solution_I = simulateSIR(SIR_model.bind({b: pred.I.beta, g: pred.I.gamma}), 0, [Sstart - Istart - Rstart, Istart, Rstart], step, maxT)
+        const solution_R = simulateSIR(SIR_model.bind({b: pred.R.beta, g: pred.R.gamma}), 0, [Sstart - Istart - Rstart, Istart, Rstart], step, maxT)
         const total = solution_I.y.map((a, i) => a[1] + solution_R.y[i][2]).map(x => Math.round(x * population))
         confirmed.sir = {
             t: solution_S.t,

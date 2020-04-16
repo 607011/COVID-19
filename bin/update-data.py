@@ -179,7 +179,9 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
 
   for country in sorted(confirmed_global.index.tolist()):
     if verbosity > 0:
-      print(' - {:s}'.format(country))
+      print(' - {}'.format(country), end='')
+      sys.stdout.write("\033[K\r")
+      sys.stdout.flush()
     confirmed = confirmed_global.loc[country][start_date:]
     deaths = deaths_global.loc[country][start_date:]
     recovered = recovered_global.loc[country][start_date:]

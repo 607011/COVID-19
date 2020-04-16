@@ -183,6 +183,8 @@ Copyright (c) 2020 Oliver Lau <oliver@ersatzworld.net>
   day0 = '{:d}/{:d}/{:d}'.format(dt.month, dt.day, dt.year - 2000)
   xdata = np.array(range(retrospect_days+1), dtype=float)
 
+  if verbosity > 0:
+    print('Processing CSSE data ...')
   for country in sorted(confirmed_global.index.tolist()):
     if verbosity > 0:
       print(' - {}'.format(country), end='')

@@ -92,21 +92,27 @@ def load_ecdc_diff_data(result, dates):
   diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
   if verbosity > 0:
     print('Processing ECDC daily diff data ...')
-  all_days = pd.DataFrame(data=[[d, (first_day + timedelta(days=d)).strftime('%d/%m/%Y'), 0, 0] for d in range(dt.days+1)], columns=('dt', 'dateRep', 'cases', 'deaths'))
+  all_dt = dict(zip(range(dt.days+1), [{ 'cases': None, 'deaths': None }] * (dt.days+1)))
   for country in diff_data.countriesAndTerritories.unique():
     mapped_country = country_mapping[country] if country in country_mapping else country
     mapped_country = mapped_country.replace('_', ' ')
+    if verbosity > 0:
+      print(' - {}'.format(mapped_country), end='')
+      sys.stdout.write("\033[K\r")
+      sys.stdout.flush()
     data = diff_data[diff_data['countriesAndTerritories'] == country]
-    data.insert(2, 'dt', data.loc[:, 'dateRep'].apply(lambda date: (datetime.strptime(date, '%d/%m/%Y') - first_day).days))
+    data.insert(2, 'dt', data['dateRep'].apply(lambda date: (datetime.strptime(date, '%d/%m/%Y') - first_day).days))
     data = data[data['dt'] >= 0]
-    # XXX: merge_ordered() takes too long. Find a replacement that performes better!
-    data = pd.merge_ordered(data, all_days, right_by='dt', how='left')
-    data.to_csv(os.path.join(tmp_path, 'ecdc-{:s}.csv'.format(country)), index=False)
+    deaths = data['deaths'].to_list()
+    cases = data['cases'].to_list()
+    actual = dict(zip(data['dt'].to_list(), [{ 'deaths': deaths[i], 'cases': cases[i] } for i in range(data['dt'].size)]))
+    merged = {**all_dt, **actual}
     if mapped_country in result['countries']:
       result['countries'][mapped_country]['diffs'] = {
-        'infected': data['cases'].tolist(),
-        'deaths': data['deaths'].tolist(),
+        'infected': [merged[day]['cases'] for day in range(dt.days+1)],
+        'deaths': [merged[day]['deaths'] for day in range(dt.days+1)],
       }
+  print()
 
 
 def parse_latest(filename, result):

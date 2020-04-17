@@ -81,9 +81,7 @@ import rk4 from 'ode-rk4'
         }
     }
 
-    const lastOf = arr => {
-        return arr[arr.length - 1]
-    }
+    const lastOf = arr => arr[arr.length - 1]
 
     const updateUI = data => {
         if (data) {
@@ -91,8 +89,8 @@ import rk4 from 'ode-rk4'
             const first_date = fromISODate(data.first_date).getTime()
             confirmed.dates = [...new Array(confirmed.active.length)].map((_, day) => new Date(first_date + day * 86400000))
         }
-        last_update = fromISODate(confirmed.latest.last_update)
         let indicator
+        last_update = fromISODate(confirmed.latest.last_update)
         updateIfChanged(el.latest_date, `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`)
         const total = lastOf(confirmed.active) + lastOf(confirmed.deaths) + lastOf(confirmed.recovered)
         indicator = confirmed.latest.total === total ? EqIndicator : confirmed.latest.total < total ? DwPosIndicator : UpNegIndicator

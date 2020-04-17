@@ -422,7 +422,7 @@ import rk4 from 'ode-rk4'
         showStatus(`${ActivityIndicator} Loading …`)
         const flagEl = document.getElementById(`flag-${hash_param.country}`)
         flagEl.innerHTML = ActivityIndicator
-        fetch(`data/${hash_param.country}.json`)
+        fetch(`data/${hash_param.country}.json`, {cache: "reload"})
             .then(response => {
                 return response.ok
                     ? response.json()

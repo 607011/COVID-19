@@ -1,3 +1,5 @@
 *.css
 *.js
+!service-worker.js
 img/
+!static/*

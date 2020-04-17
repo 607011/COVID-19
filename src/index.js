@@ -58,6 +58,7 @@ import rk4 from 'ode-rk4'
     let confirmed = {}
     let last_update = new Date(1970)
     let refresh_timer = null
+    let swChannel = new MessageChannel()
 
     customElements.define('number-stepper', NumberStepper)
 
@@ -483,6 +484,15 @@ import rk4 from 'ode-rk4'
             div.appendChild(name)
         })
         root.appendChild(div)
+        if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+                command: 'prefetch-external',
+                countries: Object.keys(countries),
+            }, [swChannel.port2])
+        }
+        else {
+            console.warn('No active ServiceWorker. No problem unless you haven\'t reloaded the page with shift+reload.')
+        }
     }
 
     const countryChanged = country => {
@@ -531,6 +541,13 @@ import rk4 from 'ode-rk4'
                 }
             })
         })
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(_sw => {
+                swChannel.port1.onmessage = event => {
+                    console.debug('Response from service worker:', event.data)
+                }
+            })
+        }
     }
 
     const showStatus = msg => {

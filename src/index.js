@@ -530,14 +530,13 @@ import rk4 from 'ode-rk4'
             button.addEventListener('click', evt => {
                 if (evt.button === 0) {
                     copyToClipboard(window.location.href)
-                    const dur = 2000
                     el.toast.innerHTML = 'Link copied to clipboard.'
                     el.toast.classList.add('visible')
-                    el.toast.style.animationDuration = `${dur}ms`
+                    el.toast.style.animationDuration = '2000ms'
                     el.toast.style.top = `${evt.clientY}px`
                     el.toast.style.left = `calc(${evt.clientX}px - ${window.getComputedStyle(el.toast).width})`
+                    el.toast.addEventListener('animationend', el.toast.classList.remove('visible'))
                     evt.stopPropagation()
-                    setTimeout(() => { el.toast.classList.remove('visible') }, dur)
                 }
             })
         })

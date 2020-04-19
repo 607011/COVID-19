@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/ola-ct/COVID-19/issues"
   },
-  "homepage": "https://ersatzworld.net/covid-19",
+  "homepage": "https://covid-19.ersatzworld.net/",
   "devDependencies": {
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",

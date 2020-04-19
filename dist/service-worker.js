@@ -14,6 +14,8 @@ const PRECACHE_URLS = [
 ]
 
 self.addEventListener('message', evt => {
+  console.log('sw message: ', evt.data)
+
   if (evt.data.command === 'prefetch-external') {
     const countries = evt.data.countries
     const urls = countries.map(country => `data/${country}.json`)
@@ -30,6 +32,7 @@ self.addEventListener('message', evt => {
 })
 
 self.addEventListener('install', evt => {
+  console.log('sw install')
   evt.waitUntil(
     caches.open(PRECACHE)
       .then(cache => cache.addAll(PRECACHE_URLS))
@@ -40,6 +43,7 @@ self.addEventListener('install', evt => {
 
 self.addEventListener('activate', evt => {
   const currentCaches = [PRECACHE, RUNTIME]
+  console.log('sw activate')
   evt.waitUntil(
     caches.keys()
       .then(cacheNames => {
@@ -55,6 +59,7 @@ self.addEventListener('activate', evt => {
 })
 
 self.addEventListener('fetch', evt => {
+  console.log('sw fetch ' + evt.request.url)
   if (evt.request.url.startsWith(self.location.origin)) {
     evt.respondWith(
       caches.match(evt.request)

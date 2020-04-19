@@ -547,6 +547,9 @@ import rk4 from 'ode-rk4'
                 }
             })
         }
+        else {
+            console.warn('no serviceWorker available')
+        }
     }
 
     const showStatus = msg => {

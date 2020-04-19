@@ -484,20 +484,20 @@ import rk4 from 'ode-rk4'
             div.appendChild(name)
         })
         root.appendChild(div)
-        // if ('serviceWorker' in navigator) {
-        //     if (navigator.serviceWorker.controller) {
-        //         navigator.serviceWorker.controller.postMessage({
-        //             command: 'prefetch-external',
-        //             countries: Object.keys(countries),
-        //         }, [swChannel.port2])
-        //     }
-        //     else {
-        //         console.warn('No active ServiceWorker. No problem unless you haven\'t reloaded the page with shift+reload.')
-        //     }
-        // }
-        // else {
-        //     console.warn('serviceWorker not available')
-        // }
+        if ('serviceWorker' in navigator) {
+            if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({
+                    command: 'prefetch-external',
+                    countries: Object.keys(countries),
+                }, [swChannel.port2])
+            }
+            else {
+                console.warn('No active ServiceWorker. No problem unless you haven\'t reloaded the page with shift+reload.')
+            }
+        }
+        else {
+            console.warn('serviceWorker not available')
+        }
     }
 
     const countryChanged = country => {
@@ -545,16 +545,16 @@ import rk4 from 'ode-rk4'
                 }
             })
         })
-        // if ('serviceWorker' in navigator) {
-        //     navigator.serviceWorker.ready.then(_sw => {
-        //         swChannel.port1.onmessage = event => {
-        //             console.debug('Response from service worker:', event.data)
-        //         }
-        //     })
-        // }
-        // else {
-        //     console.warn('no serviceWorker available')
-        // }
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(_sw => {
+                swChannel.port1.onmessage = event => {
+                    console.debug('Response from service worker:', event.data)
+                }
+            })
+        }
+        else {
+            console.warn('no serviceWorker available')
+        }
     }
 
     const showStatus = msg => {

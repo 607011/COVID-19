@@ -82,21 +82,23 @@ export default class TabbedPanel extends HTMLElement {
   }
 
   set selected(newIndex) {
-    for (let i = 0; i < this.tabs.length; ++i) {
-      const tab = this.tabs[i]
-      const isSelected = i === newIndex
-      if (isSelected) {
-        this.changeEvent.detail.name = tab.name
+    if (this.tabs) {
+      for (let i = 0; i < this.tabs.length; ++i) {
+        const tab = this.tabs[i]
+        const isSelected = i === newIndex
+        if (isSelected) {
+          this.changeEvent.detail.name = tab.name
+        }
+        tab.setAttribute('tabindex', isSelected ? 0 : -1)
+        tab.setAttribute('aria-selected', isSelected)
+        this.panels[i].setAttribute('aria-hidden', !isSelected)
       }
-      tab.setAttribute('tabindex', isSelected ? 0 : -1)
-      tab.setAttribute('aria-selected', isSelected)
-      this.panels[i].setAttribute('aria-hidden', !isSelected)
+      if (newIndex !== this.selectedIdx) {
+        this.selectedIdx = newIndex
+        this.dispatchEvent(this.changeEvent)
+      }
+      this.setAttribute('selected', newIndex)  
     }
-    if (newIndex !== this.selectedIdx) {
-      this.selectedIdx = newIndex
-      this.dispatchEvent(this.changeEvent)
-    }
-    this.setAttribute('selected', newIndex)
   }
 
   onButtonClick(e) {

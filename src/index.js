@@ -351,9 +351,9 @@ import rk4 from 'ode-rk4'
         const total = solution_I.y.map((a, i) => a[1] + solution_R.y[i][2]).map(x => Math.round(x * population))
         confirmed.sir = {
             t: solution_S.t,
-            S: new Array(N).fill(null).concat(solution_S.y.slice(1).map(x => Math.round(x[0] * population))),
-            I: new Array(N).fill(null).concat(solution_I.y.slice(1).map(x => Math.round(x[1] * population))),
-            R: new Array(N).fill(null).concat(solution_R.y.slice(1).map(x => Math.round(x[2] * population))),
+            S: new Array(N).fill(null).concat(solution_S.y.slice(1).map(x => Math.min(population, Math.max(0, Math.round(x[0] * population))))),
+            I: new Array(N).fill(null).concat(solution_I.y.slice(1).map(x => Math.min(population, Math.max(0, Math.round(x[1] * population))))),
+            R: new Array(N).fill(null).concat(solution_R.y.slice(1).map(x => Math.min(population, Math.max(0, Math.round(x[2] * population))))),
             total: total,
         }
     }

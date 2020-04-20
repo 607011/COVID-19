@@ -87,13 +87,6 @@ export default class TabbedPanel extends HTMLElement {
     this.setAttribute('selected', idx)
   }
 
-  _onTitleClick(e) { 
-    if (e.target.slot === 'button') {
-      this.selected = this.tabs.indexOf(e.target)
-      e.target.focus()
-    }
-  }
-
   _selectTab(idx = null) {
     for (let i = 0; i < this.tabs.length; ++i) {
       const tab = this.tabs[i]
@@ -108,6 +101,13 @@ export default class TabbedPanel extends HTMLElement {
     this.dispatchEvent(this.changeEvent)
   }
 
+  onButtonClick(e) {
+    if (e.target.slot === 'button') {
+      this.selected = this.tabs.indexOf(e.target)
+      e.target.focus()
+    }
+  }
+
   connectedCallback() {
     this.setAttribute('role', 'tablist')
     const tabsSlot = this.shadowRoot.querySelector('#tabs-slot')
@@ -118,20 +118,20 @@ export default class TabbedPanel extends HTMLElement {
       panel.setAttribute('role', 'tabpanel')
       panel.setAttribute('tabindex', 0)
     }
-    this._boundOnTitleClick = this._onTitleClick.bind(this)
-    tabsSlot.addEventListener('click', this._boundOnTitleClick)
     let selectedIdx = 0
-    for (let [i, tab] of this.tabs.entries()) {
+    for (const tab of this.tabs) {
       tab.setAttribute('role', 'tab')
       if (tab.hasAttribute('selected')) {
         selectedIdx = i
       }
     }
     this.selected = selectedIdx
+    this.onButtonClick = this.onButtonClick.bind(this)
+    tabsSlot.addEventListener('click', this.onButtonClick)
   }
 
   disconnectedCallback() {
     const tabsSlot = this.shadowRoot.querySelector('#tabsSlot')
-    tabsSlot.removeEventListener('click', this._boundOnTitleClick)
+    tabsSlot.removeEventListener('click', this.onButtonClick)
   }
 }

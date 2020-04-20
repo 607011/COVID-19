@@ -551,7 +551,7 @@ import rk4 from 'ode-rk4'
     }
 
     const main = () => {
-        console.log('%c COVID-19 spread %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
+        console.log('%c COVID-19 spread v1.0.1 %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
         el = {
             app: document.getElementById('App'),
             toast: document.getElementById('toast'),

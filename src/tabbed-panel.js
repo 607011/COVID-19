@@ -5,14 +5,14 @@
 export default class TabbedPanel extends HTMLElement {
   constructor() {
     super()
-    this.selected_ = null
+    this.selected = null
     this.changeEvent = new CustomEvent('change', {
       bubbles: true,
       cancelable: false,
       composed: true,
       detail: { name: null },
     })
-    let shadowRoot = this.attachShadow({ mode: 'open' })
+    const shadowRoot = this.attachShadow({ mode: 'open' })
     shadowRoot.innerHTML = `
 <style>
   :host {
@@ -81,16 +81,10 @@ export default class TabbedPanel extends HTMLElement {
     return this.selectedIdx
   }
 
-  set selected(idx) {
-    this.selectedIdx = idx
-    this._selectTab(idx)
-    this.setAttribute('selected', idx)
-  }
-
-  _selectTab(idx = null) {
+  set selected(newIndex) {
     for (let i = 0; i < this.tabs.length; ++i) {
       const tab = this.tabs[i]
-      const isSelected = i === idx
+      const isSelected = i === newIndex
       if (isSelected) {
         this.changeEvent.detail.name = tab.name
       }
@@ -98,7 +92,11 @@ export default class TabbedPanel extends HTMLElement {
       tab.setAttribute('aria-selected', isSelected)
       this.panels[i].setAttribute('aria-hidden', !isSelected)
     }
-    this.dispatchEvent(this.changeEvent)
+    if (newIndex !== this.selectedIdx) {
+      this.selectedIdx = newIndex
+      this.dispatchEvent(this.changeEvent)
+    }
+    this.setAttribute('selected', newIndex)
   }
 
   onButtonClick(e) {

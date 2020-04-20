@@ -9,8 +9,6 @@
 :root {
     --chart-background-color: #282828;
     --infected-color: #E65824;
-    --progressbar-color1: rgb(93, 171, 240);
-    --progressbar-color2: rgb(43, 72, 97);
 }
 
 html, body {
@@ -286,25 +284,4 @@ canvas {
 
 #status {
     color: #eee;
-}
-
-#progress-bar {
-    display: block;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    --height: 6px;
-    --size: 12px;
-    height: var(--height);
-    background-color: var(--progressbar-color1);
-    background-image: linear-gradient(-45deg, var(--progressbar-color2) 25%, transparent 25%, transparent 50%, var(--progressbar-color2) 50%, var(--progressbar-color2) 75%, transparent 75%, transparent);
-    background-size: var(--size) var(--size);
-    box-shadow: inset 0 calc(var(--height) / 2) 0 rgba(255, 255, 255, .2);
-    animation: moveBackground 500ms linear infinite;
-}
-
-@keyframes moveBackground {
-    to { background-position-x: 0; }
-    from { background-position-x: var(--size); }
 }

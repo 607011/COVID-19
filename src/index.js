@@ -20,6 +20,7 @@ import './css/default.css'
 import './css/tiny.css'
 import NumberStepper from './stepper.js'
 import TabbedPanel from './tabbed-panel.js'
+import ProgressBar from './progress-bar.js'
 import rk4 from 'ode-rk4'
 
 (function (window) {
@@ -55,6 +56,7 @@ import rk4 from 'ode-rk4'
 
     customElements.define('number-stepper', NumberStepper)
     customElements.define('tabbed-panel', TabbedPanel)
+    customElements.define('progress-bar', ProgressBar)
 
     const fromISODate = iso_date_string => {
         const [, year, month, day, ...time] = iso_date_string.match(/^(\d{4})-(\d{2})-(\d{2})(\s(\d{2}):(\d{2}):(\d{2}))?/)
@@ -409,7 +411,6 @@ import rk4 from 'ode-rk4'
 
     const loadCountryData = () => {
         last_selected_country = hash_param.country
-        showStatus(`${ActivityIndicator} Loading …`)
         const flagEl = document.getElementById(`flag-${hash_param.country}`)
         flagEl.innerHTML = ActivityIndicator
         fetch(`data/${hash_param.country}.json`, {cache: "reload"})
@@ -427,7 +428,6 @@ import rk4 from 'ode-rk4'
                 if (!el.loader_screen.classList.contains('hidden')) {
                     el.loader_screen.classList.add('hidden')
                 }
-                clearStatus()
             },
             status => {
                 showError(`Fetching data for »${hash_param.country}« failed: ${status}. Reload page to retry …`)
@@ -574,7 +574,7 @@ import rk4 from 'ode-rk4'
             latest_deaths: document.getElementById('latest-deaths'),
             latest_recovered: document.getElementById('latest-recovered'),
             refreshables: [...document.getElementsByClassName('refreshable')],
-            progress_bar: document.getElementById('progress-bar'),
+            progress_bar: document.querySelector('progress-bar'),
         }
         el.refreshables.forEach(element => {
             const observer = new MutationObserver((mutationsList, _observer) => {
@@ -594,13 +594,12 @@ import rk4 from 'ode-rk4'
         Chart.defaults.global.defaultFontColor = '#888'
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.ready.then(() => {
+                el.progress_bar.setAttribute('disabled', false)
                 swChannel.port1.onmessage = e => {
                     if (e.data.message === 'progress') {
-                        const progress = e.data.progress
-                        const width = Math.round(progress.value / (progress.max - progress.min) * 100)
-                        el.progress_bar.style.width = `${width}%`
-                        if (width === 100) {
-                            el.progress_bar.style.display = 'none'
+                        el.progress_bar.update(e.data.progress)
+                        if (e.data.progress.value === e.data.progress.max) {
+                            el.progress_bar.setAttribute('disabled', true)
                         }
                     }
                 }

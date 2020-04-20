@@ -17,13 +17,19 @@ self.addEventListener('message', evt => {
   if (evt.data.command === 'prefetch-external') {
     const countries = evt.data.countries
     const urls = countries.map(country => `data/${country}.json`)
+    const progress = { min: 0, max: urls.length, value: 0 }
     evt.waitUntil(
       caches.open(PRECACHE)
-        .then(cache => cache.addAll(urls))
-        .then(self.skipWaiting())
-        .then(_ => {
-          evt.ports[0].postMessage({ message: 'prefetched', countries })
+        .then(cache => {
+          for (const url of urls)
+          cache.add(url)
+            .then(_ => {
+              ++progress.value
+              evt.ports[0].postMessage({ message: 'progress', progress })
+            })
+            .catch(err => console.error(err))
         })
+        .then(self.skipWaiting())
         .catch(err => console.error(err))
     )
   }

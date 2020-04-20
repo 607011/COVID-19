@@ -534,16 +534,6 @@ import rk4 from 'ode-rk4'
                 }
             })
         })
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.ready.then(_sw => {
-                swChannel.port1.onmessage = event => {
-                    console.debug('Response from service worker:', event.data)
-                }
-            })
-        }
-        else {
-            console.warn('no serviceWorker available')
-        }
     }
 
     const showStatus = msg => {
@@ -584,6 +574,7 @@ import rk4 from 'ode-rk4'
             latest_deaths: document.getElementById('latest-deaths'),
             latest_recovered: document.getElementById('latest-recovered'),
             refreshables: [...document.getElementsByClassName('refreshable')],
+            progress_bar: document.getElementById('progress-bar'),
         }
         el.refreshables.forEach(element => {
             const observer = new MutationObserver((mutationsList, _observer) => {
@@ -601,6 +592,23 @@ import rk4 from 'ode-rk4'
         Chart.defaults.global.defaultFontFamily = 'Inria Sans, sans-serif'
         Chart.defaults.global.defaultFontSize = 13
         Chart.defaults.global.defaultFontColor = '#888'
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(() => {
+                swChannel.port1.onmessage = e => {
+                    if (e.data.message === 'progress') {
+                        const progress = e.data.progress
+                        const width = Math.round(progress.value / (progress.max - progress.min) * 100)
+                        el.progress_bar.style.width = `${width}%`
+                        if (width === 100) {
+                            el.progress_bar.style.display = 'none'
+                        }
+                    }
+                }
+            })
+        }
+        else {
+            console.warn('no serviceWorker available')
+        }
         fetchCountryList()
             .then(
                 () => {

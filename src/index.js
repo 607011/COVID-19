@@ -19,6 +19,7 @@
 import './css/default.css'
 import './css/tiny.css'
 import NumberStepper from './stepper.js'
+import TabbedPanel from './tabbed-panel.js'
 import rk4 from 'ode-rk4'
 
 (function (window) {
@@ -35,14 +36,6 @@ import rk4 from 'ode-rk4'
     const UpNegIndicator = '<span title="up, bad"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, bad" xlink:href="#up-indicator" fill="#D42C27"></use></svg></span>'
     const DwPosIndicator = '<span title="down, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, good" xlink:href="#down-indicator" fill="#63D427"></use></svg></span>'
     const ActivityIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#loader-icon"/></svg>'
-    const ViewTargetMapping = {
-        '#daily-chart-container': 'daily',
-        '#totals-chart-container': 'totals',
-    }
-    const ViewTargetMappingReverse = Object.fromEntries(Object.entries(ViewTargetMapping).map(entry => {
-        const [a, b] = entry
-        return [b, a]
-    }))
     let el = {}
     let locale = 'de-DE'
     let main_chart = null
@@ -61,6 +54,7 @@ import rk4 from 'ode-rk4'
     let swChannel = new MessageChannel()
 
     customElements.define('number-stepper', NumberStepper)
+    customElements.define('tabbed-panel', TabbedPanel)
 
     const fromISODate = iso_date_string => {
         const [, year, month, day, ...time] = iso_date_string.match(/^(\d{4})-(\d{2})-(\d{2})(\s(\d{2}):(\d{2}):(\d{2}))?/)
@@ -386,12 +380,9 @@ import rk4 from 'ode-rk4'
                 updateUI()
             }
         }
-        if (data.view !== hash_param.view && Object.keys(ViewTargetMappingReverse).includes(data.view)) {
+        if (data.view !== hash_param.view) {
             hash_param.view = data.view;
-            [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => tab.classList.remove('active'))
-            document.getElementById(`tab-button-${data.view}`).classList.add('active');
-            [...document.querySelectorAll('#chart-tabs .tabcontent')].forEach(tab => tab.classList.add('hidden'));
-            document.querySelector(ViewTargetMappingReverse[hash_param.view]).classList.remove('hidden')
+            el.chart_tabs.selected = ['totals', 'daily'].indexOf(hash_param.view)
         }
         if (data.refresh_secs !== hash_param.refresh_secs) {
             hash_param.refresh_secs = +data.refresh_secs
@@ -514,7 +505,7 @@ import rk4 from 'ode-rk4'
     }
 
     const viewChanged = evt => {
-        const view = ViewTargetMapping[evt.target.dataset.target]
+        const view = evt.detail.name
         localStorage.setItem('view', view)
         updateHash({ view })
     }
@@ -527,9 +518,7 @@ import rk4 from 'ode-rk4'
 
     const postInit = () => {
         el.prediction_days.addEventListener('change', predictionDaysChanged);
-        [...document.querySelectorAll('#chart-tabs .tablinks')].forEach(tab => {
-            tab.addEventListener('click', viewChanged)
-        })
+        el.chart_tabs.addEventListener('change', viewChanged)
         window.addEventListener('hashchange', hashChanged);
         [...document.getElementsByClassName('share-button')].forEach(button => {
             button.addEventListener('click', evt => {
@@ -579,6 +568,7 @@ import rk4 from 'ode-rk4'
             clipboard: document.getElementById('clipboard'),
             country_selector: document.getElementById('country-selector'),
             prediction_container: document.getElementById('prediction-container'),
+            chart_tabs: document.getElementById('chart-tabs'),
             loader_screen: document.getElementById('loader-screen'),
             current_date: document.getElementById('current-date'),
             current_cases: document.getElementById('current-cases'),

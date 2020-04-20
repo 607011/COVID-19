@@ -40,10 +40,10 @@
   <meta property="og:description" content="Visualization of COVID-19 spread, including daily changes" />
   <meta property="og:image" content="https://corona.ersatzworld.net/img/preview-600x600.jpg" />
   <link async href="app.css" media="screen" rel="stylesheet" />
-  <link rel="apple-touch-icon" href="_iPhoneApp_60@2x.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="_iPadApp_76.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="_iPhoneApp_60@3x.png" />
-  <link rel="apple-touch-icon" sizes="167x167" href="_iPadProApp_83.5@2x.png" />
+  <link rel="apple-touch-icon" href="img/_iPhoneApp_60@2x.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="img/_iPadApp_76.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="img/_iPhoneApp_60@3x.png" />
+  <link rel="apple-touch-icon" sizes="167x167" href="img/_iPadProApp_83.5@2x.png" />
   <meta name="apple-mobile-web-app-title" content="COVID-19 – Current spread and prediction" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="icon" type="image/png" href="img/favicon.png" />
@@ -177,20 +177,12 @@
           </div>
         </div>
       </aside>
-      <div id="chart-tabs">
-        <div class="tab">
-          <button id="tab-button-totals" data-target="#totals-chart-container" class="tablinks active">Total
-            cases</button>
-          <button id="tab-button-daily" data-target="#daily-chart-container" class="tablinks">Daily new cases</button>
-          <span class="filler"></span>
-        </div>
-        <div id="daily-chart-container" class="tabcontent chart-container hidden">
-          <canvas id="daily-chart"></canvas>
-        </div>
-        <div id="totals-chart-container" class="tabcontent chart-container">
-          <canvas id="main-chart"></canvas>
-        </div>
-      </div>
+      <tabbed-panel id="chart-tabs">
+        <button slot="button" name="totals">Total cases</button>
+        <button slot="button" name="daily">Daily new cases</button>
+        <section id="totals-chart-container" class="chart-container"><canvas id="main-chart"></canvas></section>
+        <section id="daily-chart-container" class="chart-container"><canvas id="daily-chart"></canvas></section>
+      </tabbed-panel>
     </div>
     <footer>
       <div id="status"></div>

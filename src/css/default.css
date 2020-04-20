@@ -86,7 +86,8 @@ html, body {
     margin-right: 5px;
 }
 
-#chart-tabs{
+#chart-tabs {
+    display: block;
     align-self: flex-start;
     flex-grow: 1;
     height: 100%;
@@ -95,43 +96,8 @@ html, body {
     margin-left: 10px;
 }
 
-.tab {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.tab > .filler {
-    display: inline-block;
-    flex-grow: 2;
-    border-bottom: 1px solid #666;
-}
-
-.tab button {
-    background-color: #555;
-    border: 1px solid #666;
-    align-self: flex-start;
-    outline: none;
-    cursor: pointer;
-    padding: 5px 16px;
-    color: #888;
-    font-size: 100%;
-    font-family: inherit;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
-}
-
-.tab button.active {
-    background-color: var(--chart-background-color);
-    border-bottom: 1px solid var(--chart-background-color);
-    color: #eee;
-}
-
-.tabcontent {
-    display: block;
-}
-
-.chart-container, .chart-container {
-    height: calc(100% - 30px);
+.chart-container {
+    height: 100%;
 }
 
 header, h1 {

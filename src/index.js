@@ -620,4 +620,11 @@ import rk4 from 'ode-rk4'
                 })
     }
     window.addEventListener('load', main)
+    window.addEventListener('keydown', e => {
+        if (e.code === 'KeyR' && (e.metaKey || e.ctrlKey)) {
+            loadCountryData()
+            e.preventDefault()
+            e.stopPropagation()
+        }
+    })
 })(window)

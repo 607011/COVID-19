@@ -53,6 +53,7 @@ import rk4 from 'ode-rk4'
     let last_update = new Date(1970)
     let refresh_timer = null
     let swChannel = new MessageChannel()
+    let isPrefetching = false
 
     customElements.define('number-stepper', NumberStepper)
     customElements.define('tabbed-panel', TabbedPanel)
@@ -409,7 +410,21 @@ import rk4 from 'ode-rk4'
         window.location.hash = '#' + Object.keys(new_hash_param).map(key => `${key}=${new_hash_param[key]}`).join(';')
     }
 
+    const showProgressbar = param => {
+        if (param && param.maximized) {
+            el.progress_bar.update({ min: 0, max: 1, value: 1 })
+        }
+        el.progress_bar.setAttribute('disabled', false)
+    }
+
+    const hideProgressbar = () => {
+        el.progress_bar.setAttribute('disabled', true)
+    }
+
     const loadCountryData = () => {
+        if (!isPrefetching) {
+            showProgressbar({ maximized: true })
+        }
         last_selected_country = hash_param.country
         const flagEl = document.getElementById(`flag-${hash_param.country}`)
         flagEl.innerHTML = ActivityIndicator
@@ -425,8 +440,8 @@ import rk4 from 'ode-rk4'
                 activateCountry(data.country)
                 flagEl.innerHTML = countries[data.country].flag
                 el.app.classList.remove('hidden')
-                if (!el.loader_screen.classList.contains('hidden')) {
-                    el.loader_screen.classList.add('hidden')
+                if (!isPrefetching) {
+                    hideProgressbar()
                 }
             },
             status => {
@@ -593,12 +608,13 @@ import rk4 from 'ode-rk4'
         Chart.defaults.global.defaultFontColor = '#888'
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.ready.then(() => {
-                el.progress_bar.setAttribute('disabled', false)
+                showProgressbar()
                 swChannel.port1.onmessage = e => {
                     if (e.data.message === 'progress') {
                         el.progress_bar.update(e.data.progress)
                         if (e.data.progress.value === e.data.progress.max) {
-                            el.progress_bar.setAttribute('disabled', true)
+                            hideProgressbar()
+                            isPrefetching = false
                         }
                     }
                 }

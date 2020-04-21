@@ -3,3 +3,4 @@
 !service-worker.js
 img/
 !static/*
+manifest.json

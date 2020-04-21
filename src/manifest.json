@@ -1,0 +1,47 @@
+{
+  "short_name": "Covid-19",
+  "name": "Covid-19 spread and prediction",
+  "description": "Visualization of Covid-19 spread and prediction",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "img/icon-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "img/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "img/icon-768.png",
+      "type": "image/png",
+      "sizes": "768x768"
+    },
+    {
+      "src": "img/icon-1024.png",
+      "type": "image/png",
+      "sizes": "1024x1024"
+    }
+  ],
+  "serviceworker": {
+    "src": "./serviceworker.js",
+    "scope": "/",
+    "type": "",
+    "update_via_cache": "none"
+  },
+  "dir": "ltr",
+  "categories": ["public health", "society", "medicine", "statistics", "visualization", "pandemic"],
+  "lang": "en-US",
+  "orientation": "landscape-primary",
+  "start_url": "/",
+  "background_color": "#282828",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#282828"
+}

@@ -48,6 +48,7 @@ module.exports = {
       { from: 'static/*.js' },
       { from: 'img/*.png' },
       { from: 'img/*.jpg' },
+      { from: './manifest.json' },
     ]),
   ],
   module: {

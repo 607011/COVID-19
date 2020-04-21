@@ -559,7 +559,6 @@ import rk4 from 'ode-rk4'
             country_selector: document.getElementById('country-selector'),
             prediction_container: document.getElementById('prediction-container'),
             chart_tabs: document.getElementById('chart-tabs'),
-            loader_screen: document.getElementById('loader-screen'),
             current_date: document.getElementById('current-date'),
             current_cases: document.getElementById('current-cases'),
             current_doubling: document.getElementById('current-doubling'),

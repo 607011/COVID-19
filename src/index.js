@@ -29,7 +29,6 @@ import rk4 from 'ode-rk4'
         country: localStorage.getItem('country') || 'Germany',
         predict: +localStorage.getItem('prediction_days') || 0,
         view: localStorage.getItem('view') || 'totals',
-        refresh_secs: localStorage.getItem('refresh_secs') || 60 * 60,
     }
     const EqIndicator = '<span title="almost equal, okay"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="almost equal, okay" xlink:href="#equal-indicator" fill="#FF6633"></use></svg></span>'
     const UpPosIndicator = '<span title="up, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, good" xlink:href="#up-indicator" fill="#63D427"></use></svg></span>'
@@ -37,6 +36,13 @@ import rk4 from 'ode-rk4'
     const UpNegIndicator = '<span title="up, bad"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, bad" xlink:href="#up-indicator" fill="#D42C27"></use></svg></span>'
     const DwPosIndicator = '<span title="down, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="down, good" xlink:href="#down-indicator" fill="#63D427"></use></svg></span>'
     const ActivityIndicator = '<svg width="12" height="12" viewBox="0 0 12 12"><use xlink:href="#loader-icon"/></svg>'
+    const RefreshSecs = (function() {
+        const t = []
+        for (let h = 0; h < 24; h += 2) {
+            t.push(60 * (h * 60 + 32))
+        }
+        return t
+    })()
     let el = {}
     let locale = 'de-DE'
     let main_chart = null
@@ -46,14 +52,12 @@ import rk4 from 'ode-rk4'
         country: null,
         predict: null,
         view: null,
-        refresh_secs: null,
     }
     let last_selected_country = ''
     let confirmed = {}
     let last_update = new Date(1970)
-    let refresh_timer = null
-    let swChannel = new MessageChannel()
-    let isPrefetching = false
+    let is_prefetching = true
+    let is_refreshing = true
 
     customElements.define('number-stepper', NumberStepper)
     customElements.define('tabbed-panel', TabbedPanel)
@@ -387,15 +391,6 @@ import rk4 from 'ode-rk4'
             hash_param.view = data.view;
             el.chart_tabs.selected = ['totals', 'daily'].indexOf(hash_param.view)
         }
-        if (data.refresh_secs !== hash_param.refresh_secs) {
-            hash_param.refresh_secs = +data.refresh_secs
-            if (refresh_timer !== null) {
-                clearInterval(refresh_timer)
-            }
-            if (hash_param.refresh_secs > 0) {
-                refresh_timer = setInterval(loadCountryData, 1000 * hash_param.refresh_secs)
-            }
-        }
         updateHash(data)
     }
 
@@ -422,7 +417,7 @@ import rk4 from 'ode-rk4'
     }
 
     const loadCountryData = () => {
-        if (!isPrefetching) {
+        if (!is_prefetching) {
             showProgressbar({ maximized: true })
         }
         last_selected_country = hash_param.country
@@ -440,7 +435,7 @@ import rk4 from 'ode-rk4'
                 activateCountry(data.country)
                 flagEl.innerHTML = countries[data.country].flag
                 el.app.classList.remove('hidden')
-                if (!isPrefetching) {
+                if (!is_prefetching) {
                     hideProgressbar()
                 }
             },
@@ -459,6 +454,26 @@ import rk4 from 'ode-rk4'
                 block: 'nearest',
             })
         }, 200)
+    }
+
+    const triggerServiceWorker = msg => {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready
+            .then(registration => {
+                if (registration.active) {
+                    registration.active.postMessage(msg)
+                }
+                else {
+                    console.warn('serviceWorker registration not active')
+                }
+                if (registration.waiting) {
+                    registration.active.postMessage(msg)
+                }
+            })
+        }
+        else {
+            console.warn('serviceWorker not available')
+        }
     }
 
     const fetchCountryList = async () => {
@@ -490,20 +505,27 @@ import rk4 from 'ode-rk4'
             div.appendChild(name)
         })
         root.appendChild(div)
-        if ('serviceWorker' in navigator) {
-            if (navigator.serviceWorker.controller) {
-                navigator.serviceWorker.controller.postMessage({
-                    command: 'prefetch-external',
-                    countries: Object.keys(countries),
-                }, [swChannel.port2])
-            }
-            else {
-                console.warn('No active ServiceWorker. No problem unless you haven\'t reloaded the page with shift+reload.')
-            }
-        }
-        else {
-            console.warn('serviceWorker not available')
-        }
+        triggerServiceWorker({
+            command: 'prefetch-external',
+            countries: Object.keys(countries),
+        })
+    }
+
+    const refreshCountryData = () => {
+        const now = new Date()
+        const secs = now.getUTCSeconds() + 60 * (now.getUTCMinutes() + now.getUTCHours() * 60)
+        const nextSecs = RefreshSecs.find(t => t > secs)
+        const dSecs = nextSecs - secs
+        now.setUTCSeconds(now.getUTCSeconds() + dSecs)
+        now.setUTCMilliseconds(0)
+        el.status.innerHTML = `next refresh: ${now.toLocaleTimeString()}`
+        setTimeout(() => {
+            is_refreshing = true
+            showProgressbar()
+            triggerServiceWorker({
+                command: 'refresh',
+            })
+        }, 1000 * dSecs)
     }
 
     const countryChanged = country => {
@@ -549,6 +571,7 @@ import rk4 from 'ode-rk4'
                 }
             })
         })
+        refreshCountryData()
     }
 
     const showStatus = msg => {
@@ -566,7 +589,7 @@ import rk4 from 'ode-rk4'
     }
 
     const main = () => {
-        console.log('%c COVID-19 spread v1.0.1 %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
+        console.log('%c COVID-19 spread v1.0.2 %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
         el = {
             app: document.getElementById('App'),
             toast: document.getElementById('toast'),
@@ -607,17 +630,26 @@ import rk4 from 'ode-rk4'
         Chart.defaults.global.defaultFontSize = 13
         Chart.defaults.global.defaultFontColor = '#888'
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.ready.then(() => {
+            navigator.serviceWorker.ready.then(sw => {
                 showProgressbar()
-                swChannel.port1.onmessage = e => {
-                    if (e.data.message === 'progress') {
-                        el.progress_bar.update(e.data.progress)
-                        if (e.data.progress.value === e.data.progress.max) {
-                            hideProgressbar()
-                            isPrefetching = false
-                        }
+                navigator.serviceWorker.addEventListener('message', e => {
+                    switch (e.data.message) {
+                        case 'progress':
+                            el.progress_bar.update(e.data.progress)
+                            if (e.data.progress.value === e.data.progress.max) {
+                                hideProgressbar()
+                                is_prefetching = false
+                            }
+                            break
+                        case 'refreshed':
+                            is_refreshing = false
+                            refreshCountryData()
+                            loadCountryData()
+                            break
+                        default:
+                            break
                     }
-                }
+                })
             })
         }
         else {

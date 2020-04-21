@@ -2,36 +2,69 @@ const PRECACHE = 'prefetch-cache-1'
 const RUNTIME = 'runtime'
 
 const PRECACHE_URLS = [
-  'index.html',
-  './',
-  'app.css',
-  'main.js',
-  'img/favicon.png',
+  'img/favicon-bright-red.png',
   'data/countries.json',
   'static/chart.js',
   'static/ptRMTiqXYfZMCOiVj9kQ1On4KCFtpe4.woff2',
   'static/ptRPTiqXYfZMCOiVj9kQ3FLdPQxPqMQ0bX8.woff2',
 ]
 
+let urlsToKeepCurrent = []
+
 self.addEventListener('message', evt => {
-  if (evt.data.command === 'prefetch-external') {
-    const countries = evt.data.countries
-    const urls = countries.map(country => `data/${country}.json`)
-    const progress = { min: 0, max: urls.length, value: 0 }
-    evt.waitUntil(
-      caches.open(PRECACHE)
-        .then(cache => {
-          for (const url of urls)
-          cache.add(url)
-            .then(_ => {
-              ++progress.value
-              evt.ports[0].postMessage({ message: 'progress', progress })
+  switch (evt.data.command) {
+    case 'prefetch-external':
+      if (evt.data.countries instanceof Array) {
+        const countries = evt.data.countries
+        urlsToKeepCurrent = countries.map(country => `data/${country}.json`)
+        const progress = { min: 0, max: urlsToKeepCurrent.length, value: 0 }
+        evt.waitUntil(
+          caches.open(PRECACHE)
+            .then(cache => {
+              for (const url of urlsToKeepCurrent) {
+                cache.add(url)
+                  .then(() => {
+                    ++progress.value
+                    evt.source.postMessage({ message: 'progress', progress })
+                  })
+                  .catch(err => console.error(err))
+              }
             })
+            .then(self.skipWaiting())
             .catch(err => console.error(err))
-        })
-        .then(self.skipWaiting())
-        .catch(err => console.error(err))
-    )
+        )  
+      }
+      break
+    case 'refresh':
+      if (urlsToKeepCurrent.length > 0) {
+        const progress = { min: 0, max: urlsToKeepCurrent.length, value: 0 }
+        evt.waitUntil(
+          caches.open(PRECACHE)
+            .then(cache => {
+              for (const url of urlsToKeepCurrent) {
+                fetch(url, { cache: 'reload' })
+                  .then(response => {
+                    cache.put(url, response.clone())
+                  })
+                  .then(() => {
+                    ++progress.value
+                    if (progress.value < progress.max) {
+                      evt.source.postMessage({ message: 'progress', progress })
+                    }
+                    else {
+                      evt.source.postMessage({ message: 'refreshed' })
+                    }
+                  })
+                  .catch(err => console.error(err))
+              }
+            })
+            .then(self.skipWaiting())
+            .catch(err => console.error(err))
+        )
+      }
+      break
+    default:
+      break
   }
 })
 

@@ -511,7 +511,7 @@ import rk4 from 'ode-rk4'
         })
     }
 
-    const refreshCountryData = () => {
+    const scheduleRefresh = () => {
         const now = new Date()
         const secs = now.getUTCSeconds() + 60 * (now.getUTCMinutes() + now.getUTCHours() * 60)
         const nextSecs = RefreshSecs.find(t => t > secs)
@@ -571,7 +571,7 @@ import rk4 from 'ode-rk4'
                 }
             })
         })
-        refreshCountryData()
+        scheduleRefresh()
     }
 
     const showStatus = msg => {
@@ -643,7 +643,7 @@ import rk4 from 'ode-rk4'
                             break
                         case 'refreshed':
                             is_refreshing = false
-                            refreshCountryData()
+                            scheduleRefresh()
                             loadCountryData()
                             break
                         default:

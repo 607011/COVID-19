@@ -5,7 +5,7 @@
 export default class TabbedPanel extends HTMLElement {
   constructor() {
     super()
-    this.selected = null
+    this.tabNames = []
     this.changeEvent = new CustomEvent('change', {
       bubbles: true,
       cancelable: false,
@@ -81,7 +81,15 @@ export default class TabbedPanel extends HTMLElement {
     return this.selectedIdx
   }
 
-  set selected(newIndex) {
+  set selected(newIndexOrName) {
+    const newIndex = (typeof newIndexOrName === 'string')
+      ? this.tabNames.indexOf(newIndexOrName)
+      : (typeof newIndexOrName === 'number')
+        ? newIndexOrName
+        : -1
+    if (newIndex === -1) {
+      throw 'parameter must be a string or number'
+    }
     if (this.tabs) {
       for (let i = 0; i < this.tabs.length; ++i) {
         const tab = this.tabs[i]
@@ -97,8 +105,12 @@ export default class TabbedPanel extends HTMLElement {
         this.selectedIdx = newIndex
         this.dispatchEvent(this.changeEvent)
       }
-      this.setAttribute('selected', newIndex)  
+      this.setAttribute('selected', newIndex)
     }
+  }
+
+  get names() {
+    return this.tabNames
   }
 
   onButtonClick(e) {
@@ -113,6 +125,7 @@ export default class TabbedPanel extends HTMLElement {
     const tabsSlot = this.shadowRoot.querySelector('#tabs-slot')
     const panelsSlot = this.shadowRoot.querySelector('#panels-slot')
     this.tabs = tabsSlot.assignedNodes({ flatten: true })
+    this.tabNames = this.tabs.map(tab => tab.getAttribute('name'))
     this.panels = panelsSlot.assignedNodes({ flatten: true }).filter(el => el.nodeType === Node.ELEMENT_NODE)
     for (const panel of this.panels) {
       panel.setAttribute('role', 'tabpanel')

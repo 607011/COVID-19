@@ -27,8 +27,8 @@ import rk4 from 'ode-rk4'
     'use strict'
     const Default = {
         country: localStorage.getItem('country') || 'Germany',
-        predict: +localStorage.getItem('prediction_days') || 0,
-        view: localStorage.getItem('view') || 'totals',
+        predict: +localStorage.getItem('prediction_days', 0),
+        view: localStorage.getItem('view', 'totals'),
     }
     const EqIndicator = '<span title="almost equal, okay"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="almost equal, okay" xlink:href="#equal-indicator" fill="#FF6633"></use></svg></span>'
     const UpPosIndicator = '<span title="up, good"><svg width="12" height="12" viewBox="0 0 12 12"><use aria-label="up, good" xlink:href="#up-indicator" fill="#63D427"></use></svg></span>'
@@ -58,6 +58,7 @@ import rk4 from 'ode-rk4'
     let last_update = new Date(1970)
     let is_prefetching = true
     let is_refreshing = true
+    let recentlySelectedCountries = new Set()
 
     customElements.define('number-stepper', NumberStepper)
     customElements.define('tabbed-panel', TabbedPanel)
@@ -378,6 +379,7 @@ import rk4 from 'ode-rk4'
                 hash_param.country = data.country
                 loadCountryData()
             }
+            recentlySelectedCountries.add(data.country)
         }
         const days = Math.min(Math.max(0, +data.predict), +el.prediction_days.max)
         if (days !== hash_param.predict) {
@@ -388,8 +390,8 @@ import rk4 from 'ode-rk4'
             }
         }
         if (data.view !== hash_param.view) {
-            hash_param.view = data.view;
-            el.chart_tabs.selected = ['totals', 'daily'].indexOf(hash_param.view)
+            hash_param.view = data.view
+            el.chart_tabs.selected = hash_param.view
         }
         updateHash(data)
     }
@@ -518,14 +520,23 @@ import rk4 from 'ode-rk4'
         const dSecs = nextSecs - secs
         now.setUTCSeconds(now.getUTCSeconds() + dSecs)
         now.setUTCMilliseconds(0)
-        el.status.innerHTML = `next refresh: ${now.toLocaleTimeString()}`
-        setTimeout(() => {
-            is_refreshing = true
-            showProgressbar()
-            triggerServiceWorker({
-                command: 'refresh',
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready
+            .then(() => {
+                el.status.innerHTML = `next refresh: ${now.toLocaleTimeString()}`
+                setTimeout(() => {
+                    is_refreshing = true
+                    showProgressbar()
+                    triggerServiceWorker({
+                        command: 'refresh',
+                    })
+                }, 1000 * dSecs)
             })
-        }, 1000 * dSecs)
+            .catch(err => console.warn(err))
+        }
+        else {
+            // TODO
+        }
     }
 
     const countryChanged = country => {

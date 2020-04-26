@@ -1,4 +1,6 @@
 dateRep,cases,deaths,countriesAndTerritories,continentExp
+25/04/2020,70,1,Afghanistan,Asia
+24/04/2020,105,2,Afghanistan,Asia
 23/04/2020,84,4,Afghanistan,Asia
 22/04/2020,61,1,Afghanistan,Asia
 21/04/2020,35,2,Afghanistan,Asia
@@ -104,6 +106,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Afghanistan,Asia
 01/01/2020,0,0,Afghanistan,Asia
 31/12/2019,0,0,Afghanistan,Asia
+25/04/2020,15,1,Albania,Europe
+24/04/2020,29,0,Albania,Europe
 23/04/2020,25,1,Albania,Europe
 22/04/2020,25,0,Albania,Europe
 21/04/2020,22,0,Albania,Europe
@@ -150,6 +154,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 11/03/2020,4,0,Albania,Europe
 10/03/2020,4,0,Albania,Europe
 09/03/2020,2,0,Albania,Europe
+25/04/2020,120,8,Algeria,Africa
+24/04/2020,97,5,Algeria,Africa
 23/04/2020,99,10,Algeria,Africa
 22/04/2020,93,8,Algeria,Africa
 21/04/2020,89,9,Algeria,Africa
@@ -260,6 +266,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Algeria,Africa
 01/01/2020,0,0,Algeria,Africa
 31/12/2019,0,0,Algeria,Africa
+25/04/2020,7,3,Andorra,Europe
+24/04/2020,1,0,Andorra,Europe
 23/04/2020,6,0,Andorra,Europe
 22/04/2020,0,1,Andorra,Europe
 21/04/2020,4,0,Andorra,Europe
@@ -301,6 +309,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,3,0,Andorra,Europe
 14/03/2020,1,0,Andorra,Europe
 03/03/2020,1,0,Andorra,Europe
+25/04/2020,0,0,Angola,Africa
+24/04/2020,1,0,Angola,Africa
 23/04/2020,0,0,Angola,Africa
 22/04/2020,0,0,Angola,Africa
 21/04/2020,0,0,Angola,Africa
@@ -334,6 +344,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 24/03/2020,0,0,Angola,Africa
 23/03/2020,0,0,Angola,Africa
 22/03/2020,2,0,Angola,Africa
+25/04/2020,0,0,Anguilla,America
+24/04/2020,0,0,Anguilla,America
 23/04/2020,0,0,Anguilla,America
 22/04/2020,0,0,Anguilla,America
 21/04/2020,0,0,Anguilla,America
@@ -362,6 +374,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 29/03/2020,0,0,Anguilla,America
 28/03/2020,0,0,Anguilla,America
 27/03/2020,2,0,Anguilla,America
+25/04/2020,0,0,Antigua_and_Barbuda,America
+24/04/2020,0,0,Antigua_and_Barbuda,America
 23/04/2020,0,0,Antigua_and_Barbuda,America
 22/04/2020,1,0,Antigua_and_Barbuda,America
 21/04/2020,0,1,Antigua_and_Barbuda,America
@@ -397,6 +411,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,0,0,Antigua_and_Barbuda,America
 21/03/2020,0,0,Antigua_and_Barbuda,America
 15/03/2020,1,0,Antigua_and_Barbuda,America
+25/04/2020,0,2,Argentina,America
+24/04/2020,147,6,Argentina,America
 23/04/2020,144,8,Argentina,America
 22/04/2020,112,9,Argentina,America
 21/04/2020,90,8,Argentina,America
@@ -445,6 +461,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 07/03/2020,6,0,Argentina,America
 06/03/2020,1,0,Argentina,America
 04/03/2020,1,0,Argentina,America
+25/04/2020,81,1,Armenia,Europe
+24/04/2020,73,3,Armenia,Europe
 23/04/2020,50,0,Armenia,Europe
 22/04/2020,72,0,Armenia,Europe
 21/04/2020,62,2,Armenia,Europe
@@ -551,6 +569,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Armenia,Europe
 01/01/2020,0,0,Armenia,Europe
 31/12/2019,0,0,Armenia,Europe
+25/04/2020,0,0,Aruba,America
+24/04/2020,0,0,Aruba,America
 23/04/2020,3,0,Aruba,America
 22/04/2020,0,0,Aruba,America
 21/04/2020,0,0,Aruba,America
@@ -583,6 +603,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 24/03/2020,8,0,Aruba,America
 20/03/2020,2,0,Aruba,America
 13/03/2020,2,0,Aruba,America
+25/04/2020,20,4,Australia,Oceania
+24/04/2020,13,1,Australia,Oceania
 23/04/2020,7,0,Australia,Oceania
 22/04/2020,22,3,Australia,Oceania
 21/04/2020,13,1,Australia,Oceania
@@ -698,6 +720,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Australia,Oceania
 01/01/2020,0,0,Australia,Oceania
 31/12/2019,0,0,Australia,Oceania
+25/04/2020,83,5,Austria,Europe
+24/04/2020,61,14,Austria,Europe
 23/04/2020,91,31,Austria,Europe
 22/04/2020,50,1,Austria,Europe
 21/04/2020,73,10,Austria,Europe
@@ -813,6 +837,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Austria,Europe
 01/01/2020,0,0,Austria,Europe
 31/12/2019,0,0,Austria,Europe
+25/04/2020,44,1,Azerbaijan,Europe
+24/04/2020,30,0,Azerbaijan,Europe
 23/04/2020,38,0,Azerbaijan,Europe
 22/04/2020,44,1,Azerbaijan,Europe
 21/04/2020,38,0,Azerbaijan,Europe
@@ -921,6 +947,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Azerbaijan,Europe
 01/01/2020,0,0,Azerbaijan,Europe
 31/12/2019,0,0,Azerbaijan,Europe
+25/04/2020,1,0,Bahamas,America
+24/04/2020,2,2,Bahamas,America
 23/04/2020,5,0,Bahamas,America
 22/04/2020,1,0,Bahamas,America
 21/04/2020,4,0,Bahamas,America
@@ -958,6 +986,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 20/03/2020,2,0,Bahamas,America
 17/03/2020,0,0,Bahamas,America
 16/03/2020,1,0,Bahamas,America
+25/04/2020,301,0,Bahrain,Asia
+24/04/2020,210,1,Bahrain,Asia
 23/04/2020,34,0,Bahrain,Asia
 22/04/2020,66,0,Bahrain,Asia
 21/04/2020,34,0,Bahrain,Asia
@@ -1072,6 +1102,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Bahrain,Asia
 01/01/2020,0,0,Bahrain,Asia
 31/12/2019,0,0,Bahrain,Asia
+25/04/2020,503,4,Bangladesh,Asia
+24/04/2020,414,7,Bangladesh,Asia
 23/04/2020,390,10,Bangladesh,Asia
 22/04/2020,434,9,Bangladesh,Asia
 21/04/2020,492,10,Bangladesh,Asia
@@ -1112,6 +1144,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,2,0,Bangladesh,Asia
 15/03/2020,0,0,Bangladesh,Asia
 09/03/2020,3,0,Bangladesh,Asia
+25/04/2020,0,0,Barbados,America
+24/04/2020,0,0,Barbados,America
 23/04/2020,1,1,Barbados,America
 22/04/2020,0,0,Barbados,America
 21/04/2020,0,0,Barbados,America
@@ -1149,6 +1183,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 20/03/2020,1,0,Barbados,America
 19/03/2020,0,0,Barbados,America
 18/03/2020,1,0,Barbados,America
+25/04/2020,751,3,Belarus,Europe
+24/04/2020,741,2,Belarus,Europe
 23/04/2020,558,3,Belarus,Europe
 22/04/2020,459,4,Belarus,Europe
 21/04/2020,1485,4,Belarus,Europe
@@ -1256,6 +1292,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Belarus,Europe
 01/01/2020,0,0,Belarus,Europe
 31/12/2019,0,0,Belarus,Europe
+25/04/2020,1496,189,Belgium,Europe
+24/04/2020,908,228,Belgium,Europe
 23/04/2020,933,264,Belgium,Europe
 22/04/2020,973,170,Belgium,Europe
 21/04/2020,1487,145,Belgium,Europe
@@ -1371,6 +1409,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Belgium,Europe
 01/01/2020,0,0,Belgium,Europe
 31/12/2019,0,0,Belgium,Europe
+25/04/2020,0,0,Belize,America
+24/04/2020,0,0,Belize,America
 23/04/2020,0,0,Belize,America
 22/04/2020,0,0,Belize,America
 21/04/2020,0,0,Belize,America
@@ -1402,6 +1442,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 26/03/2020,1,0,Belize,America
 25/03/2020,0,0,Belize,America
 24/03/2020,1,0,Belize,America
+25/04/2020,0,0,Benin,Africa
+24/04/2020,4,0,Benin,Africa
 23/04/2020,0,0,Benin,Africa
 22/04/2020,0,0,Benin,Africa
 21/04/2020,17,0,Benin,Africa
@@ -1440,6 +1482,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 19/03/2020,0,0,Benin,Africa
 18/03/2020,0,0,Benin,Africa
 17/03/2020,1,0,Benin,Africa
+25/04/2020,0,0,Bermuda,America
+24/04/2020,0,0,Bermuda,America
 23/04/2020,1,0,Bermuda,America
 22/04/2020,12,0,Bermuda,America
 21/04/2020,0,0,Bermuda,America
@@ -1475,6 +1519,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,0,0,Bermuda,America
 21/03/2020,0,0,Bermuda,America
 20/03/2020,2,0,Bermuda,America
+25/04/2020,0,0,Bhutan,Asia
+24/04/2020,0,0,Bhutan,Asia
 23/04/2020,1,0,Bhutan,Asia
 22/04/2020,0,0,Bhutan,Asia
 21/04/2020,1,0,Bhutan,Asia
@@ -1516,6 +1562,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 15/03/2020,0,0,Bhutan,Asia
 13/03/2020,0,0,Bhutan,Asia
 06/03/2020,1,0,Bhutan,Asia
+25/04/2020,104,1,Bolivia,America
+24/04/2020,31,3,Bolivia,America
 23/04/2020,63,3,Bolivia,America
 22/04/2020,11,3,Bolivia,America
 21/04/2020,34,1,Bolivia,America
@@ -1558,6 +1606,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 14/03/2020,7,0,Bolivia,America
 13/03/2020,1,0,Bolivia,America
 12/03/2020,2,0,Bolivia,America
+25/04/2020,0,0,"Bonaire, Saint Eustatius and Saba",America
+24/04/2020,0,0,"Bonaire, Saint Eustatius and Saba",America
 23/04/2020,0,0,"Bonaire, Saint Eustatius and Saba",America
 22/04/2020,1,0,"Bonaire, Saint Eustatius and Saba",America
 21/04/2020,0,0,"Bonaire, Saint Eustatius and Saba",America
@@ -1580,6 +1630,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 04/04/2020,0,0,"Bonaire, Saint Eustatius and Saba",America
 03/04/2020,0,0,"Bonaire, Saint Eustatius and Saba",America
 02/04/2020,2,0,"Bonaire, Saint Eustatius and Saba",America
+25/04/2020,7,1,Bosnia_and_Herzegovina,Europe
+24/04/2020,46,1,Bosnia_and_Herzegovina,Europe
 23/04/2020,27,2,Bosnia_and_Herzegovina,Europe
 22/04/2020,40,2,Bosnia_and_Herzegovina,Europe
 21/04/2020,31,2,Bosnia_and_Herzegovina,Europe
@@ -1622,6 +1674,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 13/03/2020,0,0,Bosnia_and_Herzegovina,Europe
 12/03/2020,1,0,Bosnia_and_Herzegovina,Europe
 06/03/2020,2,0,Bosnia_and_Herzegovina,Europe
+25/04/2020,0,0,Botswana,Africa
+24/04/2020,0,0,Botswana,Africa
 23/04/2020,2,0,Botswana,Africa
 22/04/2020,0,0,Botswana,Africa
 21/04/2020,0,0,Botswana,Africa
@@ -1645,6 +1699,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 03/04/2020,0,0,Botswana,Africa
 02/04/2020,1,1,Botswana,Africa
 01/04/2020,3,0,Botswana,Africa
+25/04/2020,3503,357,Brazil,America
+24/04/2020,3735,407,Brazil,America
 23/04/2020,2678,165,Brazil,America
 22/04/2020,2498,166,Brazil,America
 21/04/2020,1927,113,Brazil,America
@@ -1760,6 +1816,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Brazil,America
 01/01/2020,0,0,Brazil,America
 31/12/2019,0,0,Brazil,America
+25/04/2020,1,0,British_Virgin_Islands,America
+24/04/2020,0,0,British_Virgin_Islands,America
 23/04/2020,0,0,British_Virgin_Islands,America
 22/04/2020,0,0,British_Virgin_Islands,America
 21/04/2020,1,0,British_Virgin_Islands,America
@@ -1788,6 +1846,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 29/03/2020,0,0,British_Virgin_Islands,America
 28/03/2020,0,0,British_Virgin_Islands,America
 27/03/2020,2,0,British_Virgin_Islands,America
+25/04/2020,0,0,Brunei_Darussalam,Asia
+24/04/2020,0,0,Brunei_Darussalam,Asia
 23/04/2020,0,0,Brunei_Darussalam,Asia
 22/04/2020,0,0,Brunei_Darussalam,Asia
 21/04/2020,0,0,Brunei_Darussalam,Asia
@@ -1832,6 +1892,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 13/03/2020,14,0,Brunei_Darussalam,Asia
 12/03/2020,10,0,Brunei_Darussalam,Asia
 10/03/2020,1,0,Brunei_Darussalam,Asia
+25/04/2020,91,2,Bulgaria,Europe
+24/04/2020,73,3,Bulgaria,Europe
 23/04/2020,49,4,Bulgaria,Europe
 22/04/2020,46,2,Bulgaria,Europe
 21/04/2020,14,0,Bulgaria,Europe
@@ -1877,6 +1939,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 12/03/2020,3,1,Bulgaria,Europe
 09/03/2020,2,0,Bulgaria,Europe
 08/03/2020,2,0,Bulgaria,Europe
+25/04/2020,10,0,Burkina_Faso,Africa
+24/04/2020,7,2,Burkina_Faso,Africa
 23/04/2020,9,1,Burkina_Faso,Africa
 22/04/2020,19,0,Burkina_Faso,Africa
 21/04/2020,5,2,Burkina_Faso,Africa
@@ -1919,6 +1983,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 15/03/2020,1,0,Burkina_Faso,Africa
 12/03/2020,0,0,Burkina_Faso,Africa
 11/03/2020,2,0,Burkina_Faso,Africa
+25/04/2020,1,0,Burundi,Africa
+24/04/2020,0,0,Burundi,Africa
 23/04/2020,5,0,Burundi,Africa
 22/04/2020,0,0,Burundi,Africa
 21/04/2020,0,0,Burundi,Africa
@@ -1942,6 +2008,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 03/04/2020,1,0,Burundi,Africa
 02/04/2020,0,0,Burundi,Africa
 01/04/2020,2,0,Burundi,Africa
+25/04/2020,0,0,Cambodia,Asia
+24/04/2020,0,0,Cambodia,Asia
 23/04/2020,0,0,Cambodia,Asia
 22/04/2020,0,0,Cambodia,Asia
 21/04/2020,0,0,Cambodia,Asia
@@ -2048,6 +2116,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Cambodia,Asia
 01/01/2020,0,0,Cambodia,Asia
 31/12/2019,0,0,Cambodia,Asia
+25/04/2020,2,0,Cameroon,Africa
+24/04/2020,238,6,Cameroon,Africa
 23/04/2020,0,1,Cameroon,Africa
 22/04/2020,146,0,Cameroon,Africa
 21/04/2020,1,0,Cameroon,Africa
@@ -2090,6 +2160,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 15/03/2020,1,0,Cameroon,Africa
 09/03/2020,1,0,Cameroon,Africa
 07/03/2020,1,0,Cameroon,Africa
+25/04/2020,1778,156,Canada,America
+24/04/2020,1920,172,Canada,America
 23/04/2020,1766,140,Canada,America
 22/04/2020,1590,144,Canada,America
 21/04/2020,2046,110,Canada,America
@@ -2205,6 +2277,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Canada,America
 01/01/2020,0,0,Canada,America
 31/12/2019,0,0,Canada,America
+25/04/2020,6,0,Cape_Verde,Africa
+24/04/2020,9,0,Cape_Verde,Africa
 23/04/2020,6,0,Cape_Verde,Africa
 22/04/2020,0,0,Cape_Verde,Africa
 21/04/2020,6,0,Cape_Verde,Africa
@@ -2303,6 +2377,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Cases_on_an_international_conveyance_Japan,Other
 01/01/2020,0,0,Cases_on_an_international_conveyance_Japan,Other
 31/12/2019,0,0,Cases_on_an_international_conveyance_Japan,Other
+25/04/2020,0,0,Cayman_Islands,America
+24/04/2020,0,0,Cayman_Islands,America
 23/04/2020,0,0,Cayman_Islands,America
 22/04/2020,0,0,Cayman_Islands,America
 21/04/2020,5,0,Cayman_Islands,America
@@ -2338,6 +2414,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,0,0,Cayman_Islands,America
 21/03/2020,2,1,Cayman_Islands,America
 20/03/2020,1,0,Cayman_Islands,America
+25/04/2020,2,0,Central_African_Republic,Africa
+24/04/2020,1,0,Central_African_Republic,Africa
 23/04/2020,2,0,Central_African_Republic,Africa
 22/04/2020,2,0,Central_African_Republic,Africa
 21/04/2020,0,0,Central_African_Republic,Africa
@@ -2377,6 +2455,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 18/03/2020,0,0,Central_African_Republic,Africa
 17/03/2020,0,0,Central_African_Republic,Africa
 16/03/2020,1,0,Central_African_Republic,Africa
+25/04/2020,0,0,Chad,Africa
+24/04/2020,6,0,Chad,Africa
 23/04/2020,0,0,Chad,Africa
 22/04/2020,1,0,Chad,Africa
 21/04/2020,0,0,Chad,Africa
@@ -2412,6 +2492,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,1,0,Chad,Africa
 21/03/2020,0,0,Chad,Africa
 20/03/2020,1,0,Chad,Africa
+25/04/2020,494,6,Chile,America
+24/04/2020,516,8,Chile,America
 23/04/2020,464,13,Chile,America
 22/04/2020,325,8,Chile,America
 21/04/2020,419,6,Chile,America
@@ -2462,6 +2544,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 06/03/2020,1,0,Chile,America
 05/03/2020,2,0,Chile,America
 04/03/2020,1,0,Chile,America
+25/04/2020,15,0,China,Asia
+24/04/2020,8,0,China,Asia
 23/04/2020,12,0,China,Asia
 22/04/2020,15,0,China,Asia
 21/04/2020,32,0,China,Asia
@@ -2577,6 +2661,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,China,Asia
 01/01/2020,0,0,China,Asia
 31/12/2019,27,0,China,Asia
+25/04/2020,320,10,Colombia,America
+24/04/2020,205,9,Colombia,America
 23/04/2020,207,10,Colombia,America
 22/04/2020,172,7,Colombia,America
 21/04/2020,185,10,Colombia,America
@@ -2621,6 +2707,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 12/03/2020,6,0,Colombia,America
 10/03/2020,2,0,Colombia,America
 07/03/2020,1,0,Colombia,America
+25/04/2020,14,0,Congo,Africa
+24/04/2020,0,0,Congo,Africa
 23/04/2020,21,0,Congo,Africa
 22/04/2020,5,0,Congo,Africa
 21/04/2020,0,0,Congo,Africa
@@ -2660,6 +2748,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 18/03/2020,0,0,Congo,Africa
 17/03/2020,0,0,Congo,Africa
 16/03/2020,1,0,Congo,Africa
+25/04/2020,0,0,Costa_Rica,America
+24/04/2020,6,0,Costa_Rica,America
 23/04/2020,12,0,Costa_Rica,America
 22/04/2020,7,0,Costa_Rica,America
 21/04/2020,2,2,Costa_Rica,America
@@ -2707,6 +2797,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 10/03/2020,4,0,Costa_Rica,America
 09/03/2020,4,0,Costa_Rica,America
 07/03/2020,1,0,Costa_Rica,America
+25/04/2020,73,0,Cote_dIvoire,Africa
+24/04/2020,52,0,Cote_dIvoire,Africa
 23/04/2020,36,1,Cote_dIvoire,Africa
 22/04/2020,37,3,Cote_dIvoire,Africa
 21/04/2020,32,1,Cote_dIvoire,Africa
@@ -2748,6 +2840,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,0,0,Cote_dIvoire,Africa
 15/03/2020,3,0,Cote_dIvoire,Africa
 12/03/2020,1,0,Cote_dIvoire,Africa
+25/04/2020,28,1,Croatia,Europe
+24/04/2020,31,2,Croatia,Europe
 23/04/2020,42,0,Croatia,Europe
 22/04/2020,27,1,Croatia,Europe
 21/04/2020,10,0,Croatia,Europe
@@ -2860,6 +2954,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Croatia,Europe
 01/01/2020,0,0,Croatia,Europe
 31/12/2019,0,0,Croatia,Europe
+25/04/2020,50,6,Cuba,America
+24/04/2020,46,3,Cuba,America
 23/04/2020,52,2,Cuba,America
 22/04/2020,50,2,Cuba,America
 21/04/2020,52,2,Cuba,America
@@ -2900,6 +2996,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 15/03/2020,0,0,Cuba,America
 14/03/2020,1,0,Cuba,America
 12/03/2020,3,0,Cuba,America
+25/04/2020,2,0,Curaçao,America
+24/04/2020,0,0,Curaçao,America
 23/04/2020,0,0,Curaçao,America
 22/04/2020,0,0,Curaçao,America
 21/04/2020,0,0,Curaçao,America
@@ -2931,6 +3029,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 24/03/2020,3,0,Curaçao,America
 20/03/2020,2,0,Curaçao,America
 13/03/2020,1,0,Curaçao,America
+25/04/2020,9,0,Cyprus,Europe
+24/04/2020,5,0,Cyprus,Europe
 23/04/2020,6,0,Cyprus,Europe
 22/04/2020,12,0,Cyprus,Europe
 21/04/2020,5,0,Cyprus,Europe
@@ -2974,6 +3074,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 14/03/2020,8,0,Cyprus,Europe
 12/03/2020,4,0,Cyprus,Europe
 10/03/2020,2,0,Cyprus,Europe
+25/04/2020,85,2,Czechia,Europe
+24/04/2020,52,3,Czechia,Europe
 23/04/2020,95,9,Czechia,Europe
 22/04/2020,127,5,Czechia,Europe
 21/04/2020,127,8,Czechia,Europe
@@ -3089,6 +3191,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Czechia,Europe
 01/01/2020,0,0,Czechia,Europe
 31/12/2019,0,0,Czechia,Europe
+25/04/2020,22,3,Democratic_Republic_of_the_Congo,Africa
+24/04/2020,17,0,Democratic_Republic_of_the_Congo,Africa
 23/04/2020,18,0,Democratic_Republic_of_the_Congo,Africa
 22/04/2020,9,0,Democratic_Republic_of_the_Congo,Africa
 21/04/2020,18,0,Democratic_Republic_of_the_Congo,Africa
@@ -3131,6 +3235,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 15/03/2020,0,0,Democratic_Republic_of_the_Congo,Africa
 14/03/2020,1,0,Democratic_Republic_of_the_Congo,Africa
 11/03/2020,1,0,Democratic_Republic_of_the_Congo,Africa
+25/04/2020,137,9,Denmark,Europe
+24/04/2020,161,10,Denmark,Europe
 23/04/2020,217,14,Denmark,Europe
 22/04/2020,180,6,Denmark,Europe
 21/04/2020,131,9,Denmark,Europe
@@ -3246,6 +3352,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Denmark,Europe
 01/01/2020,0,0,Denmark,Europe
 31/12/2019,0,0,Denmark,Europe
+25/04/2020,13,0,Djibouti,Africa
+24/04/2020,12,0,Djibouti,Africa
 23/04/2020,29,0,Djibouti,Africa
 22/04/2020,99,0,Djibouti,Africa
 21/04/2020,0,0,Djibouti,Africa
@@ -3282,6 +3390,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 21/03/2020,0,0,Djibouti,Africa
 20/03/2020,0,0,Djibouti,Africa
 19/03/2020,1,0,Djibouti,Africa
+25/04/2020,0,0,Dominica,America
+24/04/2020,0,0,Dominica,America
 23/04/2020,0,0,Dominica,America
 22/04/2020,0,0,Dominica,America
 21/04/2020,0,0,Dominica,America
@@ -3314,6 +3424,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 25/03/2020,1,0,Dominica,America
 24/03/2020,0,0,Dominica,America
 23/03/2020,1,0,Dominica,America
+25/04/2020,206,2,Dominican_Republic,America
+24/04/2020,243,5,Dominican_Republic,America
 23/04/2020,256,15,Dominican_Republic,America
 22/04/2020,80,10,Dominican_Republic,America
 21/04/2020,284,9,Dominican_Republic,America
@@ -3420,6 +3532,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Dominican_Republic,America
 01/01/2020,0,0,Dominican_Republic,America
 31/12/2019,0,0,Dominican_Republic,America
+25/04/2020,0,16,Ecuador,America
+24/04/2020,333,23,Ecuador,America
 23/04/2020,452,17,Ecuador,America
 22/04/2020,270,13,Ecuador,America
 21/04/2020,660,33,Ecuador,America
@@ -3530,6 +3644,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Ecuador,America
 01/01/2020,0,0,Ecuador,America
 31/12/2019,0,0,Ecuador,America
+25/04/2020,433,18,Egypt,Africa
+24/04/2020,169,12,Egypt,Africa
 23/04/2020,0,0,Egypt,Africa
 22/04/2020,157,14,Egypt,Africa
 21/04/2020,189,11,Egypt,Africa
@@ -3641,6 +3757,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Egypt,Africa
 01/01/2020,0,0,Egypt,Africa
 31/12/2019,0,0,Egypt,Africa
+25/04/2020,11,0,El_Salvador,America
+24/04/2020,13,0,El_Salvador,America
 23/04/2020,12,1,El_Salvador,America
 22/04/2020,7,0,El_Salvador,America
 21/04/2020,17,0,El_Salvador,America
@@ -3677,6 +3795,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 21/03/2020,2,0,El_Salvador,America
 20/03/2020,0,0,El_Salvador,America
 19/03/2020,1,0,El_Salvador,America
+25/04/2020,128,0,Equatorial_Guinea,Africa
+24/04/2020,1,1,Equatorial_Guinea,Africa
 23/04/2020,4,0,Equatorial_Guinea,Africa
 22/04/2020,0,0,Equatorial_Guinea,Africa
 21/04/2020,0,0,Equatorial_Guinea,Africa
@@ -3717,6 +3837,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Equatorial_Guinea,Africa
 16/03/2020,0,0,Equatorial_Guinea,Africa
 15/03/2020,1,0,Equatorial_Guinea,Africa
+25/04/2020,0,0,Eritrea,Africa
+24/04/2020,0,0,Eritrea,Africa
 23/04/2020,0,0,Eritrea,Africa
 22/04/2020,0,0,Eritrea,Africa
 21/04/2020,0,0,Eritrea,Africa
@@ -3750,6 +3872,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 24/03/2020,0,0,Eritrea,Africa
 23/03/2020,0,0,Eritrea,Africa
 22/03/2020,1,0,Eritrea,Africa
+25/04/2020,13,1,Estonia,Europe
+24/04/2020,33,1,Estonia,Europe
 23/04/2020,7,1,Estonia,Europe
 22/04/2020,17,3,Estonia,Europe
 21/04/2020,7,0,Estonia,Europe
@@ -3860,6 +3984,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Estonia,Europe
 01/01/2020,0,0,Estonia,Europe
 31/12/2019,0,0,Estonia,Europe
+25/04/2020,8,0,Eswatini,Africa
+24/04/2020,1,0,Eswatini,Africa
 23/04/2020,7,0,Eswatini,Africa
 22/04/2020,0,0,Eswatini,Africa
 21/04/2020,2,0,Eswatini,Africa
@@ -3900,6 +4026,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Eswatini,Africa
 16/03/2020,0,0,Eswatini,Africa
 15/03/2020,1,0,Eswatini,Africa
+25/04/2020,1,0,Ethiopia,Africa
+24/04/2020,0,0,Ethiopia,Africa
 23/04/2020,2,0,Ethiopia,Africa
 22/04/2020,3,0,Ethiopia,Africa
 21/04/2020,3,0,Ethiopia,Africa
@@ -3941,6 +4069,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,3,0,Ethiopia,Africa
 15/03/2020,0,0,Ethiopia,Africa
 14/03/2020,1,0,Ethiopia,Africa
+25/04/2020,0,0,Falkland_Islands_(Malvinas),America
+24/04/2020,0,0,Falkland_Islands_(Malvinas),America
 23/04/2020,0,0,Falkland_Islands_(Malvinas),America
 22/04/2020,1,0,Falkland_Islands_(Malvinas),America
 21/04/2020,0,0,Falkland_Islands_(Malvinas),America
@@ -3961,6 +4091,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 06/04/2020,1,0,Falkland_Islands_(Malvinas),America
 05/04/2020,0,0,Falkland_Islands_(Malvinas),America
 04/04/2020,1,0,Falkland_Islands_(Malvinas),America
+25/04/2020,0,0,Faroe_Islands,Europe
+24/04/2020,2,0,Faroe_Islands,Europe
 23/04/2020,0,0,Faroe_Islands,Europe
 22/04/2020,0,0,Faroe_Islands,Europe
 21/04/2020,0,0,Faroe_Islands,Europe
@@ -3996,6 +4128,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,12,0,Faroe_Islands,Europe
 21/03/2020,8,0,Faroe_Islands,Europe
 20/03/2020,72,0,Faroe_Islands,Europe
+25/04/2020,0,0,Fiji,Oceania
+24/04/2020,0,0,Fiji,Oceania
 23/04/2020,0,0,Fiji,Oceania
 22/04/2020,0,0,Fiji,Oceania
 21/04/2020,1,0,Fiji,Oceania
@@ -4031,6 +4165,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,1,0,Fiji,Oceania
 21/03/2020,0,0,Fiji,Oceania
 20/03/2020,1,0,Fiji,Oceania
+25/04/2020,111,5,Finland,Europe
+24/04/2020,155,23,Finland,Europe
 23/04/2020,115,8,Finland,Europe
 22/04/2020,146,43,Finland,Europe
 21/04/2020,85,4,Finland,Europe
@@ -4142,6 +4278,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Finland,Europe
 01/01/2020,0,0,Finland,Europe
 31/12/2019,0,0,Finland,Europe
+25/04/2020,1773,389,France,Europe
+24/04/2020,1653,516,France,Europe
 23/04/2020,1827,544,France,Europe
 22/04/2020,2667,531,France,Europe
 21/04/2020,2051,547,France,Europe
@@ -4257,6 +4395,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,France,Europe
 01/01/2020,0,0,France,Europe
 31/12/2019,0,0,France,Europe
+25/04/2020,0,0,French_Polynesia,Oceania
+24/04/2020,0,0,French_Polynesia,Oceania
 23/04/2020,0,0,French_Polynesia,Oceania
 22/04/2020,1,0,French_Polynesia,Oceania
 21/04/2020,1,0,French_Polynesia,Oceania
@@ -4293,6 +4433,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 21/03/2020,12,0,French_Polynesia,Oceania
 20/03/2020,0,0,French_Polynesia,Oceania
 19/03/2020,3,0,French_Polynesia,Oceania
+25/04/2020,5,1,Gabon,Africa
+24/04/2020,1,1,Gabon,Africa
 23/04/2020,10,0,Gabon,Africa
 22/04/2020,36,0,Gabon,Africa
 21/04/2020,11,0,Gabon,Africa
@@ -4334,6 +4476,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,0,0,Gabon,Africa
 15/03/2020,0,0,Gabon,Africa
 13/03/2020,1,0,Gabon,Africa
+25/04/2020,0,0,Gambia,Africa
+24/04/2020,0,0,Gambia,Africa
 23/04/2020,0,0,Gambia,Africa
 22/04/2020,0,0,Gambia,Africa
 21/04/2020,0,0,Gambia,Africa
@@ -4371,6 +4515,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 20/03/2020,0,0,Gambia,Africa
 19/03/2020,0,0,Gambia,Africa
 18/03/2020,1,0,Gambia,Africa
+25/04/2020,19,0,Georgia,Europe
+24/04/2020,9,0,Georgia,Europe
 23/04/2020,8,1,Georgia,Europe
 22/04/2020,6,0,Georgia,Europe
 21/04/2020,8,0,Georgia,Europe
@@ -4483,6 +4629,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Georgia,Europe
 01/01/2020,0,0,Georgia,Europe
 31/12/2019,0,0,Georgia,Europe
+25/04/2020,2055,179,Germany,Europe
+24/04/2020,2337,227,Germany,Europe
 23/04/2020,2352,215,Germany,Europe
 22/04/2020,2237,281,Germany,Europe
 21/04/2020,1785,194,Germany,Europe
@@ -4598,6 +4746,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Germany,Europe
 01/01/2020,0,0,Germany,Europe
 31/12/2019,0,0,Germany,Europe
+25/04/2020,125,1,Ghana,Africa
+24/04/2020,0,0,Ghana,Africa
 23/04/2020,112,0,Ghana,Africa
 22/04/2020,0,0,Ghana,Africa
 21/04/2020,0,0,Ghana,Africa
@@ -4639,6 +4789,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,0,0,Ghana,Africa
 15/03/2020,0,0,Ghana,Africa
 13/03/2020,2,0,Ghana,Africa
+25/04/2020,0,0,Gibraltar,Europe
+24/04/2020,0,0,Gibraltar,Europe
 23/04/2020,0,0,Gibraltar,Europe
 22/04/2020,0,0,Gibraltar,Europe
 21/04/2020,0,0,Gibraltar,Europe
@@ -4674,6 +4826,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,0,0,Gibraltar,Europe
 21/03/2020,0,0,Gibraltar,Europe
 20/03/2020,10,0,Gibraltar,Europe
+25/04/2020,27,5,Greece,Europe
+24/04/2020,55,4,Greece,Europe
 23/04/2020,7,0,Greece,Europe
 22/04/2020,156,5,Greece,Europe
 21/04/2020,10,6,Greece,Europe
@@ -4787,6 +4941,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Greece,Europe
 01/01/2020,0,0,Greece,Europe
 31/12/2019,0,0,Greece,Europe
+25/04/2020,0,0,Greenland,America
+24/04/2020,0,0,Greenland,America
 23/04/2020,0,0,Greenland,America
 22/04/2020,0,0,Greenland,America
 21/04/2020,0,0,Greenland,America
@@ -4822,6 +4978,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,0,0,Greenland,America
 21/03/2020,0,0,Greenland,America
 20/03/2020,2,0,Greenland,America
+25/04/2020,0,0,Grenada,America
+24/04/2020,0,0,Grenada,America
 23/04/2020,1,0,Grenada,America
 22/04/2020,0,0,Grenada,America
 21/04/2020,0,0,Grenada,America
@@ -4854,6 +5012,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 25/03/2020,0,0,Grenada,America
 24/03/2020,0,0,Grenada,America
 23/03/2020,1,0,Grenada,America
+25/04/2020,1,0,Guam,Oceania
+24/04/2020,3,0,Guam,Oceania
 23/04/2020,1,0,Guam,Oceania
 22/04/2020,0,0,Guam,Oceania
 21/04/2020,0,0,Guam,Oceania
@@ -4890,6 +5050,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 21/03/2020,2,0,Guam,Oceania
 20/03/2020,9,0,Guam,Oceania
 19/03/2020,3,0,Guam,Oceania
+25/04/2020,46,0,Guatemala,America
+24/04/2020,42,1,Guatemala,America
 23/04/2020,26,2,Guatemala,America
 22/04/2020,22,1,Guatemala,America
 21/04/2020,5,0,Guatemala,America
@@ -4930,6 +5092,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,5,0,Guatemala,America
 16/03/2020,0,1,Guatemala,America
 15/03/2020,1,0,Guatemala,America
+25/04/2020,0,1,Guernsey,Europe
+24/04/2020,2,0,Guernsey,Europe
 23/04/2020,4,0,Guernsey,Europe
 22/04/2020,0,0,Guernsey,Europe
 21/04/2020,0,1,Guernsey,Europe
@@ -4965,6 +5129,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,0,0,Guernsey,Europe
 21/03/2020,0,0,Guernsey,Europe
 20/03/2020,1,0,Guernsey,Europe
+25/04/2020,92,0,Guinea,Africa
+24/04/2020,101,0,Guinea,Africa
 23/04/2020,73,0,Guinea,Africa
 22/04/2020,66,1,Guinea,Africa
 21/04/2020,43,0,Guinea,Africa
@@ -5005,6 +5171,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Guinea,Africa
 15/03/2020,0,0,Guinea,Africa
 14/03/2020,1,0,Guinea,Africa
+25/04/2020,0,0,Guinea_Bissau,Africa
+24/04/2020,2,0,Guinea_Bissau,Africa
 23/04/2020,0,0,Guinea_Bissau,Africa
 22/04/2020,0,0,Guinea_Bissau,Africa
 21/04/2020,0,0,Guinea_Bissau,Africa
@@ -5033,6 +5201,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 29/03/2020,0,0,Guinea_Bissau,Africa
 28/03/2020,0,0,Guinea_Bissau,Africa
 27/03/2020,2,0,Guinea_Bissau,Africa
+25/04/2020,3,1,Guyana,America
+24/04/2020,3,0,Guyana,America
 23/04/2020,0,0,Guyana,America
 22/04/2020,1,0,Guyana,America
 21/04/2020,1,0,Guyana,America
@@ -5073,6 +5243,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Guyana,America
 16/03/2020,3,0,Guyana,America
 13/03/2020,1,1,Guyana,America
+25/04/2020,0,0,Haiti,America
+24/04/2020,10,1,Haiti,America
 23/04/2020,4,0,Haiti,America
 22/04/2020,1,1,Haiti,America
 21/04/2020,10,0,Haiti,America
@@ -5108,6 +5280,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,0,0,Haiti,America
 21/03/2020,0,0,Haiti,America
 20/03/2020,2,0,Haiti,America
+25/04/2020,0,0,Holy_See,Europe
+24/04/2020,0,0,Holy_See,Europe
 23/04/2020,0,0,Holy_See,Europe
 22/04/2020,0,0,Holy_See,Europe
 21/04/2020,1,0,Holy_See,Europe
@@ -5148,6 +5322,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Holy_See,Europe
 16/03/2020,0,0,Holy_See,Europe
 07/03/2020,1,0,Holy_See,Europe
+25/04/2020,72,0,Honduras,America
+24/04/2020,0,0,Honduras,America
 23/04/2020,9,1,Honduras,America
 22/04/2020,16,0,Honduras,America
 21/04/2020,17,0,Honduras,America
@@ -5189,6 +5365,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,3,0,Honduras,America
 14/03/2020,1,0,Honduras,America
 12/03/2020,2,0,Honduras,America
+25/04/2020,60,12,Hungary,Europe
+24/04/2020,99,25,Hungary,Europe
 23/04/2020,116,0,Hungary,Europe
 22/04/2020,70,12,Hungary,Europe
 21/04/2020,114,14,Hungary,Europe
@@ -5238,6 +5416,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 08/03/2020,3,0,Hungary,Europe
 07/03/2020,2,0,Hungary,Europe
 05/03/2020,2,0,Hungary,Europe
+25/04/2020,0,0,Iceland,Europe
+24/04/2020,4,0,Iceland,Europe
 23/04/2020,7,0,Iceland,Europe
 22/04/2020,5,0,Iceland,Europe
 21/04/2020,2,1,Iceland,Europe
@@ -5353,6 +5533,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Iceland,Europe
 01/01/2020,0,0,Iceland,Europe
 31/12/2019,0,0,Iceland,Europe
+25/04/2020,1429,57,India,Asia
+24/04/2020,1684,37,India,Asia
 23/04/2020,1409,41,India,Asia
 22/04/2020,1384,50,India,Asia
 21/04/2020,1335,47,India,Asia
@@ -5467,6 +5649,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,India,Asia
 01/01/2020,0,0,India,Asia
 31/12/2019,0,0,India,Asia
+25/04/2020,436,42,Indonesia,Asia
+24/04/2020,357,12,Indonesia,Asia
 23/04/2020,283,19,Indonesia,Asia
 22/04/2020,375,26,Indonesia,Asia
 21/04/2020,185,8,Indonesia,Asia
@@ -5575,6 +5759,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Indonesia,Asia
 01/01/2020,0,0,Indonesia,Asia
 31/12/2019,0,0,Indonesia,Asia
+25/04/2020,1168,93,Iran,Asia
+24/04/2020,1030,90,Iran,Asia
 23/04/2020,1194,94,Iran,Asia
 22/04/2020,1297,88,Iran,Asia
 21/04/2020,1294,91,Iran,Asia
@@ -5690,6 +5876,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Iran,Asia
 01/01/2020,0,0,Iran,Asia
 31/12/2019,0,0,Iran,Asia
+25/04/2020,31,3,Iraq,Asia
+24/04/2020,75,0,Iraq,Asia
 23/04/2020,0,0,Iraq,Asia
 22/04/2020,28,1,Iraq,Asia
 21/04/2020,35,0,Iraq,Asia
@@ -5803,6 +5991,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Iraq,Asia
 01/01/2020,0,0,Iraq,Asia
 31/12/2019,0,0,Iraq,Asia
+25/04/2020,577,35,Ireland,Europe
+24/04/2020,936,25,Ireland,Europe
 23/04/2020,631,39,Ireland,Europe
 22/04/2020,388,43,Ireland,Europe
 21/04/2020,401,77,Ireland,Europe
@@ -5916,6 +6106,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Ireland,Europe
 01/01/2020,0,0,Ireland,Europe
 31/12/2019,0,0,Ireland,Europe
+25/04/2020,1,2,Isle_of_Man,Europe
+24/04/2020,0,1,Isle_of_Man,Europe
 23/04/2020,0,5,Isle_of_Man,Europe
 22/04/2020,7,1,Isle_of_Man,Europe
 21/04/2020,2,3,Isle_of_Man,Europe
@@ -5950,6 +6142,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 23/03/2020,0,0,Isle_of_Man,Europe
 22/03/2020,1,0,Isle_of_Man,Europe
 21/03/2020,1,0,Isle_of_Man,Europe
+25/04/2020,176,1,Israel,Asia
+24/04/2020,290,2,Israel,Asia
 23/04/2020,650,7,Israel,Asia
 22/04/2020,229,7,Israel,Asia
 21/04/2020,222,5,Israel,Asia
@@ -6062,6 +6256,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Israel,Asia
 01/01/2020,0,0,Israel,Asia
 31/12/2019,0,0,Israel,Asia
+25/04/2020,3021,420,Italy,Europe
+24/04/2020,2646,464,Italy,Europe
 23/04/2020,3370,437,Italy,Europe
 22/04/2020,2729,534,Italy,Europe
 21/04/2020,2256,454,Italy,Europe
@@ -6177,6 +6373,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Italy,Europe
 01/01/2020,0,0,Italy,Europe
 31/12/2019,0,0,Italy,Europe
+25/04/2020,36,1,Jamaica,America
+24/04/2020,0,0,Jamaica,America
 23/04/2020,19,0,Jamaica,America
 22/04/2020,10,0,Jamaica,America
 21/04/2020,27,1,Jamaica,America
@@ -6219,6 +6417,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 14/03/2020,2,0,Jamaica,America
 13/03/2020,4,0,Jamaica,America
 12/03/2020,2,0,Jamaica,America
+25/04/2020,652,17,Japan,Asia
+24/04/2020,468,30,Japan,Asia
 23/04/2020,276,101,Japan,Asia
 22/04/2020,378,0,Japan,Asia
 21/04/2020,367,15,Japan,Asia
@@ -6334,6 +6534,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Japan,Asia
 01/01/2020,0,0,Japan,Asia
 31/12/2019,0,0,Japan,Asia
+25/04/2020,2,0,Jersey,Europe
+24/04/2020,21,1,Jersey,Europe
 23/04/2020,0,4,Jersey,Europe
 22/04/2020,6,0,Jersey,Europe
 21/04/2020,0,2,Jersey,Europe
@@ -6369,6 +6571,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,0,0,Jersey,Europe
 21/03/2020,7,0,Jersey,Europe
 20/03/2020,5,0,Jersey,Europe
+25/04/2020,4,0,Jordan,Asia
+24/04/2020,9,0,Jordan,Asia
 23/04/2020,3,0,Jordan,Asia
 22/04/2020,0,0,Jordan,Asia
 21/04/2020,8,0,Jordan,Asia
@@ -6411,6 +6615,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 15/03/2020,0,0,Jordan,Asia
 08/03/2020,0,0,Jordan,Asia
 03/03/2020,1,0,Jordan,Asia
+25/04/2020,148,3,Kazakhstan,Asia
+24/04/2020,143,3,Kazakhstan,Asia
 23/04/2020,166,0,Kazakhstan,Asia
 22/04/2020,76,0,Kazakhstan,Asia
 21/04/2020,214,0,Kazakhstan,Asia
@@ -6451,6 +6657,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,2,0,Kazakhstan,Asia
 16/03/2020,3,0,Kazakhstan,Asia
 15/03/2020,6,0,Kazakhstan,Asia
+25/04/2020,16,0,Kenya,Africa
+24/04/2020,17,0,Kenya,Africa
 23/04/2020,22,0,Kenya,Africa
 22/04/2020,0,0,Kenya,Africa
 21/04/2020,11,0,Kenya,Africa
@@ -6492,6 +6700,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,2,0,Kenya,Africa
 15/03/2020,0,0,Kenya,Africa
 14/03/2020,1,0,Kenya,Africa
+25/04/2020,34,0,Kosovo,Europe
+24/04/2020,39,1,Kosovo,Europe
 23/04/2020,26,0,Kosovo,Europe
 22/04/2020,6,3,Kosovo,Europe
 21/04/2020,88,3,Kosovo,Europe
@@ -6531,6 +6741,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 18/03/2020,17,0,Kosovo,Europe
 17/03/2020,0,0,Kosovo,Europe
 16/03/2020,2,0,Kosovo,Europe
+25/04/2020,215,1,Kuwait,Asia
+24/04/2020,151,1,Kuwait,Asia
 23/04/2020,168,2,Kuwait,Asia
 22/04/2020,85,2,Kuwait,Asia
 21/04/2020,80,2,Kuwait,Asia
@@ -6643,6 +6855,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Kuwait,Asia
 01/01/2020,0,0,Kuwait,Asia
 31/12/2019,0,0,Kuwait,Asia
+25/04/2020,9,0,Kyrgyzstan,Asia
+24/04/2020,25,0,Kyrgyzstan,Asia
 23/04/2020,19,1,Kyrgyzstan,Asia
 22/04/2020,22,0,Kyrgyzstan,Asia
 21/04/2020,22,0,Kyrgyzstan,Asia
@@ -6679,6 +6893,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 21/03/2020,0,0,Kyrgyzstan,Asia
 20/03/2020,3,0,Kyrgyzstan,Asia
 19/03/2020,3,0,Kyrgyzstan,Asia
+25/04/2020,0,0,Laos,Asia
+24/04/2020,0,0,Laos,Asia
 23/04/2020,0,0,Laos,Asia
 22/04/2020,0,0,Laos,Asia
 21/04/2020,0,0,Laos,Asia
@@ -6709,6 +6925,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 27/03/2020,4,0,Laos,Asia
 26/03/2020,0,0,Laos,Asia
 25/03/2020,2,0,Laos,Asia
+25/04/2020,6,1,Latvia,Europe
+24/04/2020,17,0,Latvia,Europe
 23/04/2020,13,2,Latvia,Europe
 22/04/2020,9,4,Latvia,Europe
 21/04/2020,12,0,Latvia,Europe
@@ -6757,6 +6975,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 09/03/2020,1,0,Latvia,Europe
 08/03/2020,1,0,Latvia,Europe
 03/03/2020,1,0,Latvia,Europe
+25/04/2020,8,0,Lebanon,Asia
+24/04/2020,6,0,Lebanon,Asia
 23/04/2020,5,1,Lebanon,Asia
 22/04/2020,0,0,Lebanon,Asia
 21/04/2020,4,0,Lebanon,Asia
@@ -6868,6 +7088,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Lebanon,Asia
 01/01/2020,0,0,Lebanon,Asia
 31/12/2019,0,0,Lebanon,Asia
+25/04/2020,16,0,Liberia,Africa
+24/04/2020,0,0,Liberia,Africa
 23/04/2020,0,0,Liberia,Africa
 22/04/2020,2,0,Liberia,Africa
 21/04/2020,8,0,Liberia,Africa
@@ -6906,6 +7128,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 19/03/2020,0,0,Liberia,Africa
 18/03/2020,1,0,Liberia,Africa
 17/03/2020,1,0,Liberia,Africa
+25/04/2020,1,0,Libya,Africa
+24/04/2020,1,1,Libya,Africa
 23/04/2020,8,0,Libya,Africa
 22/04/2020,0,0,Libya,Africa
 21/04/2020,2,0,Libya,Africa
@@ -6936,6 +7160,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 27/03/2020,0,0,Libya,Africa
 26/03/2020,0,0,Libya,Africa
 25/03/2020,1,0,Libya,Africa
+25/04/2020,0,0,Liechtenstein,Europe
+24/04/2020,0,0,Liechtenstein,Europe
 23/04/2020,0,0,Liechtenstein,Europe
 22/04/2020,0,0,Liechtenstein,Europe
 21/04/2020,0,0,Liechtenstein,Europe
@@ -6980,6 +7206,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 13/03/2020,1,0,Liechtenstein,Europe
 12/03/2020,2,0,Liechtenstein,Europe
 05/03/2020,1,0,Liechtenstein,Europe
+25/04/2020,0,0,Lithuania,Europe
+24/04/2020,12,2,Lithuania,Europe
 23/04/2020,28,0,Lithuania,Europe
 22/04/2020,20,1,Lithuania,Europe
 21/04/2020,24,1,Lithuania,Europe
@@ -7086,6 +7314,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Lithuania,Europe
 01/01/2020,0,0,Lithuania,Europe
 31/12/2019,0,0,Lithuania,Europe
+25/04/2020,30,2,Luxembourg,Europe
+24/04/2020,11,3,Luxembourg,Europe
 23/04/2020,36,2,Luxembourg,Europe
 22/04/2020,60,3,Luxembourg,Europe
 21/04/2020,8,2,Luxembourg,Europe
@@ -7194,6 +7424,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Luxembourg,Europe
 01/01/2020,0,0,Luxembourg,Europe
 31/12/2019,0,0,Luxembourg,Europe
+25/04/2020,1,0,Madagascar,Africa
+24/04/2020,0,0,Madagascar,Africa
 23/04/2020,0,0,Madagascar,Africa
 22/04/2020,0,0,Madagascar,Africa
 21/04/2020,0,0,Madagascar,Africa
@@ -7228,6 +7460,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 23/03/2020,0,0,Madagascar,Africa
 22/03/2020,0,0,Madagascar,Africa
 21/03/2020,3,0,Madagascar,Africa
+25/04/2020,0,0,Malawi,Africa
+24/04/2020,10,0,Malawi,Africa
 23/04/2020,5,1,Malawi,Africa
 22/04/2020,1,0,Malawi,Africa
 21/04/2020,0,0,Malawi,Africa
@@ -7249,6 +7483,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 05/04/2020,1,0,Malawi,Africa
 04/04/2020,0,0,Malawi,Africa
 03/04/2020,3,0,Malawi,Africa
+25/04/2020,88,1,Malaysia,Asia
+24/04/2020,71,2,Malaysia,Asia
 23/04/2020,50,1,Malaysia,Asia
 22/04/2020,57,3,Malaysia,Asia
 21/04/2020,36,0,Malaysia,Asia
@@ -7363,6 +7599,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Malaysia,Asia
 01/01/2020,0,0,Malaysia,Asia
 31/12/2019,0,0,Malaysia,Asia
+25/04/2020,18,0,Maldives,Asia
+24/04/2020,25,0,Maldives,Asia
 23/04/2020,0,0,Maldives,Asia
 22/04/2020,16,0,Maldives,Asia
 21/04/2020,17,0,Maldives,Asia
@@ -7408,6 +7646,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 11/03/2020,2,0,Maldives,Asia
 09/03/2020,2,0,Maldives,Asia
 08/03/2020,2,0,Maldives,Asia
+25/04/2020,16,0,Mali,Africa
+24/04/2020,16,4,Mali,Africa
 23/04/2020,35,3,Mali,Africa
 22/04/2020,12,0,Mali,Africa
 21/04/2020,22,0,Mali,Africa
@@ -7437,6 +7677,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 28/03/2020,0,0,Mali,Africa
 27/03/2020,2,0,Mali,Africa
 26/03/2020,2,0,Mali,Africa
+25/04/2020,2,0,Malta,Europe
+24/04/2020,1,0,Malta,Europe
 23/04/2020,1,0,Malta,Europe
 22/04/2020,12,0,Malta,Europe
 21/04/2020,4,0,Malta,Europe
@@ -7482,6 +7724,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 12/03/2020,2,0,Malta,Europe
 10/03/2020,1,0,Malta,Europe
 08/03/2020,3,0,Malta,Europe
+25/04/2020,0,0,Mauritania,Africa
+24/04/2020,0,0,Mauritania,Africa
 23/04/2020,0,0,Mauritania,Africa
 22/04/2020,0,0,Mauritania,Africa
 21/04/2020,0,0,Mauritania,Africa
@@ -7522,6 +7766,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Mauritania,Africa
 16/03/2020,0,0,Mauritania,Africa
 15/03/2020,1,0,Mauritania,Africa
+25/04/2020,0,0,Mauritius,Africa
+24/04/2020,2,0,Mauritius,Africa
 23/04/2020,1,0,Mauritius,Africa
 22/04/2020,0,0,Mauritius,Africa
 21/04/2020,0,0,Mauritius,Africa
@@ -7557,6 +7803,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,2,1,Mauritius,Africa
 21/03/2020,9,0,Mauritius,Africa
 20/03/2020,3,0,Mauritius,Africa
+25/04/2020,1239,152,Mexico,America
+24/04/2020,1089,99,Mexico,America
 23/04/2020,1043,113,Mexico,America
 22/04/2020,729,145,Mexico,America
 21/04/2020,511,26,Mexico,America
@@ -7664,6 +7912,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Mexico,America
 01/01/2020,0,0,Mexico,America
 31/12/2019,0,0,Mexico,America
+25/04/2020,184,7,Moldova,Europe
+24/04/2020,148,4,Moldova,Europe
 23/04/2020,164,3,Moldova,Europe
 22/04/2020,66,3,Moldova,Europe
 21/04/2020,76,3,Moldova,Europe
@@ -7709,10 +7959,12 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 12/03/2020,1,0,Moldova,Europe
 11/03/2020,2,0,Moldova,Europe
 08/03/2020,1,0,Moldova,Europe
+25/04/2020,0,0,Monaco,Europe
+24/04/2020,0,1,Monaco,Europe
 23/04/2020,0,0,Monaco,Europe
 22/04/2020,0,0,Monaco,Europe
 21/04/2020,0,0,Monaco,Europe
-20/04/2020,4,0,Monaco,Europe
+20/04/2020,0,0,Monaco,Europe
 19/04/2020,0,0,Monaco,Europe
 18/04/2020,1,0,Monaco,Europe
 17/04/2020,0,0,Monaco,Europe
@@ -7812,6 +8064,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Monaco,Europe
 01/01/2020,0,0,Monaco,Europe
 31/12/2019,0,0,Monaco,Europe
+25/04/2020,0,0,Mongolia,Asia
+24/04/2020,1,0,Mongolia,Asia
 23/04/2020,0,0,Mongolia,Asia
 22/04/2020,1,0,Mongolia,Asia
 21/04/2020,2,0,Mongolia,Asia
@@ -7851,6 +8105,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 18/03/2020,3,0,Mongolia,Asia
 15/03/2020,0,0,Mongolia,Asia
 10/03/2020,1,0,Mongolia,Asia
+25/04/2020,0,1,Montenegro,Europe
+24/04/2020,4,0,Montenegro,Europe
 23/04/2020,2,0,Montenegro,Europe
 22/04/2020,1,0,Montenegro,Europe
 21/04/2020,4,0,Montenegro,Europe
@@ -7888,6 +8144,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 20/03/2020,5,0,Montenegro,Europe
 19/03/2020,6,0,Montenegro,Europe
 18/03/2020,2,0,Montenegro,Europe
+25/04/2020,0,0,Montserrat,America
+24/04/2020,0,0,Montserrat,America
 23/04/2020,0,0,Montserrat,America
 22/04/2020,0,0,Montserrat,America
 21/04/2020,0,0,Montserrat,America
@@ -7921,6 +8179,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 23/03/2020,0,0,Montserrat,America
 22/03/2020,0,0,Montserrat,America
 21/03/2020,1,0,Montserrat,America
+25/04/2020,190,3,Morocco,Africa
+24/04/2020,191,6,Morocco,Africa
 23/04/2020,168,4,Morocco,Africa
 22/04/2020,163,2,Morocco,Africa
 21/04/2020,191,2,Morocco,Africa
@@ -7966,6 +8226,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 12/03/2020,3,1,Morocco,Africa
 06/03/2020,1,0,Morocco,Africa
 03/03/2020,1,0,Morocco,Africa
+25/04/2020,19,0,Mozambique,Africa
+24/04/2020,5,0,Mozambique,Africa
 23/04/2020,2,0,Mozambique,Africa
 22/04/2020,0,0,Mozambique,Africa
 21/04/2020,0,0,Mozambique,Africa
@@ -7998,6 +8260,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 25/03/2020,0,0,Mozambique,Africa
 24/03/2020,0,0,Mozambique,Africa
 23/03/2020,1,0,Mozambique,Africa
+25/04/2020,12,0,Myanmar,Asia
+24/04/2020,5,0,Myanmar,Asia
 23/04/2020,6,0,Myanmar,Asia
 22/04/2020,2,0,Myanmar,Asia
 21/04/2020,8,0,Myanmar,Asia
@@ -8030,6 +8294,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 25/03/2020,1,0,Myanmar,Asia
 24/03/2020,2,0,Myanmar,Asia
 17/03/2020,0,0,Myanmar,Asia
+25/04/2020,0,0,Namibia,Africa
+24/04/2020,0,0,Namibia,Africa
 23/04/2020,0,0,Namibia,Africa
 22/04/2020,0,0,Namibia,Africa
 21/04/2020,0,0,Namibia,Africa
@@ -8070,6 +8336,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Namibia,Africa
 16/03/2020,0,0,Namibia,Africa
 15/03/2020,2,0,Namibia,Africa
+25/04/2020,1,0,Nepal,Asia
+24/04/2020,3,0,Nepal,Asia
 23/04/2020,3,0,Nepal,Asia
 22/04/2020,11,0,Nepal,Asia
 21/04/2020,0,0,Nepal,Asia
@@ -8172,6 +8440,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Nepal,Asia
 01/01/2020,0,0,Nepal,Asia
 31/12/2019,0,0,Nepal,Asia
+25/04/2020,806,112,Netherlands,Europe
+24/04/2020,887,123,Netherlands,Europe
 23/04/2020,708,138,Netherlands,Europe
 22/04/2020,729,165,Netherlands,Europe
 21/04/2020,750,67,Netherlands,Europe
@@ -8287,6 +8557,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Netherlands,Europe
 01/01/2020,0,0,Netherlands,Europe
 31/12/2019,0,0,Netherlands,Europe
+25/04/2020,0,0,New_Caledonia,Oceania
+24/04/2020,0,0,New_Caledonia,Oceania
 23/04/2020,0,0,New_Caledonia,Oceania
 22/04/2020,0,0,New_Caledonia,Oceania
 21/04/2020,0,0,New_Caledonia,Oceania
@@ -8321,6 +8593,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 23/03/2020,1,0,New_Caledonia,Oceania
 22/03/2020,2,0,New_Caledonia,Oceania
 21/03/2020,2,0,New_Caledonia,Oceania
+25/04/2020,3,1,New_Zealand,Oceania
+24/04/2020,2,1,New_Zealand,Oceania
 23/04/2020,0,2,New_Zealand,Oceania
 22/04/2020,5,1,New_Zealand,Oceania
 21/04/2020,2,1,New_Zealand,Oceania
@@ -8427,6 +8701,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,New_Zealand,Oceania
 01/01/2020,0,0,New_Zealand,Oceania
 31/12/2019,0,0,New_Zealand,Oceania
+25/04/2020,1,1,Nicaragua,America
+24/04/2020,0,0,Nicaragua,America
 23/04/2020,0,0,Nicaragua,America
 22/04/2020,1,0,Nicaragua,America
 21/04/2020,0,1,Nicaragua,America
@@ -8463,6 +8739,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 21/03/2020,1,0,Nicaragua,America
 20/03/2020,0,0,Nicaragua,America
 19/03/2020,1,0,Nicaragua,America
+25/04/2020,10,0,Niger,Africa
+24/04/2020,9,2,Niger,Africa
 23/04/2020,7,2,Niger,Africa
 22/04/2020,0,0,Niger,Africa
 21/04/2020,7,0,Niger,Africa
@@ -8497,6 +8775,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 23/03/2020,0,0,Niger,Africa
 22/03/2020,0,0,Niger,Africa
 21/03/2020,1,0,Niger,Africa
+25/04/2020,114,1,Nigeria,Africa
+24/04/2020,108,3,Nigeria,Africa
 23/04/2020,91,3,Nigeria,Africa
 22/04/2020,117,3,Nigeria,Africa
 21/04/2020,38,1,Nigeria,Africa
@@ -8601,6 +8881,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Nigeria,Africa
 01/01/2020,0,0,Nigeria,Africa
 31/12/2019,0,0,Nigeria,Africa
+25/04/2020,26,1,North_Macedonia,Europe
+24/04/2020,41,0,North_Macedonia,Europe
 23/04/2020,28,1,North_Macedonia,Europe
 22/04/2020,6,1,North_Macedonia,Europe
 21/04/2020,18,3,North_Macedonia,Europe
@@ -8707,6 +8989,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,North_Macedonia,Europe
 01/01/2020,0,0,North_Macedonia,Europe
 31/12/2019,0,0,North_Macedonia,Europe
+25/04/2020,0,0,Northern_Mariana_Islands,Oceania
+24/04/2020,0,0,Northern_Mariana_Islands,Oceania
 23/04/2020,0,0,Northern_Mariana_Islands,Oceania
 22/04/2020,0,0,Northern_Mariana_Islands,Oceania
 21/04/2020,0,0,Northern_Mariana_Islands,Oceania
@@ -8731,6 +9015,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/04/2020,0,1,Northern_Mariana_Islands,Oceania
 01/04/2020,4,0,Northern_Mariana_Islands,Oceania
 31/03/2020,2,0,Northern_Mariana_Islands,Oceania
+25/04/2020,63,11,Norway,Europe
+24/04/2020,95,11,Norway,Europe
 23/04/2020,84,6,Norway,Europe
 22/04/2020,53,9,Norway,Europe
 21/04/2020,45,0,Norway,Europe
@@ -8846,6 +9132,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Norway,Europe
 01/01/2020,0,0,Norway,Europe
 31/12/2019,0,0,Norway,Europe
+25/04/2020,74,1,Oman,Asia
+24/04/2020,102,1,Oman,Asia
 23/04/2020,106,0,Oman,Asia
 22/04/2020,0,0,Oman,Asia
 21/04/2020,242,1,Oman,Asia
@@ -8955,6 +9243,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Oman,Asia
 01/01/2020,0,0,Oman,Asia
 31/12/2019,0,0,Oman,Asia
+25/04/2020,785,16,Pakistan,Asia
+24/04/2020,1406,28,Pakistan,Asia
 23/04/2020,0,0,Pakistan,Asia
 22/04/2020,533,17,Pakistan,Asia
 21/04/2020,798,16,Pakistan,Asia
@@ -9065,6 +9355,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Pakistan,Asia
 01/01/2020,0,0,Pakistan,Asia
 31/12/2019,0,0,Pakistan,Asia
+25/04/2020,4,0,Palestine,Asia
+24/04/2020,1,0,Palestine,Asia
 23/04/2020,6,0,Palestine,Asia
 22/04/2020,0,0,Palestine,Asia
 21/04/2020,7,0,Palestine,Asia
@@ -9111,6 +9403,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 08/03/2020,3,0,Palestine,Asia
 07/03/2020,9,0,Palestine,Asia
 06/03/2020,7,0,Palestine,Asia
+25/04/2020,172,8,Panama,America
+24/04/2020,174,2,Panama,America
 23/04/2020,171,3,Panama,America
 22/04/2020,163,5,Panama,America
 21/04/2020,191,10,Panama,America
@@ -9156,6 +9450,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 12/03/2020,7,0,Panama,America
 11/03/2020,6,1,Panama,America
 10/03/2020,1,0,Panama,America
+25/04/2020,0,0,Papua_New_Guinea,Oceania
+24/04/2020,0,0,Papua_New_Guinea,Oceania
 23/04/2020,1,0,Papua_New_Guinea,Oceania
 22/04/2020,0,0,Papua_New_Guinea,Oceania
 21/04/2020,0,0,Papua_New_Guinea,Oceania
@@ -9190,6 +9486,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 23/03/2020,0,0,Papua_New_Guinea,Oceania
 22/03/2020,0,0,Papua_New_Guinea,Oceania
 21/03/2020,1,0,Papua_New_Guinea,Oceania
+25/04/2020,3,0,Paraguay,America
+24/04/2020,7,0,Paraguay,America
 23/04/2020,0,0,Paraguay,America
 22/04/2020,5,1,Paraguay,America
 21/04/2020,2,0,Paraguay,America
@@ -9233,6 +9531,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 13/03/2020,1,0,Paraguay,America
 11/03/2020,4,0,Paraguay,America
 08/03/2020,1,0,Paraguay,America
+25/04/2020,734,62,Peru,America
+24/04/2020,1664,42,Peru,America
 23/04/2020,1413,46,Peru,America
 22/04/2020,1512,39,Peru,America
 21/04/2020,697,45,Peru,America
@@ -9280,6 +9580,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 10/03/2020,2,0,Peru,America
 09/03/2020,6,0,Peru,America
 07/03/2020,1,0,Peru,America
+25/04/2020,211,15,Philippines,Asia
+24/04/2020,271,16,Philippines,Asia
 23/04/2020,111,9,Philippines,Asia
 22/04/2020,140,9,Philippines,Asia
 21/04/2020,200,19,Philippines,Asia
@@ -9391,6 +9693,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Philippines,Asia
 01/01/2020,0,0,Philippines,Asia
 31/12/2019,0,0,Philippines,Asia
+25/04/2020,381,40,Poland,Europe
+24/04/2020,342,28,Poland,Europe
 23/04/2020,313,25,Poland,Europe
 22/04/2020,263,21,Poland,Europe
 21/04/2020,306,20,Poland,Europe
@@ -9440,6 +9744,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 08/03/2020,1,0,Poland,Europe
 07/03/2020,4,0,Poland,Europe
 04/03/2020,1,0,Poland,Europe
+25/04/2020,444,34,Portugal,Europe
+24/04/2020,371,35,Portugal,Europe
 23/04/2020,603,23,Portugal,Europe
 22/04/2020,516,27,Portugal,Europe
 21/04/2020,657,21,Portugal,Europe
@@ -9492,6 +9798,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 05/03/2020,1,0,Portugal,Europe
 04/03/2020,2,0,Portugal,Europe
 03/03/2020,2,0,Portugal,Europe
+25/04/2020,0,0,Puerto_Rico,America
+24/04/2020,118,5,Puerto_Rico,America
 23/04/2020,46,1,Puerto_Rico,America
 22/04/2020,0,0,Puerto_Rico,America
 21/04/2020,39,1,Puerto_Rico,America
@@ -9519,6 +9827,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 30/03/2020,27,2,Puerto_Rico,America
 29/03/2020,36,1,Puerto_Rico,America
 28/03/2020,64,2,Puerto_Rico,America
+25/04/2020,761,0,Qatar,Asia
+24/04/2020,623,0,Qatar,Asia
 23/04/2020,608,1,Qatar,Asia
 22/04/2020,518,0,Qatar,Asia
 21/04/2020,567,1,Qatar,Asia
@@ -9630,6 +9940,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Qatar,Asia
 01/01/2020,0,0,Qatar,Asia
 31/12/2019,0,0,Qatar,Asia
+25/04/2020,321,25,Romania,Europe
+24/04/2020,386,19,Romania,Europe
 23/04/2020,468,25,Romania,Europe
 22/04/2020,306,32,Romania,Europe
 21/04/2020,190,17,Romania,Europe
@@ -9743,6 +10055,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Romania,Europe
 01/01/2020,0,0,Romania,Europe
 31/12/2019,0,0,Romania,Europe
+25/04/2020,5849,60,Russia,Europe
+24/04/2020,4774,42,Russia,Europe
 23/04/2020,5236,57,Russia,Europe
 22/04/2020,5642,51,Russia,Europe
 21/04/2020,4268,44,Russia,Europe
@@ -9858,6 +10172,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Russia,Europe
 01/01/2020,0,0,Russia,Europe
 31/12/2019,0,0,Russia,Europe
+25/04/2020,22,0,Rwanda,Africa
+24/04/2020,1,0,Rwanda,Africa
 23/04/2020,3,0,Rwanda,Africa
 22/04/2020,3,0,Rwanda,Africa
 21/04/2020,0,0,Rwanda,Africa
@@ -9898,6 +10214,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Rwanda,Africa
 16/03/2020,4,0,Rwanda,Africa
 15/03/2020,1,0,Rwanda,Africa
+25/04/2020,0,0,Saint_Kitts_and_Nevis,America
+24/04/2020,0,0,Saint_Kitts_and_Nevis,America
 23/04/2020,0,0,Saint_Kitts_and_Nevis,America
 22/04/2020,0,0,Saint_Kitts_and_Nevis,America
 21/04/2020,0,0,Saint_Kitts_and_Nevis,America
@@ -9927,6 +10245,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 28/03/2020,0,0,Saint_Kitts_and_Nevis,America
 27/03/2020,0,0,Saint_Kitts_and_Nevis,America
 26/03/2020,2,0,Saint_Kitts_and_Nevis,America
+25/04/2020,0,0,Saint_Lucia,America
+24/04/2020,0,0,Saint_Lucia,America
 23/04/2020,0,0,Saint_Lucia,America
 22/04/2020,0,0,Saint_Lucia,America
 21/04/2020,0,0,Saint_Lucia,America
@@ -9967,6 +10287,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,0,0,Saint_Lucia,America
 16/03/2020,0,0,Saint_Lucia,America
 15/03/2020,2,0,Saint_Lucia,America
+25/04/2020,1,0,Saint_Vincent_and_the_Grenadines,America
+24/04/2020,0,0,Saint_Vincent_and_the_Grenadines,America
 23/04/2020,1,0,Saint_Vincent_and_the_Grenadines,America
 22/04/2020,0,0,Saint_Vincent_and_the_Grenadines,America
 21/04/2020,0,0,Saint_Vincent_and_the_Grenadines,America
@@ -9998,6 +10320,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 26/03/2020,0,0,Saint_Vincent_and_the_Grenadines,America
 25/03/2020,0,0,Saint_Vincent_and_the_Grenadines,America
 13/03/2020,1,0,Saint_Vincent_and_the_Grenadines,America
+25/04/2020,12,0,San_Marino,Europe
+24/04/2020,13,0,San_Marino,Europe
 23/04/2020,12,0,San_Marino,Europe
 22/04/2020,14,1,San_Marino,Europe
 21/04/2020,1,0,San_Marino,Europe
@@ -10112,6 +10436,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,San_Marino,Europe
 01/01/2020,0,0,San_Marino,Europe
 31/12/2019,0,0,San_Marino,Europe
+25/04/2020,0,0,Sao_Tome_and_Principe,Africa
+24/04/2020,1,0,Sao_Tome_and_Principe,Africa
 23/04/2020,3,0,Sao_Tome_and_Principe,Africa
 22/04/2020,0,0,Sao_Tome_and_Principe,Africa
 21/04/2020,0,0,Sao_Tome_and_Principe,Africa
@@ -10127,6 +10453,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 11/04/2020,0,0,Sao_Tome_and_Principe,Africa
 10/04/2020,0,0,Sao_Tome_and_Principe,Africa
 09/04/2020,4,0,Sao_Tome_and_Principe,Africa
+25/04/2020,1172,6,Saudi_Arabia,Asia
+24/04/2020,1158,7,Saudi_Arabia,Asia
 23/04/2020,1141,5,Saudi_Arabia,Asia
 22/04/2020,1147,6,Saudi_Arabia,Asia
 21/04/2020,1122,6,Saudi_Arabia,Asia
@@ -10176,6 +10504,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 08/03/2020,2,0,Saudi_Arabia,Asia
 06/03/2020,4,0,Saudi_Arabia,Asia
 03/03/2020,1,0,Saudi_Arabia,Asia
+25/04/2020,66,1,Senegal,Africa
+24/04/2020,37,0,Senegal,Africa
 23/04/2020,30,1,Senegal,Africa
 22/04/2020,35,0,Senegal,Africa
 21/04/2020,10,1,Senegal,Africa
@@ -10221,6 +10551,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 06/03/2020,1,0,Senegal,Africa
 05/03/2020,2,0,Senegal,Africa
 03/03/2020,1,0,Senegal,Africa
+25/04/2020,207,5,Serbia,Europe
+24/04/2020,162,5,Serbia,Europe
 23/04/2020,224,9,Serbia,Europe
 22/04/2020,260,0,Serbia,Europe
 21/04/2020,312,3,Serbia,Europe
@@ -10266,6 +10598,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 12/03/2020,13,0,Serbia,Europe
 11/03/2020,4,0,Serbia,Europe
 07/03/2020,1,0,Serbia,Europe
+25/04/2020,0,0,Seychelles,Africa
+24/04/2020,0,0,Seychelles,Africa
 23/04/2020,0,0,Seychelles,Africa
 22/04/2020,0,0,Seychelles,Africa
 21/04/2020,0,0,Seychelles,Africa
@@ -10306,6 +10640,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,1,0,Seychelles,Africa
 16/03/2020,1,0,Seychelles,Africa
 15/03/2020,2,0,Seychelles,Africa
+25/04/2020,18,2,Sierra_Leone,Africa
+24/04/2020,3,1,Sierra_Leone,Africa
 23/04/2020,11,0,Sierra_Leone,Africa
 22/04/2020,7,0,Sierra_Leone,Africa
 21/04/2020,8,0,Sierra_Leone,Africa
@@ -10329,6 +10665,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 03/04/2020,1,0,Sierra_Leone,Africa
 02/04/2020,0,0,Sierra_Leone,Africa
 01/04/2020,1,0,Sierra_Leone,Africa
+25/04/2020,0,0,Singapore,Asia
+24/04/2020,1037,0,Singapore,Asia
 23/04/2020,1016,1,Singapore,Asia
 22/04/2020,1111,0,Singapore,Asia
 21/04/2020,1426,0,Singapore,Asia
@@ -10444,6 +10782,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Singapore,Asia
 01/01/2020,0,0,Singapore,Asia
 31/12/2019,0,0,Singapore,Asia
+25/04/2020,0,0,Sint_Maarten,America
+24/04/2020,0,0,Sint_Maarten,America
 23/04/2020,5,2,Sint_Maarten,America
 22/04/2020,0,0,Sint_Maarten,America
 21/04/2020,1,0,Sint_Maarten,America
@@ -10473,6 +10813,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 27/03/2020,0,0,Sint_Maarten,America
 26/03/2020,1,0,Sint_Maarten,America
 03/03/2020,1,0,Sint_Maarten,America
+25/04/2020,35,2,Slovakia,Europe
+24/04/2020,81,1,Slovakia,Europe
 23/04/2020,45,0,Slovakia,Europe
 22/04/2020,26,1,Slovakia,Europe
 21/04/2020,12,1,Slovakia,Europe
@@ -10520,6 +10862,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 09/03/2020,2,0,Slovakia,Europe
 08/03/2020,2,0,Slovakia,Europe
 07/03/2020,1,0,Slovakia,Europe
+25/04/2020,7,1,Slovenia,Europe
+24/04/2020,13,0,Slovenia,Europe
 23/04/2020,13,2,Slovenia,Europe
 22/04/2020,5,3,Slovenia,Europe
 21/04/2020,5,0,Slovenia,Europe
@@ -10569,6 +10913,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 07/03/2020,3,0,Slovenia,Europe
 06/03/2020,5,0,Slovenia,Europe
 05/03/2020,1,0,Slovenia,Europe
+25/04/2020,0,2,Somalia,Africa
+24/04/2020,42,0,Somalia,Africa
 23/04/2020,0,6,Somalia,Africa
 22/04/2020,49,0,Somalia,Africa
 21/04/2020,73,1,Somalia,Africa
@@ -10607,6 +10953,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 19/03/2020,0,0,Somalia,Africa
 18/03/2020,0,0,Somalia,Africa
 17/03/2020,1,0,Somalia,Africa
+25/04/2020,267,4,South_Africa,Africa
+24/04/2020,318,10,South_Africa,Africa
 23/04/2020,170,7,South_Africa,Africa
 22/04/2020,165,0,South_Africa,Africa
 21/04/2020,142,4,South_Africa,Africa
@@ -10654,6 +11002,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 09/03/2020,1,0,South_Africa,Africa
 08/03/2020,1,0,South_Africa,Africa
 06/03/2020,1,0,South_Africa,Africa
+25/04/2020,10,0,South_Korea,Asia
+24/04/2020,6,0,South_Korea,Asia
 23/04/2020,8,2,South_Korea,Asia
 22/04/2020,11,1,South_Korea,Asia
 21/04/2020,9,1,South_Korea,Asia
@@ -10769,6 +11119,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,South_Korea,Asia
 01/01/2020,0,0,South_Korea,Asia
 31/12/2019,0,0,South_Korea,Asia
+25/04/2020,1,0,South_Sudan,Africa
+24/04/2020,0,0,South_Sudan,Africa
 23/04/2020,0,0,South_Sudan,Africa
 22/04/2020,0,0,South_Sudan,Africa
 21/04/2020,0,0,South_Sudan,Africa
@@ -10787,6 +11139,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 08/04/2020,0,0,South_Sudan,Africa
 07/04/2020,0,0,South_Sudan,Africa
 06/04/2020,1,0,South_Sudan,Africa
+25/04/2020,6740,367,Spain,Europe
+24/04/2020,4635,440,Spain,Europe
 23/04/2020,4211,435,Spain,Europe
 22/04/2020,3968,430,Spain,Europe
 21/04/2020,4266,399,Spain,Europe
@@ -10902,6 +11256,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Spain,Europe
 01/01/2020,0,0,Spain,Europe
 31/12/2019,0,0,Spain,Europe
+25/04/2020,52,0,Sri_Lanka,Asia
+24/04/2020,38,0,Sri_Lanka,Asia
 23/04/2020,20,0,Sri_Lanka,Asia
 22/04/2020,6,0,Sri_Lanka,Asia
 21/04/2020,9,0,Sri_Lanka,Asia
@@ -11008,6 +11364,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Sri_Lanka,Asia
 01/01/2020,0,0,Sri_Lanka,Asia
 31/12/2019,0,0,Sri_Lanka,Asia
+25/04/2020,12,3,Sudan,Africa
+24/04/2020,22,0,Sudan,Africa
 23/04/2020,33,1,Sudan,Africa
 22/04/2020,15,0,Sudan,Africa
 21/04/2020,26,2,Sudan,Africa
@@ -11049,6 +11407,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,0,0,Sudan,Africa
 15/03/2020,0,1,Sudan,Africa
 14/03/2020,1,0,Sudan,Africa
+25/04/2020,0,0,Suriname,America
+24/04/2020,0,0,Suriname,America
 23/04/2020,0,0,Suriname,America
 22/04/2020,0,0,Suriname,America
 21/04/2020,0,0,Suriname,America
@@ -11084,6 +11444,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 22/03/2020,4,0,Suriname,America
 21/03/2020,0,0,Suriname,America
 15/03/2020,1,0,Suriname,America
+25/04/2020,812,131,Sweden,Europe
+24/04/2020,751,84,Sweden,Europe
 23/04/2020,682,172,Sweden,Europe
 22/04/2020,545,185,Sweden,Europe
 21/04/2020,392,40,Sweden,Europe
@@ -11199,6 +11561,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Sweden,Europe
 01/01/2020,0,0,Sweden,Europe
 31/12/2019,0,0,Sweden,Europe
+25/04/2020,181,41,Switzerland,Europe
+24/04/2020,228,51,Switzerland,Europe
 23/04/2020,205,30,Switzerland,Europe
 22/04/2020,155,45,Switzerland,Europe
 21/04/2020,168,7,Switzerland,Europe
@@ -11314,6 +11678,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Switzerland,Europe
 01/01/2020,0,0,Switzerland,Europe
 31/12/2019,0,0,Switzerland,Europe
+25/04/2020,0,0,Syria,Asia
+24/04/2020,0,0,Syria,Asia
 23/04/2020,0,0,Syria,Asia
 22/04/2020,3,0,Syria,Asia
 21/04/2020,0,0,Syria,Asia
@@ -11346,6 +11712,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 25/03/2020,0,0,Syria,Asia
 24/03/2020,0,0,Syria,Asia
 23/03/2020,1,0,Syria,Asia
+25/04/2020,1,0,Taiwan,Asia
+24/04/2020,1,0,Taiwan,Asia
 23/04/2020,1,0,Taiwan,Asia
 22/04/2020,3,0,Taiwan,Asia
 21/04/2020,2,0,Taiwan,Asia
@@ -11459,6 +11827,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Taiwan,Asia
 01/01/2020,0,0,Taiwan,Asia
 31/12/2019,0,0,Taiwan,Asia
+25/04/2020,15,0,Thailand,Asia
+24/04/2020,0,0,Thailand,Asia
 23/04/2020,28,2,Thailand,Asia
 22/04/2020,19,1,Thailand,Asia
 21/04/2020,27,0,Thailand,Asia
@@ -11567,6 +11937,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Thailand,Asia
 01/01/2020,0,0,Thailand,Asia
 31/12/2019,0,0,Thailand,Asia
+25/04/2020,1,0,Timor_Leste,Asia
+24/04/2020,0,0,Timor_Leste,Asia
 23/04/2020,0,0,Timor_Leste,Asia
 22/04/2020,1,0,Timor_Leste,Asia
 21/04/2020,3,0,Timor_Leste,Asia
@@ -11600,6 +11972,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 24/03/2020,0,0,Timor_Leste,Asia
 23/03/2020,0,0,Timor_Leste,Asia
 22/03/2020,1,0,Timor_Leste,Asia
+25/04/2020,2,0,Togo,Africa
+24/04/2020,0,0,Togo,Africa
 23/04/2020,2,0,Togo,Africa
 22/04/2020,2,0,Togo,Africa
 21/04/2020,0,1,Togo,Africa
@@ -11641,6 +12015,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,0,0,Togo,Africa
 15/03/2020,0,0,Togo,Africa
 07/03/2020,1,0,Togo,Africa
+25/04/2020,0,0,Trinidad_and_Tobago,America
+24/04/2020,0,0,Trinidad_and_Tobago,America
 23/04/2020,0,0,Trinidad_and_Tobago,America
 22/04/2020,1,0,Trinidad_and_Tobago,America
 21/04/2020,0,0,Trinidad_and_Tobago,America
@@ -11683,6 +12059,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 15/03/2020,0,0,Trinidad_and_Tobago,America
 14/03/2020,1,0,Trinidad_and_Tobago,America
 13/03/2020,1,0,Trinidad_and_Tobago,America
+25/04/2020,4,0,Tunisia,Africa
+24/04/2020,17,0,Tunisia,Africa
 23/04/2020,0,0,Tunisia,Africa
 22/04/2020,17,0,Tunisia,Africa
 21/04/2020,5,0,Tunisia,Africa
@@ -11729,6 +12107,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 11/03/2020,3,0,Tunisia,Africa
 10/03/2020,1,0,Tunisia,Africa
 03/03/2020,1,0,Tunisia,Africa
+25/04/2020,3122,109,Turkey,Asia
+24/04/2020,3116,115,Turkey,Asia
 23/04/2020,3083,117,Turkey,Asia
 22/04/2020,4611,119,Turkey,Asia
 21/04/2020,4674,123,Turkey,Asia
@@ -11770,6 +12150,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,16,0,Turkey,Asia
 13/03/2020,1,0,Turkey,Asia
 12/03/2020,1,0,Turkey,Asia
+25/04/2020,0,0,Turks_and_Caicos_islands,America
+24/04/2020,0,0,Turks_and_Caicos_islands,America
 23/04/2020,0,0,Turks_and_Caicos_islands,America
 22/04/2020,0,0,Turks_and_Caicos_islands,America
 21/04/2020,0,0,Turks_and_Caicos_islands,America
@@ -11800,6 +12182,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 27/03/2020,1,0,Turks_and_Caicos_islands,America
 26/03/2020,0,0,Turks_and_Caicos_islands,America
 25/03/2020,1,0,Turks_and_Caicos_islands,America
+25/04/2020,1,0,Uganda,Africa
+24/04/2020,13,0,Uganda,Africa
 23/04/2020,3,0,Uganda,Africa
 22/04/2020,2,0,Uganda,Africa
 21/04/2020,1,0,Uganda,Africa
@@ -11833,6 +12217,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 24/03/2020,8,0,Uganda,Africa
 23/03/2020,0,0,Uganda,Africa
 22/03/2020,1,0,Uganda,Africa
+25/04/2020,478,8,Ukraine,Europe
+24/04/2020,477,6,Ukraine,Europe
 23/04/2020,578,13,Ukraine,Europe
 22/04/2020,467,13,Ukraine,Europe
 21/04/2020,415,10,Ukraine,Europe
@@ -11874,6 +12260,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 16/03/2020,0,0,Ukraine,Europe
 13/03/2020,2,0,Ukraine,Europe
 04/03/2020,1,0,Ukraine,Europe
+25/04/2020,525,8,United_Arab_Emirates,Asia
+24/04/2020,518,4,United_Arab_Emirates,Asia
 23/04/2020,483,6,United_Arab_Emirates,Asia
 22/04/2020,490,3,United_Arab_Emirates,Asia
 21/04/2020,484,2,United_Arab_Emirates,Asia
@@ -11983,6 +12371,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,United_Arab_Emirates,Asia
 01/01/2020,0,0,United_Arab_Emirates,Asia
 31/12/2019,0,0,United_Arab_Emirates,Asia
+25/04/2020,5386,768,United_Kingdom,Europe
+24/04/2020,4583,638,United_Kingdom,Europe
 23/04/2020,4451,763,United_Kingdom,Europe
 22/04/2020,4301,828,United_Kingdom,Europe
 21/04/2020,4676,449,United_Kingdom,Europe
@@ -12098,6 +12488,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,United_Kingdom,Europe
 01/01/2020,0,0,United_Kingdom,Europe
 31/12/2019,0,0,United_Kingdom,Europe
+25/04/2020,15,0,United_Republic_of_Tanzania,Africa
+24/04/2020,0,0,United_Republic_of_Tanzania,Africa
 23/04/2020,31,2,United_Republic_of_Tanzania,Africa
 22/04/2020,84,3,United_Republic_of_Tanzania,Africa
 21/04/2020,0,0,United_Republic_of_Tanzania,Africa
@@ -12136,6 +12528,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 19/03/2020,2,0,United_Republic_of_Tanzania,Africa
 18/03/2020,0,0,United_Republic_of_Tanzania,Africa
 17/03/2020,1,0,United_Republic_of_Tanzania,Africa
+25/04/2020,21352,1054,United_States_of_America,America
+24/04/2020,26543,3179,United_States_of_America,America
 23/04/2020,17588,1721,United_States_of_America,America
 22/04/2020,37289,2524,United_States_of_America,America
 21/04/2020,28065,1857,United_States_of_America,America
@@ -12251,6 +12645,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,United_States_of_America,America
 01/01/2020,0,0,United_States_of_America,America
 31/12/2019,0,0,United_States_of_America,America
+25/04/2020,0,0,United_States_Virgin_Islands,America
+24/04/2020,0,0,United_States_Virgin_Islands,America
 23/04/2020,0,0,United_States_Virgin_Islands,America
 22/04/2020,0,0,United_States_Virgin_Islands,America
 21/04/2020,1,0,United_States_Virgin_Islands,America
@@ -12281,6 +12677,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 26/03/2020,0,0,United_States_Virgin_Islands,America
 25/03/2020,0,0,United_States_Virgin_Islands,America
 24/03/2020,17,0,United_States_Virgin_Islands,America
+25/04/2020,6,0,Uruguay,America
+24/04/2020,8,0,Uruguay,America
 23/04/2020,6,0,Uruguay,America
 22/04/2020,8,2,Uruguay,America
 21/04/2020,7,0,Uruguay,America
@@ -12321,6 +12719,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,21,0,Uruguay,America
 16/03/2020,2,0,Uruguay,America
 15/03/2020,6,0,Uruguay,America
+25/04/2020,58,1,Uzbekistan,Asia
+24/04/2020,62,0,Uzbekistan,Asia
 23/04/2020,24,1,Uzbekistan,Asia
 22/04/2020,35,1,Uzbekistan,Asia
 21/04/2020,92,0,Uzbekistan,Asia
@@ -12360,6 +12760,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 18/03/2020,8,0,Uzbekistan,Asia
 17/03/2020,2,0,Uzbekistan,Asia
 16/03/2020,6,0,Uzbekistan,Asia
+25/04/2020,20,0,Venezuela,America
+24/04/2020,10,0,Venezuela,America
 23/04/2020,3,0,Venezuela,America
 22/04/2020,29,1,Venezuela,America
 21/04/2020,0,0,Venezuela,America
@@ -12400,51 +12802,53 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 17/03/2020,18,0,Venezuela,America
 16/03/2020,5,0,Venezuela,America
 15/03/2020,10,0,Venezuela,America
+25/04/2020,2,0,Vietnam,Asia
+24/04/2020,2,0,Vietnam,Asia
 23/04/2020,0,0,Vietnam,Asia
 22/04/2020,0,0,Vietnam,Asia
 21/04/2020,0,0,Vietnam,Asia
 20/04/2020,0,0,Vietnam,Asia
 19/04/2020,0,0,Vietnam,Asia
 18/04/2020,0,0,Vietnam,Asia
-17/04/2020,1,0,Vietnam,Asia
-16/04/2020,1,0,Vietnam,Asia
+17/04/2020,0,0,Vietnam,Asia
+16/04/2020,0,0,Vietnam,Asia
 15/04/2020,1,0,Vietnam,Asia
 14/04/2020,3,0,Vietnam,Asia
-13/04/2020,4,0,Vietnam,Asia
-12/04/2020,1,0,Vietnam,Asia
-11/04/2020,2,0,Vietnam,Asia
-10/04/2020,4,0,Vietnam,Asia
-09/04/2020,0,0,Vietnam,Asia
-08/04/2020,6,0,Vietnam,Asia
-07/04/2020,4,0,Vietnam,Asia
-06/04/2020,1,0,Vietnam,Asia
+13/04/2020,2,0,Vietnam,Asia
+12/04/2020,4,0,Vietnam,Asia
+11/04/2020,1,0,Vietnam,Asia
+10/04/2020,2,0,Vietnam,Asia
+09/04/2020,4,0,Vietnam,Asia
+08/04/2020,0,0,Vietnam,Asia
+07/04/2020,6,0,Vietnam,Asia
+06/04/2020,4,0,Vietnam,Asia
 05/04/2020,1,0,Vietnam,Asia
-04/04/2020,0,0,Vietnam,Asia
-03/04/2020,4,0,Vietnam,Asia
-02/04/2020,6,0,Vietnam,Asia
-01/04/2020,0,0,Vietnam,Asia
-31/03/2020,1,0,Vietnam,Asia
-30/03/2020,5,0,Vietnam,Asia
-29/03/2020,54,0,Vietnam,Asia
-28/03/2020,16,0,Vietnam,Asia
-27/03/2020,5,0,Vietnam,Asia
-26/03/2020,14,0,Vietnam,Asia
-25/03/2020,11,0,Vietnam,Asia
-24/03/2020,5,0,Vietnam,Asia
-23/03/2020,24,0,Vietnam,Asia
+04/04/2020,4,0,Vietnam,Asia
+03/04/2020,3,0,Vietnam,Asia
+02/04/2020,21,0,Vietnam,Asia
+01/04/2020,6,0,Vietnam,Asia
+31/03/2020,3,0,Vietnam,Asia
+30/03/2020,15,0,Vietnam,Asia
+29/03/2020,17,0,Vietnam,Asia
+28/03/2020,8,0,Vietnam,Asia
+27/03/2020,10,0,Vietnam,Asia
+26/03/2020,16,0,Vietnam,Asia
+25/03/2020,5,0,Vietnam,Asia
+24/03/2020,11,0,Vietnam,Asia
+23/03/2020,26,0,Vietnam,Asia
 22/03/2020,7,0,Vietnam,Asia
-21/03/2020,2,0,Vietnam,Asia
-20/03/2020,9,0,Vietnam,Asia
-19/03/2020,15,0,Vietnam,Asia
-18/03/2020,0,0,Vietnam,Asia
+21/03/2020,1,0,Vietnam,Asia
+20/03/2020,11,0,Vietnam,Asia
+19/03/2020,8,0,Vietnam,Asia
+18/03/2020,7,0,Vietnam,Asia
 17/03/2020,4,0,Vietnam,Asia
 16/03/2020,4,0,Vietnam,Asia
-15/03/2020,4,0,Vietnam,Asia
-14/03/2020,5,0,Vietnam,Asia
+15/03/2020,0,0,Vietnam,Asia
+14/03/2020,9,0,Vietnam,Asia
 13/03/2020,5,0,Vietnam,Asia
-12/03/2020,4,0,Vietnam,Asia
+12/03/2020,1,0,Vietnam,Asia
 11/03/2020,4,0,Vietnam,Asia
-10/03/2020,1,0,Vietnam,Asia
+10/03/2020,4,0,Vietnam,Asia
 09/03/2020,9,0,Vietnam,Asia
 08/03/2020,4,0,Vietnam,Asia
 07/03/2020,1,0,Vietnam,Asia
@@ -12511,6 +12915,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 02/01/2020,0,0,Vietnam,Asia
 01/01/2020,0,0,Vietnam,Asia
 31/12/2019,0,0,Vietnam,Asia
+25/04/2020,0,0,Yemen,Asia
+24/04/2020,0,0,Yemen,Asia
 23/04/2020,0,0,Yemen,Asia
 22/04/2020,0,0,Yemen,Asia
 21/04/2020,0,0,Yemen,Asia
@@ -12525,6 +12931,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 12/04/2020,0,0,Yemen,Asia
 11/04/2020,0,0,Yemen,Asia
 10/04/2020,1,0,Yemen,Asia
+25/04/2020,8,0,Zambia,Africa
+24/04/2020,2,0,Zambia,Africa
 23/04/2020,9,0,Zambia,Africa
 22/04/2020,0,0,Zambia,Africa
 21/04/2020,4,0,Zambia,Africa
@@ -12561,6 +12969,8 @@ dateRep,cases,deaths,countriesAndTerritories,continentExp
 21/03/2020,0,0,Zambia,Africa
 20/03/2020,0,0,Zambia,Africa
 19/03/2020,2,0,Zambia,Africa
+25/04/2020,0,1,Zimbabwe,Africa
+24/04/2020,1,0,Zimbabwe,Africa
 23/04/2020,0,0,Zimbabwe,Africa
 22/04/2020,3,0,Zimbabwe,Africa
 21/04/2020,0,0,Zimbabwe,Africa

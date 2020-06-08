@@ -127,10 +127,10 @@ def parse_latest(filename, result):
             'lat': round(float(row[2]), 5) if is_float(row[2]) else None,
             'lon': round(float(row[3]), 5) if is_float(row[3]) else None,
         },
-        'total': int(row[4]),
-        'deaths': int(row[5]),
-        'recovered': int(row[6]),
-        'active': int(row[7]),
+        'total': int(row[4]) if is_float(row[4]) else None,
+        'deaths': int(row[5]) if is_float(row[5]) else None,
+        'recovered': int(row[6]) if is_float(row[6]) else None,
+        'active': int(row[7]) if is_float(row[7]) else None,
     }
 
 

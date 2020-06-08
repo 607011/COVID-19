@@ -57,6 +57,15 @@ def is_float(value):
     return False
 
 
+def is_int(value):
+  try:
+    if math.isnan(int(value)):
+      return False
+    return True
+  except ValueError:
+    return False
+
+
 def load_world_data(result):
   with open(population_filename, 'r') as f:
     reader = csv.reader(f, delimiter='\t', quotechar='"')
@@ -127,10 +136,10 @@ def parse_latest(filename, result):
             'lat': round(float(row[2]), 5) if is_float(row[2]) else None,
             'lon': round(float(row[3]), 5) if is_float(row[3]) else None,
         },
-        'total': int(row[4]) if is_float(row[4]) else None,
-        'deaths': int(row[5]) if is_float(row[5]) else None,
-        'recovered': int(row[6]) if is_float(row[6]) else None,
-        'active': int(row[7]) if is_float(row[7]) else None,
+        'total': int(row[4]) if is_int(row[4]) else None,
+        'deaths': int(row[5]) if is_int(row[5]) else None,
+        'recovered': int(row[6]) if is_int(row[6]) else None,
+        'active': int(row[7]) if is_int(row[7]) else None,
     }
 
 

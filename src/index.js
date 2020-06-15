@@ -103,7 +103,7 @@ import rk4 from 'ode-rk4'
         indicator = confirmed.latest.deaths === lastOf(confirmed.deaths) ? EqIndicator : confirmed.latest.deaths < lastOf(confirmed.deaths) ? DwPosIndicator : UpNegIndicator
         updateIfChanged(el.latest_deaths, `${confirmed.latest.deaths.toLocaleString(locale)} ${indicator}`)
         indicator = confirmed.latest.recovered === lastOf(confirmed.recovered) ? EqIndicator : confirmed.latest.recovered < lastOf(confirmed.recovered) ? DwNegIndicator : UpPosIndicator
-        updateIfChanged(el.latest_recovered, `${confirmed.latest.recovered.toLocaleString(locale)} ${indicator}`)
+        updateIfChanged(el.latest_recovered, Number.isInteger(confirmed.latest.recovered) ? `${confirmed.latest.recovered.toLocaleString(locale)} ${indicator}` : '?')
         const dbl = lastOf(confirmed.doubling_rates)
         const dbl1 = confirmed.doubling_rates[confirmed.doubling_rates.length - 2]
         indicator = almostEqual(dbl, dbl1) ? EqIndicator : dbl > dbl1 ? UpPosIndicator : DwNegIndicator

@@ -97,7 +97,8 @@ def load_ecdc_diff_data(result, dates):
   if verbosity > 0:
     print('Reading ECDC daily diff data ...')
   diff_data = pd.read_csv('https://opendata.ecdc.europa.eu/covid19/casedistribution/csv')
-  diff_data.drop(['day', 'month', 'year', 'geoId', 'countryterritoryCode', 'popData2018'], axis=1, inplace=True)
+  print(diff_data)
+  diff_data.drop(['day', 'month', 'year', 'geoId', 'countryterritoryCode', 'popData2019'], axis=1, inplace=True)
   diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
   if verbosity > 0:
     print('Processing ECDC daily diff data ...')

@@ -29,6 +29,7 @@ import json
 import math
 import numpy as np
 import pandas as pd
+import urllib
 from functools import partial
 from datetime import timedelta, datetime
 from scipy import optimize, integrate
@@ -96,32 +97,39 @@ def load_ecdc_diff_data(result, dates):
   dt = latest_day - first_day
   if verbosity > 0:
     print('Reading ECDC daily diff data ...')
-  diff_data = pd.read_csv('https://opendata.ecdc.europa.eu/covid19/casedistribution/csv')
-  print(diff_data)
-  diff_data.drop(['day', 'month', 'year', 'geoId', 'countryterritoryCode', 'popData2019'], axis=1, inplace=True)
-  diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
-  if verbosity > 0:
-    print('Processing ECDC daily diff data ...')
-  all_dt = dict(zip(range(dt.days+1), [{ 'cases': None, 'deaths': None }] * (dt.days+1)))
-  for country in diff_data.countriesAndTerritories.unique():
-    mapped_country = country_mapping[country] if country in country_mapping else country
-    mapped_country = mapped_country.replace('_', ' ')
+  diff_data = None
+  # try:
+  #   diff_data = pd.read_csv('https://opendata.ecdc.europa.eu/covid19/casedistribution/csv')
+  #   diff_data.drop(['day', 'month', 'year', 'geoId', 'countryterritoryCode', 'popData2019'], axis=1, inplace=True)
+  #   diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
+  # except urllib.error.URLError as e:
+  #   print(e, file=sys.stdout)
+  #   print('Falling back to locally cached ECDC data ...')
+  if diff_data is None:
+    diff_data = pd.read_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'))
+  if diff_data is not None:
     if verbosity > 0:
-      print(' - {}'.format(mapped_country), end='')
-      sys.stdout.write("\033[K\r")
-      sys.stdout.flush()
-    data = diff_data[diff_data['countriesAndTerritories'] == country]
-    data.insert(2, 'dt', data['dateRep'].apply(lambda date: (datetime.strptime(date, '%d/%m/%Y') - first_day).days))
-    data = data[data['dt'] >= 0]
-    deaths = data['deaths'].to_list()
-    cases = data['cases'].to_list()
-    actual = dict(zip(data['dt'].to_list(), [{ 'deaths': deaths[i], 'cases': cases[i] } for i in range(data['dt'].size)]))
-    merged = {**all_dt, **actual}
-    if mapped_country in result['countries']:
-      result['countries'][mapped_country]['diffs'] = {
-        'infected': [merged[day]['cases'] for day in range(dt.days+1)],
-        'deaths': [merged[day]['deaths'] for day in range(dt.days+1)],
-      }
+      print('Processing ECDC daily diff data ...')
+    all_dt = dict(zip(range(dt.days+1), [{ 'cases': None, 'deaths': None }] * (dt.days+1)))
+    for country in diff_data.countriesAndTerritories.unique():
+      mapped_country = country_mapping[country] if country in country_mapping else country
+      mapped_country = mapped_country.replace('_', ' ')
+      if verbosity > 0:
+        print(' - {}'.format(mapped_country), end='')
+        sys.stdout.write("\033[K\r")
+        sys.stdout.flush()
+      data = diff_data[diff_data['countriesAndTerritories'] == country]
+      data.insert(2, 'dt', data['dateRep'].apply(lambda date: (datetime.strptime(date, '%d/%m/%Y') - first_day).days))
+      data = data[data['dt'] >= 0]
+      deaths = data['deaths'].to_list()
+      cases = data['cases'].to_list()
+      actual = dict(zip(data['dt'].to_list(), [{ 'deaths': deaths[i], 'cases': cases[i] } for i in range(data['dt'].size)]))
+      merged = {**all_dt, **actual}
+      if mapped_country in result['countries']:
+        result['countries'][mapped_country]['diffs'] = {
+          'infected': [merged[day]['cases'] for day in range(dt.days+1)],
+          'deaths': [merged[day]['deaths'] for day in range(dt.days+1)],
+        }
   print()
 
 

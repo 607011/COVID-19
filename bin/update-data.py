@@ -98,13 +98,13 @@ def load_ecdc_diff_data(result, dates):
   if verbosity > 0:
     print('Reading ECDC daily diff data ...')
   diff_data = None
-  # try:
-  #   diff_data = pd.read_csv('https://opendata.ecdc.europa.eu/covid19/casedistribution/csv')
-  #   diff_data.drop(['day', 'month', 'year', 'geoId', 'countryterritoryCode', 'popData2019'], axis=1, inplace=True)
-  #   diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
-  # except urllib.error.URLError as e:
-  #   print(e, file=sys.stdout)
-  #   print('Falling back to locally cached ECDC data ...')
+  try:
+    diff_data = pd.read_csv('https://opendata.ecdc.europa.eu/covid19/casedistribution/csv')
+    diff_data.drop(['day', 'month', 'year', 'geoId', 'countryterritoryCode', 'popData2019'], axis=1, inplace=True)
+    diff_data.to_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'), index=False)
+  except urllib.error.URLError as e:
+    print(e, file=sys.stdout)
+    print('Falling back to locally cached ECDC data ...')
   if diff_data is None:
     diff_data = pd.read_csv(os.path.join(src_path, 'ecdc-casedistribution.csv'))
   if diff_data is not None:

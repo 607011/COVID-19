@@ -97,7 +97,6 @@ def load_ecdc_diff_data(result, dates):
   dt = latest_day - first_day
   if verbosity > 0:
     print('Reading ECDC daily diff data ...')
-  diff_data = None
   try:
     diff_data = pd.read_csv('https://opendata.ecdc.europa.eu/covid19/casedistribution/csv')
     diff_data.drop(['day', 'month', 'year', 'geoId', 'countryterritoryCode', 'popData2019'], axis=1, inplace=True)
@@ -125,10 +124,14 @@ def load_ecdc_diff_data(result, dates):
       cases = data['cases'].to_list()
       actual = dict(zip(data['dt'].to_list(), [{ 'deaths': deaths[i], 'cases': cases[i] } for i in range(data['dt'].size)]))
       merged = {**all_dt, **actual}
+      infected = [merged[day]['cases'] for day in range(dt.days+1)]
+      deaths = [merged[day]['deaths'] for day in range(dt.days+1)]
       if mapped_country in result['countries']:
         result['countries'][mapped_country]['diffs'] = {
-          'infected': [merged[day]['cases'] for day in range(dt.days+1)],
-          'deaths': [merged[day]['deaths'] for day in range(dt.days+1)],
+          'infected': infected,
+          'deaths': deaths,
+          'summed_infected': [int(x) for x in np.cumsum(np.nan_to_num(np.array(infected, dtype=float)), dtype=int)],
+          'summed_deaths': [int(x) for x in np.cumsum(np.nan_to_num(np.array(deaths, dtype=float)), dtype=int)],
         }
   print()
 

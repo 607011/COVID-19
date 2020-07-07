@@ -92,6 +92,7 @@ import rk4 from 'ode-rk4'
             const first_date = fromISODate(data.first_date).getTime()
             confirmed.dates = [...new Array(confirmed.active.length)].map((_, day) => new Date(first_date + day * 86400000))
         }
+        console.debug(confirmed)
         let indicator
         last_update = fromISODate(confirmed.latest.last_update)
         updateIfChanged(el.latest_date, `${last_update.toLocaleDateString(locale)} ${last_update.toLocaleTimeString(locale)}`)
@@ -108,6 +109,7 @@ import rk4 from 'ode-rk4'
         const dbl1 = confirmed.doubling_rates[confirmed.doubling_rates.length - 2]
         indicator = almostEqual(dbl, dbl1) ? EqIndicator : dbl > dbl1 ? UpPosIndicator : DwNegIndicator
         updateIfChanged(el.current_doubling, dbl > 0 ? `${dbl.toFixed(1)} days ${indicator}` : 'n/a')
+        updateIfChanged(el.population_infected_cumulative, `${(lastOf(confirmed.diffs.summed_infected) / confirmed.population * 100).toFixed(2)}%`)
         calculateSIR()
         updateCharts()
     }
@@ -600,7 +602,7 @@ import rk4 from 'ode-rk4'
     }
 
     const main = () => {
-        console.log('%c COVID-19 spread v1.0.2 %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
+        console.log('%c COVID-19 spread v1.0.3 %c - current data and prediction.\nCopyright © 2020 Oliver Lau <oliver@ersatzworld.net>', 'background: #222; color: #bada55; font-weight: bold;', 'background: transparent; color: #222; font-weight: normal;')
         el = {
             app: document.getElementById('App'),
             toast: document.getElementById('toast'),
@@ -615,6 +617,7 @@ import rk4 from 'ode-rk4'
             predicted_cases: document.getElementById('predicted-cases'),
             prediction_days: document.getElementById('prediction-days'),
             population: document.getElementById('population'),
+            population_infected_cumulative: document.getElementById('population-infected-cumulative'),
             status: document.getElementById('status'),
             latest_date: document.getElementById('latest-date'),
             latest_total: document.getElementById('latest-total'),

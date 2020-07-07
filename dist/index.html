@@ -49,14 +49,6 @@
   <link rel="icon" type="image/png" href="img/favicon-bright-red.png" />
   <script defer src="main.js"></script>
   <script defer src="static/chart.js"></script>
-  <script>
-    // if ('serviceWorker' in navigator) {
-    //   navigator.serviceWorker.register('service-worker.js')
-    // }
-    // else {
-    //   console.warn('serviceWorker not available')
-    // }
-  </script>
   <link rel="manifest" href="manifest.json" />
 </head>
 
@@ -139,6 +131,7 @@
             <span>Total cases</span> <span id="latest-total" class="refreshable"></span>
             <span>Doubling</span><span id="current-doubling" class="refreshable"></span>
             <span>Population</span><span id="population" class="refreshable"></span>
+            <span>% infected (cumulative)</span><span id="population-infected-cumulative" class="refreshable"></span>
           </div>
           <div class="grid-table-with-header">
             <span>Confirmed infections</span>
